@@ -18,11 +18,13 @@
 	var/list/stayed = list() // assoc: mob -> TRUE/FALSE
 	var/list/busted = list() // assoc: mob -> TRUE/FALSE
 	var/current_player_index = 0
+	var/mob/living/current_player = null
 	var/target_score = 13
 	var/obj/item/storage/pill_bottle/dice/bakers_dozen/game_bag
 	var/busy = FALSE
 	var/joining = TRUE
 	var/max_players = 4
+	var/can_take_turn_action = FALSE
 
 /datum/bakers_dozen_game/proc/try_join(mob/living/joiner)
 	if(!joiner || !joiner.client)
@@ -54,6 +56,49 @@
 	if(players.len >= max_players)
 		start_game()
 
+/datum/bakers_dozen_game/proc/leave_game(mob/living/leaver)
+	if(!(leaver in players))
+		to_chat(leaver, span_warning("You are not in this Baker's Dozen game."))
+		return
+
+	var/leaver_index = players.Find(leaver)
+	var/was_current = (leaver_index == current_player_index)
+
+	players -= leaver
+	scores -= leaver
+	mandatory_rolls -= leaver
+	stayed -= leaver
+	busted -= leaver
+
+	game_bag.visible_message(span_notice("[leaver] leaves Baker's Dozen. ([players.len]/[max_players] players remain)"))
+
+	if(!players.len)
+		cancel_game(leaver)
+		return
+
+	if(current_player_index > players.len)
+		current_player_index = players.len
+
+	if(!joining)
+		if(players.len == 1)
+			end_round()
+			return
+		if(was_current)
+			current_player_index--
+			if(current_player_index < 0)
+				current_player_index = 0
+			current_player = null
+			next_turn()
+			return
+		if(leaver_index < current_player_index)
+			current_player_index--
+			if(current_player_index < 0)
+				current_player_index = 0
+		if(current_player_index >= 1 && current_player_index <= players.len)
+			current_player = players[current_player_index]
+		else
+			current_player = null
+
 /datum/bakers_dozen_game/proc/cancel_game(mob/living/canceller)
 	game_bag.visible_message(span_warning("[canceller] has cancelled Baker's Dozen!"))
 	game_bag.active_game = null
@@ -61,6 +106,8 @@
 
 /datum/bakers_dozen_game/proc/start_game()
 	joining = FALSE
+	current_player = null
+	current_player_index = 0
 	for(var/mob/living/M in players)
 		scores[M] = 0
 		mandatory_rolls[M] = 0
@@ -86,8 +133,6 @@
 
 /datum/bakers_dozen_game/proc/all_players_done()
 	for(var/mob/living/M in players)
-		if(!M.client)
-			stayed[M] = TRUE
 		if(!player_is_done(M))
 			return FALSE
 	return TRUE
@@ -104,25 +149,28 @@
 			current_player_index = 1
 
 		var/mob/living/active = players[current_player_index]
-		if(!active || !active.client)
-			stayed[active] = TRUE
+		if(!active)
 			attempts++
 			continue
 		if(player_is_done(active))
 			attempts++
 			continue
 
+		current_player = active
+		can_take_turn_action = TRUE
+
 		game_bag.visible_message(span_notice("--- [active]'s turn | [get_score_display()] ---"))
 		if(mandatory_rolls[active] < 2)
 			to_chat(active, span_notice("Opening phase: rolling your two mandatory d6 automatically."))
+			can_take_turn_action = FALSE
 			do_opening_rolls(active)
 		else
-			to_chat(active, span_notice("Choose to roll 1d6 or stay. Target: [target_score]."))
+			to_chat(active, span_notice("Choose Hit or Stay from the dice bag menu. Target: [target_score]."))
 		return
 
 	end_round()
 
-/datum/bakers_dozen_game/proc/player_action(mob/living/user)
+/datum/bakers_dozen_game/proc/player_action(mob/living/user, action)
 	if(!(user in players))
 		to_chat(user, span_notice("Current totals: [get_score_display()]"))
 		return
@@ -131,8 +179,17 @@
 		to_chat(user, span_notice("Please wait a moment..."))
 		return
 
-	if(user != players[current_player_index])
+	if(user != current_player)
 		input(user, "It's not your turn. Totals: [get_score_display()]", "Baker's Dozen") as null|anything in list("OK")
+		return
+	if(current_player_index < 1 || current_player_index > players.len)
+		to_chat(user, span_warning("Turn order is resyncing. Try again in a moment."))
+		return
+	if(user != players[current_player_index])
+		to_chat(user, span_warning("It is not your turn yet."))
+		return
+	if(!can_take_turn_action)
+		to_chat(user, span_notice("You have already acted this turn."))
 		return
 
 	if(player_is_done(user))
@@ -144,8 +201,8 @@
 		to_chat(user, span_notice("Opening rolls are automatic. Wait for your opening turn to resolve."))
 		return
 
-	var/decision = input(user, "Your total: [scores[user]] / [target_score]\nWhat do you do?", "Baker's Dozen") as null|anything in list("Hit - roll 1d6", "Stay")
-	if(decision == "Stay" || !decision)
+	if(action == "Stay")
+		can_take_turn_action = FALSE
 		stayed[user] = TRUE
 		game_bag.visible_message(span_notice("[user] stays at [scores[user]]."))
 		if(all_players_done())
@@ -153,7 +210,10 @@
 		else
 			next_turn()
 		return
-
+	if(action != "Hit - roll 1d6")
+		to_chat(user, span_notice("Choose Hit or Stay from the menu."))
+		return
+	can_take_turn_action = FALSE
 	do_roll(user, FALSE)
 
 /datum/bakers_dozen_game/proc/do_opening_rolls(mob/living/active)
@@ -236,8 +296,6 @@
 		var/list/new_contenders = list()
 		var/best_total = -1
 		for(var/mob/living/M in contenders)
-			if(!M.client)
-				continue
 			var/roll = rand(1, 6)
 			scores[M] += roll
 			game_bag.visible_message(span_notice("[M] tie-break rolls [roll] -> [scores[M]] total."))
@@ -296,31 +354,45 @@
 		new /obj/item/dice/d6(src)
 
 /obj/item/storage/pill_bottle/dice/bakers_dozen/attack_self(mob/living/user)
-	var/choice = input(user, "Select an option.", "Baker's Dozen Dice") as null|anything in list(
-		"Start Game",
-		"Hit - roll 1d6",
-		" ",
-		"Rules",
-		"  ",
-		"Cancel Game",
-		"   ",
-		"End Game"
-	)
+	if(active_game && active_game.joining && (user in active_game.players) && active_game.players.len >= 2)
+		active_game.start_game()
+
+	var/list/menu = list()
+	var/gap1 = " "
+	var/gap2 = "  "
+	var/gap3 = "   "
+	var/gap4 = "    "
+	var/can_show_actions = FALSE
+	if(active_game && !active_game.joining)
+		if(user == active_game.current_player && active_game.can_take_turn_action && !active_game.player_is_done(user) && active_game.mandatory_rolls[user] >= 2)
+			can_show_actions = TRUE
+
+	if(!active_game)
+		menu += "Start Game"
+	else if(active_game.joining)
+		if(!(user in active_game.players))
+			menu += "Start Game"
+	else if(can_show_actions)
+		menu += "Hit - roll 1d6"
+		menu += gap1
+		menu += "Stay"
+
+	if(menu.len)
+		menu += gap2
+	menu += "Rules"
+	menu += gap3
+	if(active_game && (user in active_game.players))
+		menu += "Leave Game"
+		menu += gap4
+	menu += "End Game"
+
+	var/choice = input(user, "Select an option.", "Baker's Dozen Dice") as null|anything in menu
 
 	if(!choice)
 		return
 
 	if(choice == "Rules")
 		show_rules(user)
-		return
-
-	if(choice == "Cancel Game")
-		if(active_game && active_game.joining)
-			active_game.cancel_game(user)
-		else if(active_game)
-			to_chat(user, span_notice("Cancel Game is only available before the game starts. Use End Game once a game is in progress."))
-		else
-			to_chat(user, span_notice("No Baker's Dozen game is currently running."))
 		return
 
 	if(choice == "End Game")
@@ -330,14 +402,31 @@
 			to_chat(user, span_notice("No Baker's Dozen game is currently running."))
 		return
 
+	if(choice == "Leave Game")
+		if(active_game)
+			active_game.leave_game(user)
+		else
+			to_chat(user, span_notice("No Baker's Dozen game is currently running."))
+		return
+
 	if(choice == "Hit - roll 1d6")
 		if(!active_game)
 			to_chat(user, span_notice("No Baker's Dozen game is currently running."))
 			return
-		if(active_game.joining)
-			active_game.try_join(user)
-		else
-			active_game.player_action(user)
+		if(!(user == active_game.current_player && active_game.can_take_turn_action && !active_game.joining))
+			to_chat(user, span_notice("You cannot hit right now."))
+			return
+		active_game.player_action(user, "Hit - roll 1d6")
+		return
+
+	if(choice == "Stay")
+		if(!active_game)
+			to_chat(user, span_notice("No Baker's Dozen game is currently running."))
+			return
+		if(!(user == active_game.current_player && active_game.can_take_turn_action && !active_game.joining))
+			to_chat(user, span_notice("You cannot stay right now."))
+			return
+		active_game.player_action(user, "Stay")
 		return
 
 	if(choice != "Start Game")
@@ -360,4 +449,4 @@
 	if(active_game.joining)
 		active_game.try_join(user)
 	else
-		active_game.player_action(user)
+		active_game.player_action(user, null)
