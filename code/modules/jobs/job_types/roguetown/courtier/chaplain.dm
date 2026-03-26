@@ -23,8 +23,8 @@
 	max_pq = null
 	round_contrib_points = 5
 	social_rank = SOCIAL_RANK_MINOR_NOBLE
-	virtue_restrictions = list(/datum/virtue/utility/noble)
-	job_traits = list(TRAIT_RITUALIST)//no homestead expert because we want them doing intrigue intead of gardening?
+	virtue_restrictions = list(/datum/virtue/utility/noble)//Hmm. I duno, they're PRETTY noble-like.
+	job_traits = list(TRAIT_RITUALIST, TRAIT_EMPATH)//no homestead expert because we want them doing intrigue intead of gardening?
 	advclass_cat_rolls = list(CTAG_CHAPLAIN = 2)
 	job_subclasses = list(
 		/datum/advclass/chaplain
@@ -63,8 +63,9 @@
 	category_tags = list(CTAG_CHAPLAIN)
 	subclass_stats = list(
 		STATKEY_INT = 3,//court knowledge
-		STATKEY_WIL = 1,
-		STATKEY_PER = 2//eye for intrigue
+		STATKEY_WIL = 2,
+		STATKEY_PER = 2,//eye for intrigue
+		STATKEY_CON = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
