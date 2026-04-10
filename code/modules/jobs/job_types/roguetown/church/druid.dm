@@ -123,14 +123,11 @@
 	if(!H.devotion)
 		var/datum/devotion/C = new /datum/devotion(H, H.patron)
 		C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)
-	if(H.devotion)
-		H.devotion._grant_all_patron_miracles_direct(H)
 	var/miracle_menu_path = text2path("/obj/effect/proc_holder/spell/self/learnmiracle")
-	if(miracle_menu_path)
-		if(!H.mind.has_spell(miracle_menu_path))
-			var/obj/effect/proc_holder/spell/S = new miracle_menu_path
-			if(S)
-				H.mind.AddSpell(S, H)
+	if(miracle_menu_path && !H.mind.has_spell(miracle_menu_path))
+		var/obj/effect/proc_holder/spell/S = new miracle_menu_path
+		if(S)
+			H.mind.AddSpell(S, H)
 	to_chat(H, span_notice("I embrace the radical path."))
 
 /datum/job/roguetown/druid/proc/_delayed_path_choice(mob/living/carbon/human/H)

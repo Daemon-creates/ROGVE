@@ -184,31 +184,23 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	if(!H || !H.mind || !H.patron)
 		return
 	ADD_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
-	H.church_favor += 2500
+	H.church_favor += 3000
 	H.verbs |= /mob/living/carbon/human/proc/change_patron
 	if(!H.devotion)
 		var/datum/devotion/C = new /datum/devotion(H, H.patron)
 		C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)
-	if(H.devotion)
-		H.devotion._grant_all_patron_miracles_direct(H)
 	var/miracle_menu_path = text2path("/obj/effect/proc_holder/spell/self/learnmiracle")
 	if(miracle_menu_path)
 		if(!H.mind.has_spell(miracle_menu_path))
 			var/obj/effect/proc_holder/spell/S = new miracle_menu_path
 			if(S)
 				H.mind.AddSpell(S, H)
+	if(!H.mind.has_spell(/obj/effect/proc_holder/spell/invoked/convert_heretic_priest))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/convert_heretic_priest, H)
+	if(!H.mind.has_spell(/obj/effect/proc_holder/spell/invoked/projectile/divineblast))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/divineblast, H)
+
 	to_chat(H, span_notice("I embrace the radical path."))
-
-/datum/job/roguetown/priest/proc/_delayed_path_choice(mob/living/carbon/human/H)
-	if(!H || !H.client || !H.mind)
-		return
-
-	var/choice = alert(H, "Choose your path.", "Bishop Doctrine", "Loyalist", "Radical")
-
-	if(choice == "Radical")
-		grant_radical_path(H)
-	else
-		grant_old_path(H)
 
 /datum/job/priest/vice //just used to change the priest title
 	title = "Vice Priest"
