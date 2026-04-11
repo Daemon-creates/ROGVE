@@ -179,6 +179,9 @@
 	if(href_list["setrate"])
 		var/datum/roguestock/D = locate(href_list["setrate"]) in SStreasury.stockpile_datums
 		if(!D)
+			return              //Cheaper prices, no taxes, the price? Commitment. You can only change the rates at day. I'd like to make the window shorter,
+		if(GLOB.tod == "night") //less chance to micromanage, incentivize doing other things at later hours, make it unable to be changed at dusk too, but this needs testing first
+			say("Suppliers will only agree to modifying deals at times when Astrata shines.")
 			return
 		var/newrate = input(usr, "Set a new rate for remote imports for [D.name]", src, D.passive_generation) as null|num
 		if(newrate)
