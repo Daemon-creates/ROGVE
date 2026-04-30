@@ -1,0 +1,4 @@
+author: "john-pawson"
+delete-after: True
+changes:
+  - bugfix: "fixed being able to far travel dead corpses, opening up a slot twice or opening a slot of a role that you shouldn't be able to."
