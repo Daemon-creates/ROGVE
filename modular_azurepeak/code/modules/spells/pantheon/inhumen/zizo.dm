@@ -228,6 +228,96 @@
 		user.mind.AddSpell(new item)
 		return TRUE
 
+// T3 Lacrima (plunge your hand into someone's ribs to rip out their impure lux for your diabolical uses)
+
+/obj/effect/proc_holder/spell/targeted/touch/lacrima
+	name = "Lacrima"
+	desc = "Wreath your hand in inhumen energies and plunge it into the chest of your vicitm, shattering their ribs and will alike in order to forcefully tear the lux from their chest.\n \
+	Does not work on people without lux, obviously."
+	overlay_state = "noc_revive"
+	clothes_req = FALSE
+	drawmessage = "I pray to ZIZO for but a sliver of Her power, wreathing my hand in inhumen energies!"
+	dropmessage = "I allow the energies upon my hand to dissipate."
+	chargedrain = 0
+	chargetime = 0
+	releasedrain = 5
+	miracle = TRUE
+	devotion_cost = 100
+	chargedloop = /datum/looping_sound/invokegen
+	associated_skill = /datum/skill/magic/holy
+	hand_path = /obj/item/melee/touch_attack/lacrima
+
+/obj/effect/proc_holder/spell/targeted/touch/lacrima/free
+	miracle = FALSE
+	devotion_cost = 0
+
+/obj/item/melee/touch_attack/lacrima
+	name = "\improper lux ripper"
+	desc = "ZIZO's will is to perverse the lux of the lyving. With but a mere shred of Her power, you will do exactly that."
+	catchphrase = null
+	possible_item_intents = list(/datum/intent/use)
+	icon = 'icons/mob/roguehudgrabs.dmi'
+	icon_state = "pulling"
+	icon_state = "grabbing_greyscale"
+	color = "#ff0000"
+	associated_skill = /datum/skill/magic/holy
+
+/obj/item/melee/touch_attack/lacrima/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/user, proximity)
+	if(/datum/intent/use)
+		lux_rip(target, user)
+
+/obj/item/melee/touch_attack/lacrima/proc/lux_rip(mob/living/carbon/human/target, mob/living/carbon/human/user)
+	var/break_time = 100
+	var/tear_time = 50
+
+	if(target == user)
+		to_chat(user, span_alert("I shouldn't rip out my own lux! I need that."))
+		return
+	if(!target.mind)
+		to_chat(user, span_info("This one's lux is weak and insufficient. I need a victim with higher conscious!"))
+		return
+	if(!isliving(target))
+		to_chat(user, span_info("Only lyving creachers may have their lux torn."))
+		return
+	if(!target.Adjacent(user))
+		to_chat(user, span_info("I need to be next to [target] to rip out their lux."))
+		return
+	if((target.mobility_flags & MOBILITY_STAND))
+		to_chat(user, span_info("My target must be lying down to have their lux torn."))
+		return
+	if(target.has_status_effect(/datum/status_effect/debuff/devitalised) || target.mob_biotypes & MOB_UNDEAD) //can't farm your skeletons
+		to_chat(user, span_notice("This one's lux is already disturbed!"))
+		return
+	else
+		user.visible_message(span_alert("[user] reaches towards [target]'s chest, inhumen flames wreathing [user.p_their()] hand..."), span_alert("I begin reaching my hand towards [target], preparing to tear their lux from their body..."))
+	var/obj/item/bodypart/chest = target.get_bodypart(BODY_ZONE_CHEST)
+	if(!chest.has_wound(/datum/wound/fracture/chest))
+		if(!do_after(user, break_time, target = target))
+			return
+		if(chest)
+			if(!HAS_TRAIT(target, TRAIT_NOPAIN))
+				target.emote("painscream")
+			chest.add_wound(/datum/wound/fracture/chest)
+			target.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
+			user.visible_message(span_alert("[user] plunges their fist into [target]'s ribcage, shattering it spectacularly!"))
+	if(!do_after(user, tear_time, target = target) && chest.has_wound(/datum/wound/fracture/chest))
+		return
+	if(!HAS_TRAIT(target, TRAIT_NOPAIN))
+		target.emote("painscream")
+		target.add_stress(/datum/stressevent/myfuckingluxman)
+	playsound(src, 'sound/items/blackmirror_needle.ogg', 60, FALSE, 3)
+	user.visible_message(span_alert("[user] tears a glob of lux from [target]'s chest!"))
+	new /obj/item/reagent_containers/lux_impure(target.loc)
+	SEND_SIGNAL(user, COMSIG_LUX_EXTRACTED, target)
+	record_featured_stat(FEATURED_STATS_CRIMINALS, user)
+	record_round_statistic(STATS_LUX_HARVESTED)
+	target.apply_status_effect(/datum/status_effect/debuff/devitalised)
+	qdel(src)
+
+/datum/stressevent/myfuckingluxman
+	desc = span_boldred("MY LYFE HAS BEEN DEFILED!!")
+	stressadd = 30
+	timer = 5 MINUTES
 
 /obj/effect/proc_holder/spell/self/zizo_snuff
 	name = "Snuff Lights"
