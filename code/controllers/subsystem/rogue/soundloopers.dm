@@ -141,6 +141,9 @@ SUBSYSTEM_DEF(soundloopers)
 			else if (source_turf.z == mob.z + 2 || source_turf.z == mob.z - 2)
 				new_volume = new_volume / 4
 
+			if(istype(loop, /datum/looping_sound/instrument))
+				new_volume = new_volume * (prefs.instrumentvol * 0.01)
+
 			new_volume = new_volume * (prefs.mastervol * 0.01) //Modify it at the end by the player's volume setting
 
 			if(old_volume != new_volume)
