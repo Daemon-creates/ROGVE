@@ -56,6 +56,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/baotha.dmi'
 	icon_state = "baothabracers"
 	item_state = "baothabracers"
+	sleeved = 'icons/roguetown/clothing/special/onmob/baotha.dmi'
 	alternate_worn_layer = WRISTS_LAYER
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)
 	max_integrity = ARMOR_INT_SIDE_ANTAG
