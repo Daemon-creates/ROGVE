@@ -430,13 +430,15 @@
 	)
 
 /obj/structure/deadbodyrandom
-	name = "random body"
+	name = "random dead body (dummy)"
 	desc = "This dummy object doesn't do anything"
 	icon = 'icons/roguetown/rw_deadbodies.dmi'
 	icon_state = 'base'
 
 //A random-body spawner that picks a random body
 /obj/structure/deadbodyrandom/all
+	name = "random dead body"
+	desc = "This dummy object can spawn any body"
 
 /obj/structure/deadbodyrandom/all/Initialize(mapload)
 	var/type = pick(list(/obj/structure/deadbody/generic,
@@ -463,6 +465,8 @@
 
 //A random-body spawner that picks a random body, but more likely to spawn a low-tier body and unable to spawn high-tier bodies
 /obj/structure/deadbodyrandom/high
+	name = "random dead body (high)"
+	desc = "This spawner spawns the best bodies"
 
 /obj/structure/deadbodyrandom/high/Initialize(mapload)
 	var/type = pick(list(
@@ -484,6 +488,8 @@
 
 //A random-body spawner that picks a random body, but more likely to spawn a low-tier body and unable to spawn high-tier bodies
 /obj/structure/deadbodyrandom/med
+	name = "random dead body (medium)"
+	desc = "This spawner spawns bodies weighted by value"
 
 /obj/structure/deadbodyrandom/med/Initialize(mapload)
 	var/type = pick(list(/obj/structure/deadbody/generic,
@@ -508,6 +514,8 @@
 
 //A random-body spawner that picks a random body, but more likely to spawn a low-tier body and unable to spawn high-tier bodies
 /obj/structure/deadbodyrandom/low
+	name = "random dead body (low)"
+	desc = "This spawner spawns only the basic bodies"
 
 /obj/structure/deadbodyrandom/low/Initialize(mapload)
 	var/type = pick(list(/obj/structure/deadbody/generic,
