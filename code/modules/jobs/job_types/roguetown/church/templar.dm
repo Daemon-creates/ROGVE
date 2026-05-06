@@ -284,7 +284,7 @@
 			H.change_stat(STATKEY_SPD, 1)
 			H.change_stat(STATKEY_PER, 2)
 			H.change_stat(STATKEY_STR, -1)
-			H.change_stat(STATKEY_END, -1)
+			H.change_stat(STATKEY_WIL, -1)
 			H.change_stat(STATKEY_CON, -1)
 		if("Harp Bow (short)")
 			H.equip_to_slot_or_del(new /obj/item/quiver/arrows, SLOT_BELT_R, TRUE)
@@ -296,7 +296,7 @@
 			H.change_stat(STATKEY_SPD, 1)
 			H.change_stat(STATKEY_PER, 2)
 			H.change_stat(STATKEY_STR, -1)
-			H.change_stat(STATKEY_END, -1)
+			H.change_stat(STATKEY_WIL, -1)
 			H.change_stat(STATKEY_CON, -1)
 //Unarmed specific stuff is locked to patrons who have it. RAAAAAAA!!!!!! HEAVY ARMOUR BRUISERS!!!!!!
 		if("Close Caress")
