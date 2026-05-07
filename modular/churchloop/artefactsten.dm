@@ -1494,10 +1494,10 @@ Necra's Censer (by ARefrigerator)
 	chance_bonus_pct = chance_b
 	range_bonus_tiles = range_b
 
-	RegisterSignal(target, "steal_mods_query", PROC_REF(_on_mods_query))
+	RegisterSignal(target, COMSIG_HUMAN_PRE_STEAL, PROC_REF(_on_mods_query))
 
 /datum/element/xylix_theft_mods/Detach(datum/target)
-	UnregisterSignal(target, "steal_mods_query")
+	UnregisterSignal(target, COMSIG_HUMAN_PRE_STEAL)
 	return ..()
 
 /datum/element/xylix_theft_mods/proc/_on_mods_query(datum/source, list/mods)
