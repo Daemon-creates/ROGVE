@@ -5,9 +5,9 @@
 /obj/item/seal
 	name = "wax seal"
 	desc = "A small seal for marking official documents. It has a small loop to attach it to a keyring."
-	icon = 'icons/roguetown/clothing/rings.dmi'
-	icon_state = "signet"
-	item_state = "signet"
+	icon = 'icons/roguetown/items/stamps.dmi'
+	icon_state = "stamp"
+	item_state = "stamp"
 	w_class = WEIGHT_CLASS_TINY
 	var/tallowed = FALSE
 	var/seal_label = "Official Seal"
@@ -22,11 +22,22 @@
 	update_icon()
 	return TRUE
 
+/obj/item/seal/Initialize(mapload)
+	. = ..()
+	update_icon()
+
 /obj/item/seal/update_icon()
+	icon_state = "stamp"
+	cut_overlays()
+	var/image/cap = image(icon, icon_state = "stamp_cap")
+	cap.color = seal_color
+	add_overlay(cap)
 	if(tallowed)
-		icon_state = "signet_stamp"
+		var/image/wax = image(icon, icon_state = "stamp_wax")
+		wax.color = seal_color
+		add_overlay(wax)
 	else
-		icon_state = "signet"
+		add_overlay(image(icon, icon_state = "stamp_bottom"))
 
 /obj/item/seal/examine(mob/user)
 	. = ..()
@@ -40,9 +51,11 @@
 			return
 		if(!pot.heatedup)
 			to_chat(user, span_warning("The [pot.loaded_tallow] in [pot] is hardened. I need to heat it first."))
-			return		if(pot.loaded_inquisitorial_tallow)
+			return
+		if(pot.loaded_inquisitorial_tallow)
 			to_chat(user, span_warning("I must use a Signet Ring for Inquisitorial Missives"))
-			return		tallowed = TRUE
+			return
+		tallowed = TRUE
 		update_icon()
 		to_chat(user, span_notice("I coat [src] with melted [pot.loaded_tallow]."))
 		return
