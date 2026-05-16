@@ -302,23 +302,6 @@
 	var/sliptype = 1
 	var/obj/item/inqarticles/indexer/paired
 
-/obj/item/paper/inqslip/read(mob/user)
-	if(!user.client || !user.hud_used)
-		return
-	if(!user.hud_used.reads)
-		return
-	if(!user.can_read(src))
-		return
-	if(in_range(user, src) || isobserver(user))
-		if(waxed)
-			to_chat(user, span_notice("This writ has been signed by [signee.real_name], sealed with Inquisitorial Tallow, and can now be mailed back through the Hermes. The Archbishop will be pleased with this one."))
-		if(signed)
-			to_chat(user, span_notice("This writ has been signed by [signee.real_name], and can now be mailed back through the Hermes. Sealing it with Inquisitorial Tallow would garner more favor from the Archbishop."))
-		else if(signee)
-			to_chat(user, span_notice("This writ is intended to be signed by [signee.real_name]."))
-		else
-			to_chat(user, span_notice("This writ has not yet been signed."))
-
 /obj/item/paper/inqslip/accusation
 	name = "accusation"
 	desc = "A writ of religious suspicion, printed on Otavan parchment: one signed not in ink, but blood. Press the accusation against your own bleeding wound in order to obtain a signature. Then pair it with an INDEXER full of the accused's blood. Once done, it is ready to be mailed back to Otava. Fold and seal it, it's only proper."
@@ -347,6 +330,23 @@
 
 /obj/item/paper/inqslip/arrival/abso
 	marquevalue = 6
+
+/obj/item/paper/inqslip/read(mob/user)
+	if(!user.client || !user.hud_used)
+		return
+	if(!user.hud_used.reads)
+		return
+	if(!user.can_read(src))
+		return
+	if(in_range(user, src) || isobserver(user))
+		if(waxed)
+			to_chat(user, span_notice("This writ has been signed by [signee.real_name], sealed with Inquisitorial Tallow, and can now be mailed back through the Hermes. The Archbishop will be pleased with this one."))
+		if(signed)
+			to_chat(user, span_notice("This writ has been signed by [signee.real_name], and can now be mailed back through the Hermes. Sealing it with Inquisitorial Tallow would garner more favor from the Archbishop."))
+		else if(signee)
+			to_chat(user, span_notice("This writ is intended to be signed by [signee.real_name]."))
+		else
+			to_chat(user, span_notice("This writ has not yet been signed."))
 
 /obj/item/paper/inqslip/examine(mob/user)
 	return span_notice(desc)
