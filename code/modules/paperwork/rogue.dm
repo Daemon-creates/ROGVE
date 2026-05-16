@@ -5,7 +5,7 @@
 		. += "<a href='?src=[REF(src)];read=1'>Read</a>"
 
 /obj/item/paper/scroll
-	name = "papyrus"
+	name = "scroll"
 	icon_state = "scroll"
 	var/open = FALSE
 	slot_flags = null
