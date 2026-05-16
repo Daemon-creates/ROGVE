@@ -7,6 +7,7 @@
 /obj/item/paper/scroll
 	name = "scroll"
 	icon_state = "scroll"
+	var/folded_icon_state = "scroll_folded"
 	var/open = FALSE
 	slot_flags = null
 	dropshrink = 0.6
