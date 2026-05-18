@@ -343,6 +343,7 @@
 	icon_state = "nun"
 	sellprice = 5
 	nudist_approved = TRUE
+	dropshrink = null
 
 /obj/item/clothing/head/roguetown/hennin
 	name = "hennin"

@@ -698,6 +698,7 @@
 	desc = "Apply on a written manuscript to create a book."
 	icon = 'icons/roguetown/items/misc.dmi'
 	icon_state = "book_crafting_kit"
+	dropshrink = 0.7
 
 /obj/item/book/rogue/swatchbook
 	name = "Tailor's Swatchbook"

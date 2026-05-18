@@ -1374,6 +1374,7 @@
 	min_cold_protection_temperature = 50
 	heat_protection = null
 	max_heat_protection_temperature = BODYTEMP_NORMAL_MAX
+	dropshrink = null
 
 /obj/item/clothing/cloak/wickercloak
 	name = "wicker cloak"
@@ -1406,6 +1407,7 @@
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
 	heat_protection = null
 	max_heat_protection_temperature = BODYTEMP_NORMAL_MAX
+	dropshrink = null
 
 /obj/item/clothing/cloak/lordcloak/ladycloak
 	name = "ladylike shortcloak"
@@ -1967,6 +1969,7 @@
 	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
 	heat_protection = CHEST | ARM_RIGHT | ARM_LEFT
 	max_heat_protection_temperature = 600
+	dropshrink = null
 
 /obj/item/clothing/cloak/citywatch
 	name = "citywatch cape"

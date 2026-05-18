@@ -31,6 +31,7 @@
 	parrysound = list('sound/combat/parry/shield/towershield (1).ogg','sound/combat/parry/shield/towershield (2).ogg','sound/combat/parry/shield/towershield (3).ogg')
 	max_integrity = 100
 	anvilrepair = /datum/skill/craft/carpentry
+	dropshrink = 0.9
 	COOLDOWN_DECLARE(shield_bang)
 
 

@@ -419,6 +419,7 @@
 	throwforce = 1
 	resistance_flags = FIRE_PROOF
 	w_class = WEIGHT_CLASS_TINY
+	dropshrink = 0.8
 	var/last_ring
 	/// Sounds that this bell can make when it jingles
 	var/list/jingle_sounds = SFX_COLLARJINGLE

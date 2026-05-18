@@ -372,6 +372,7 @@
 	throw_range = 2
 	slot_flags = ITEM_SLOT_HIP
 	throw_speed = 0.3
+	dropshrink = 0.8
 	var/fuze = 15 SECONDS
 	var/lit = FALSE
 	var/prob2fail = 1
@@ -446,6 +447,7 @@
 	throw_speed = 1
 	grid_width = 32
 	grid_height = 32
+	dropshrink = 0.8
 
 /obj/item/impact_grenade/Initialize(mapload)
 	. = ..()
