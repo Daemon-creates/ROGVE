@@ -64,6 +64,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	grid_height = 32
 	grid_width = 64
+	dropshrink = 0.9
 	var/mob/living/leash_pet = null //Variable to store our pet later
 	var/mob/living/leash_master = null //And our master too
 	var/mob/living/leash_freepet = null

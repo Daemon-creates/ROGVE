@@ -447,7 +447,7 @@
 	throw_speed = 1
 	grid_width = 32
 	grid_height = 32
-	dropshrink = 0.8
+	dropshrink = 0.75
 
 /obj/item/impact_grenade/Initialize(mapload)
 	. = ..()

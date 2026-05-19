@@ -45,6 +45,7 @@
 	icon_state = ""
 	item_state = ""
 	experimental_inhand = FALSE
+	dropshrink = 0.9
 
 	grid_width = 64
 	grid_height = 32

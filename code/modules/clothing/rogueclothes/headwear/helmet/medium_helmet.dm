@@ -76,6 +76,7 @@
 	worn_x_dimension = 64
 	worn_y_dimension = 64
 	body_parts_covered = HEAD|HAIR
+	dropshrink = null
 
 /obj/item/clothing/head/roguetown/helmet/kettle
 	name = "kettle helmet"

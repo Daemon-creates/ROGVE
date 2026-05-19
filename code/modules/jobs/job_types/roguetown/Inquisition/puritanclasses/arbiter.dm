@@ -177,6 +177,7 @@ Here because they're unused elsewhere.
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/purifiedaalloy
 	var/active_item = FALSE
+	dropshrink = null
 
 /obj/item/clothing/head/roguetown/helmet/arbiter/vice
 	desc = "An iconic, silver mask depicting the visage of Him. Weeping, as He is."
