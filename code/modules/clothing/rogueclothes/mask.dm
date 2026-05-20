@@ -357,11 +357,13 @@
 	sewrepair = FALSE
 
 /obj/item/clothing/mask/rogue/facemask/equipped(mob/user, slot)
+	..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_fov_angles()
 
 /obj/item/clothing/mask/rogue/facemask/dropped(mob/user)
+	..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_fov_angles()
