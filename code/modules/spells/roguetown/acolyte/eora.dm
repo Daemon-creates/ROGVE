@@ -68,7 +68,7 @@
 	sound = list('sound/magic/magnet.ogg')
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	releasedrain = 40
-	chargetime = 60
+	chargetime = 30
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	charging_slowdown = 1
@@ -533,7 +533,7 @@
 		return TRUE
 
 	if(istype(I, /obj/item/rogueweapon/huntingknife/scissors))
-		if(prune_count >= 4)
+		if(prune_count >= 1)
 			to_chat(user, span_warning("The tree has been fully pruned already!"))
 			return TRUE
 		var/skill = get_farming_skill(user)
@@ -559,11 +559,13 @@
 			to_chat(user, span_warning("The tree can't absorb any more water right now!"))
 			return TRUE
 
-		var/has_water = FALSE
+		var/water_type = null
 		if(container.reagents.has_reagent(/datum/reagent/water, 1))
-			has_water = TRUE
+			water_type = /datum/reagent/water
+		else if(container.reagents.has_reagent(/datum/reagent/water/blessed, 1))
+			water_type = /datum/reagent/water/blessed
 
-		if(!has_water)
+		if(!water_type)
 			to_chat(user, span_warning("The tree accepts only fresh, clean water."))
 			return
 
@@ -571,10 +573,9 @@
 		var/skill = get_farming_skill(user)
 		var/potential_gain = 5 + (skill * 4)  // 5 at skill 0, 25 at skill 5+
 		var/actual_gain = min(potential_gain, remaining_cap)
-		var/action_time = 5 SECONDS - (skill * 0.5 SECONDS)
 
-		if(do_after(user, action_time, target = src))
-			container.reagents.remove_reagent(/datum/reagent/water, 1)
+		if(do_after(user, 1 SECONDS, target = src))
+			container.reagents.remove_reagent(water_type, 1)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				add_sleep_experience(user, /datum/skill/labor/farming, C.STAINT * 0.5)
@@ -597,9 +598,8 @@
 		var/skill = get_farming_skill(user)
 		var/potential_gain = 5 + (skill * 4)
 		var/actual_gain = min(potential_gain, remaining_cap)
-		var/action_time = 5 SECONDS - (skill * 0.5 SECONDS)
 
-		if(do_after(user, action_time, target = src))
+		if(do_after(user, 1 SECONDS, target = src))
 			qdel(I)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
@@ -685,7 +685,7 @@
 	else
 		. += span_info("It is fully sated.")
 
-	if(prune_count < 4)
+	if(prune_count < 1)
 		. += span_info("The branches look messy. Perhaps a scissor can right this mess.")
 	else
 		. += span_info("The branches are elaborately pruned.")
@@ -751,9 +751,10 @@
 	if (growth_stage == FRUITING && !fruit)
 		// We need to grow from 75% to 100% in time_to_grow_fruit
 		var/progress_needed_in_fruiting = growth_threshold * 0.25
+		var/effective_fruit_time = (fertilizer_happiness > 0) ? time_to_grow_fruit / 2 : time_to_grow_fruit
 
-		if (time_to_grow_fruit > 0)
-			target_growth_rate_per_second = progress_needed_in_fruiting / (time_to_grow_fruit / 10)
+		if (effective_fruit_time > 0)
+			target_growth_rate_per_second = progress_needed_in_fruiting / (effective_fruit_time / 10)
 		else
 			target_growth_rate_per_second = growth_threshold // Grow instantly if time is 0
 	else
