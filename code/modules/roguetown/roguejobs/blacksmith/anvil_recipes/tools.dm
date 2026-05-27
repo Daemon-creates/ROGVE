@@ -153,7 +153,7 @@
 	created_item = /obj/item/cooking/platter/decrepit
 	createditem_num = 3
 
-/datum/anvil_recipe/tools/aalloy/bowl
+/datum/anvil_recipe/tools/decrepit/bowl
 	name = "Bowl, Decrepit (x2)"
 	created_item = /obj/item/reagent_containers/glass/bowl/aalloy
 
