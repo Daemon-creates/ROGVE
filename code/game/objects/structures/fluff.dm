@@ -761,7 +761,7 @@
 	pixel_y = 0
 	pixel_x = 32
 
-/obj/structure/fluff/signage
+/obj/structure/fluff/signage//these are a bit of a pain
 	name = "sign"
 	desc = ""
 	icon = 'icons/roguetown/misc/structure.dmi'
@@ -787,6 +787,7 @@
 	name = "sign"
 	desc = ""
 	icon = 'icons/roguetown/misc/structure.dmi'
+
 /obj/structure/fluff/buysign/examine(mob/user)
 	. = ..()
 	if(!user.is_literate())
@@ -799,13 +800,13 @@
 	name = "sign"
 	desc = ""
 	icon = 'icons/roguetown/misc/structure.dmi'
+
 /obj/structure/fluff/sellsign/examine(mob/user)
 	. = ..()
 	if(!user.is_literate())
 		. += "I have no idea what it says."
 	else
 		. += "I can read this sign."
-
 
 /obj/structure/fluff/customsign
 	name = "sign"
@@ -815,6 +816,7 @@
 	max_integrity = 500
 	blade_dulling = DULLING_BASHCHOP
 	icon = 'icons/roguetown/misc/structure.dmi'
+	pixel_y = 3
 
 /obj/structure/fluff/customsign/examine(mob/user)
 	. = ..()
@@ -823,6 +825,9 @@
 			. += "I have no idea what it says."
 		else
 			. += "It says \"[wrotesign]\"."
+
+/obj/structure/fluff/customsign/arrow
+	icon_state = "shitsign"
 
 /obj/structure/fluff/customsign/attackby(obj/item/W, mob/user, params)
 	if(!user.cmode)
