@@ -476,7 +476,6 @@ LICH SKELETONS
 	pants = /obj/item/clothing/under/roguetown/platelegs/ancient
 	gloves = /obj/item/clothing/gloves/roguetown/plate/ancient
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/ancient
-	backl = /obj/item/storage/backpack/rogue/satchel
 
 	backpack_contents = list(
 		/obj/item/natural/feather = 1,
