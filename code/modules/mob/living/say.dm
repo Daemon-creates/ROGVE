@@ -412,8 +412,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/Zs_yell = FALSE
 	var/listener_has_ceiling	= TRUE
 	var/speaker_has_ceiling		= TRUE
-	var/turf/speaker_turf = get_turf(src)
-	var/turf/speaker_ceiling = get_step_multiz(speaker_turf, UP)
+	var/turf/speaker_turf = get_turf(source)
+	var/turf/speaker_ceiling = GET_TURF_ABOVE(speaker_turf)
 	var/line_of_sight_only = FALSE
 
 	if(speaker_ceiling)
@@ -459,7 +459,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(speaker_ceiling) // so people above us can hear us too
 			listening += line_of_sight_only ? get_hearers_in_view(message_range + eavesdrop_range, speaker_ceiling) : get_hearers_in_range(message_range + eavesdrop_range, speaker_ceiling)
 		if(!line_of_sight_only) // no real good way to do this for LOS-only
-			var/turf/below_turf = GET_TURF_BELOW(source)
+			var/turf/below_turf = GET_TURF_BELOW(speaker_turf)
 			if(below_turf)
 				listening += get_hearers_in_range(message_range + eavesdrop_range, below_turf)
 	var/alist/admin_listeners = alist()
