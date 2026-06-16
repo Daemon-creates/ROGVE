@@ -949,9 +949,7 @@
 	icon_state = "aasimar"
 
 /obj/structure/fluff/statue/gargoyle/candles
-	name = "gargoyle statue"
-	desc = "Since before the first empires, ancient men would carve statues of horrific beasts to scare off angry and tormented spirits from their places of rest."
-	icon_state = "gargoyle_candles"
+icon_state = "gargoyle_candles"
 
 /obj/structure/fluff/statue/gargoyle/moss
 	name = "gargoyle statue"
