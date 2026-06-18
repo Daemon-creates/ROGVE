@@ -43,7 +43,7 @@
 	cost = 30
 	contains = list(/obj/item/clothing/neck/roguetown/gorget/steel)
 
-/datum/supply_pack/rogue/Pioneer/gorget
+/datum/supply_pack/rogue/Pioneer/steelcoif
 	name = "Steel Coif"
 	cost = 30
 	contains = list(/obj/item/clothing/neck/roguetown/chaincoif)
