@@ -433,10 +433,6 @@
 
 //weapons
 
-/obj/structure/fluff/walldeco/customflag/deserttown
-	name = "Al-Ashur flag"
-	desc = "A banner flutters in the breeze in the proud heraldic colors of the Sultanate."
-
 /obj/item/rogueweapon/shield/iron/zybantine
 	name = "brass shield"
 	desc = "A sturdy shield of Zybantium make."
