@@ -26,7 +26,7 @@
 	/// Associated maniac key
 	var/inscryption_key
 
-	var/last_beat_sound = 0
+	var/last_beat_sound = -INFINITY
 	food_type = /obj/item/reagent_containers/food/snacks/organ/heart
 
 GLOBAL_VAR_INIT(heart_sound_pool, new /datum/heart_sound_pool)
