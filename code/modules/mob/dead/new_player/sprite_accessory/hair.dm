@@ -1731,7 +1731,7 @@
 	icon_state = "nimue"
 
 /datum/sprite_accessory/hair/head/willow
-	name = Willow
+	name = "Willow"
 	icon_state = "willow"
 
 /datum/sprite_accessory/hair/head/vulpkian
