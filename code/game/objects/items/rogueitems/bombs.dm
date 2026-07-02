@@ -299,7 +299,7 @@
 	throwforce = 0
 	slot_flags = ITEM_SLOT_HIP
 	throw_speed = 0.5
-	throw_range = 3
+	throw_range = 6
 	var/fuze = 5.5 SECONDS
 	var/lit = FALSE
 	var/prob2fail = 1
