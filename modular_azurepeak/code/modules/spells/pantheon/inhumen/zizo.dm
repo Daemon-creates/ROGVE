@@ -318,7 +318,7 @@
 	desc = "Extinguish all lights in range, with your Miracles skill increasing range."
 	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
 	action_icon = 'icons/mob/actions/zizomiracles.dmi'
-	overlay_state = "snufflights"
+	overlay_state = "snuff_lights"
 	releasedrain = 10
 	chargedrain = 0
 	chargetime = 0
@@ -326,7 +326,6 @@
 	invocations = list("Embrace the darkness!")
 	invocation_type = "shout"
 	sound = 'sound/magic/zizo_snuff.ogg'
-	overlay_state = "rune2"
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = FALSE
 	recharge_time = 20 SECONDS

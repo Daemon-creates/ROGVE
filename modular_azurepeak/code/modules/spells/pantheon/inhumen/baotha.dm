@@ -3,7 +3,7 @@
 /obj/effect/proc_holder/spell/invoked/baothablessings
 	name = "Baotha's Blessings"
 	desc = "Gets the target drunk and stops them from overdosing for a time."
-	overlay_state = "lesserheal"
+	overlay_state = "transfix"
 	releasedrain = 30
 	chargedrain = 0
 	chargetime = 0

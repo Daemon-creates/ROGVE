@@ -47,7 +47,7 @@
 	name = "Eyebite"
 	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
 	action_icon = 'icons/mob/actions/zizomiracles.dmi'
-	overlay_state = "skeleton"
+	overlay_state = "eye_bite"
 	releasedrain = 30
 	chargetime = 15
 	range = 7
@@ -72,78 +72,6 @@
 	target.blind_eyes(2)
 	target.blur_eyes(10)
 	return TRUE
-
-/obj/effect/proc_holder/spell/invoked/raise_undead_formation
-	name = "Raise Lesser Undead Formation"
-	desc = "Raises a formation of simple minded undead skeletons. Inferior shamblers. Husks in everything but zeal."
-	clothes_req = FALSE
-	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
-	action_icon = 'icons/mob/actions/zizomiracles.dmi'
-	overlay_state = "skeleton_formation"
-	range = 7
-	sound = list('sound/magic/magnet.ogg')
-	releasedrain = 40
-	chargetime = 6 SECONDS
-	warnie = "spellwarning"
-	no_early_release = TRUE
-	charging_slowdown = 1
-	chargedloop = /datum/looping_sound/invokegen
-	gesture_required = TRUE // Summon spell
-	associated_skill = /datum/skill/magic/arcane
-	recharge_time = 20 SECONDS
-	var/cabal_affine = FALSE
-	var/is_summoned = FALSE
-	var/to_spawn = 4
-	hide_charge_effect = TRUE
-
-/obj/effect/proc_holder/spell/invoked/raise_undead_formation/cast(list/targets, mob/living/user)
-	..()
-
-	var/turf/T = get_turf(targets[1])
-	if(!isopenturf(T))
-		to_chat(user, span_warning("The targeted location is blocked. My summon fails to come forth."))
-		return FALSE
-
-
-	var/skeleton_roll
-
-	var/list/turf/target_turfs = list(T)
-	if(usr.dir == NORTH || usr.dir == SOUTH)
-		target_turfs += get_step(T, EAST)
-		target_turfs += get_step(T, WEST)
-	else
-		target_turfs += get_step(T, NORTH)
-		target_turfs += get_step(T, SOUTH)
-
-	for(var/i = 1 to to_spawn)
-		if(i > to_spawn)
-			i = 1
-
-		var/t_turf = target_turfs[i]
-
-		if(!isopenturf(t_turf))
-			continue
-
-		new /obj/effect/temp_visual/bluespace_fissure(t_turf)
-		skeleton_roll = rand(1,100)
-		switch(skeleton_roll)
-			if(1 to 20)
-				new /mob/living/simple_animal/hostile/rogue/skeleton/axe(t_turf, user, cabal_affine, is_summoned)
-			if(21 to 40)
-				new /mob/living/simple_animal/hostile/rogue/skeleton/spear(t_turf, user, cabal_affine, is_summoned)
-			if(41 to 60)
-				new /mob/living/simple_animal/hostile/rogue/skeleton/guard(t_turf, user, cabal_affine, is_summoned)
-			if(61 to 80)
-				new /mob/living/simple_animal/hostile/rogue/skeleton/bow(t_turf, user, cabal_affine, is_summoned)
-			if(81 to 100)
-				new /mob/living/simple_animal/hostile/rogue/skeleton(t_turf, user, cabal_affine, is_summoned)
-	return TRUE
-
-/obj/effect/proc_holder/spell/invoked/raise_undead_formation/necromancer
-	cabal_affine = TRUE
-	is_summoned = TRUE
-	recharge_time = 35 SECONDS
-	to_spawn = 3
 
 
 /obj/effect/proc_holder/spell/invoked/raise_undead_guard
@@ -217,6 +145,79 @@
 	T.visible_message(span_notice("<b>[user]</b> raises a skeleton from the ground!"))
 	S.receive_command_text("rises and bows to its master.")
 	return TRUE
+
+
+/obj/effect/proc_holder/spell/invoked/raise_undead_formation
+	name = "Raise Lesser Undead Formation"
+	desc = "Raises a formation of simple minded undead skeletons. Inferior shamblers. Husks in everything but zeal."
+	clothes_req = FALSE
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "skeleton_formation"
+	range = 7
+	sound = list('sound/magic/magnet.ogg')
+	releasedrain = 40
+	chargetime = 6 SECONDS
+	warnie = "spellwarning"
+	no_early_release = TRUE
+	charging_slowdown = 1
+	chargedloop = /datum/looping_sound/invokegen
+	gesture_required = TRUE // Summon spell
+	associated_skill = /datum/skill/magic/arcane
+	recharge_time = 20 SECONDS
+	var/cabal_affine = FALSE
+	var/is_summoned = FALSE
+	var/to_spawn = 4
+	hide_charge_effect = TRUE
+
+/obj/effect/proc_holder/spell/invoked/raise_undead_formation/cast(list/targets, mob/living/user)
+	..()
+
+	var/turf/T = get_turf(targets[1])
+	if(!isopenturf(T))
+		to_chat(user, span_warning("The targeted location is blocked. My summon fails to come forth."))
+		return FALSE
+
+
+	var/skeleton_roll
+
+	var/list/turf/target_turfs = list(T)
+	if(usr.dir == NORTH || usr.dir == SOUTH)
+		target_turfs += get_step(T, EAST)
+		target_turfs += get_step(T, WEST)
+	else
+		target_turfs += get_step(T, NORTH)
+		target_turfs += get_step(T, SOUTH)
+
+	for(var/i = 1 to to_spawn)
+		if(i > to_spawn)
+			i = 1
+
+		var/t_turf = target_turfs[i]
+
+		if(!isopenturf(t_turf))
+			continue
+
+		new /obj/effect/temp_visual/bluespace_fissure(t_turf)
+		skeleton_roll = rand(1,100)
+		switch(skeleton_roll)
+			if(1 to 20)
+				new /mob/living/simple_animal/hostile/rogue/skeleton/axe(t_turf, user, cabal_affine, is_summoned)
+			if(21 to 40)
+				new /mob/living/simple_animal/hostile/rogue/skeleton/spear(t_turf, user, cabal_affine, is_summoned)
+			if(41 to 60)
+				new /mob/living/simple_animal/hostile/rogue/skeleton/guard(t_turf, user, cabal_affine, is_summoned)
+			if(61 to 80)
+				new /mob/living/simple_animal/hostile/rogue/skeleton/bow(t_turf, user, cabal_affine, is_summoned)
+			if(81 to 100)
+				new /mob/living/simple_animal/hostile/rogue/skeleton(t_turf, user, cabal_affine, is_summoned)
+	return TRUE
+
+/obj/effect/proc_holder/spell/invoked/raise_undead_formation/necromancer
+	cabal_affine = TRUE
+	is_summoned = TRUE
+	recharge_time = 35 SECONDS
+	to_spawn = 3
 
 
 /obj/effect/proc_holder/spell/invoked/tame_undead

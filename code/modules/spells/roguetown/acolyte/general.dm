@@ -2,6 +2,8 @@
 /obj/effect/proc_holder/spell/invoked/lesser_heal
 	name = "Miracle"
 	desc = "Heals target over time, causes damage if something is embedded in target. Burns undead instead of healing them if you worship the Ten.<br>Does not work on those worshipping the dead god."
+	overlay_icon = 'icons/mob/actions/genericmiracles.dmi'
+	action_icon = 'icons/mob/actions/genericmiracles.dmi'
 	overlay_state = "lesserheal"
 	releasedrain = 30
 	chargedrain = 0
