@@ -2,7 +2,9 @@
 	name = "Bone Chill"
 	desc = "Chill the target with necrotic energy. Severely reduces speed and weakens physical prowess."
 	cost = 3
-	overlay_state = "profane"
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "bone_chill"
 	releasedrain = 30
 	chargetime = 5
 	range = 7
@@ -43,7 +45,9 @@
 
 /obj/effect/proc_holder/spell/invoked/eyebite
 	name = "Eyebite"
-	overlay_state = "raiseskele"
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "skeleton"
 	releasedrain = 30
 	chargetime = 15
 	range = 7
@@ -73,7 +77,9 @@
 	name = "Raise Lesser Undead Formation"
 	desc = "Raises a formation of simple minded undead skeletons. Inferior shamblers. Husks in everything but zeal."
 	clothes_req = FALSE
-	overlay_state = "animate"
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "skeleton_formation"
 	range = 7
 	sound = list('sound/magic/magnet.ogg')
 	releasedrain = 40
@@ -144,7 +150,9 @@
 	name = "Conjure Undead"
 	desc = "Raises an undead guard in your servitude."
 	clothes_req = FALSE
-	overlay_state = "animate"
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "skeleton"
 	range = 7
 	sound = list('sound/magic/magnet.ogg')
 	releasedrain = 40
@@ -212,10 +220,12 @@
 
 
 /obj/effect/proc_holder/spell/invoked/tame_undead
-	name = "Tame Undead"
+	name = "Tame Deadite"
 	desc = "Oftentymes, husks and shamblers walk aimlessly - uncertain of their future. Befriends the undead \
 	Requires the target to be within four tiles. Works on undead animals, too, and they will heed your command."
-	overlay_state = "wolf_head_undead"
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "tame_deadite"
 	range = 4
 	warnie = "sydwarning"
 	recharge_time = 60 SECONDS
@@ -277,6 +287,8 @@
 /obj/effect/proc_holder/spell/invoked/gravemark
 	name = "Gravemark"
 	desc = "Adds or removes a target from the list of allies exempt from your undead's aggression."
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
 	overlay_state = "gravemark"
 	range = 7
 	warnie = "sydwarning"
@@ -314,8 +326,10 @@
 	return FALSE
 
 /obj/effect/proc_holder/spell/invoked/command_undead
-	name = "Command Undead"
+	name = "Command Deadite"
 	desc = "Commands skeletons. Cast on turf to head in that direction ignoring all else. Cast on self to command it to follow, cast on target to attack them, Cast on a lesser skeleton to set to idle-aggressive,"
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
 	overlay_state = "ZIZO"
 	warnie = "sydwarning"
 	range = 8
