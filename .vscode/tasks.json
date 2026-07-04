@@ -6,8 +6,14 @@
 			"command": "bash",
 			"args": ["fetch_goldman_files.sh"],
 			"windows": {
-				"command": "bash",
-				"args": ["fetch_goldman_files.sh"]
+				"command": "./fetch_goldman_files.sh",
+				"args": [],
+				"options": {
+					"shell": {
+						"executable": "${env:ProgramFiles}\\Git\\bin\\bash.exe",
+						"args": ["-c"]
+					}
+				}
 			},
 			"options": {
 				"cwd": "${workspaceFolder}"
