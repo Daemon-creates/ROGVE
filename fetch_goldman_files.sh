@@ -34,6 +34,17 @@
 # defeats the entire point of gating it behind an API key. The VS Code
 # "Build All" tasks (see .vscode/tasks.json) run "goldman: cleanup files"
 # right after compiling for exactly this reason.
+#
+# Some of the paths listed in the manifest already exist on disk as the
+# "default" (non-licensed) version of that file, and this script overwrites
+# them in place; others don't exist yet and are newly created. To make sure
+# cleanup_goldman_files.sh can put the working tree back exactly the way it
+# was beforehand -- rather than just deleting every fetched path, which would
+# destroy pre-existing default files that were merely overwritten -- this
+# script backs up the original contents of any pre-existing file (including
+# ${DME_FILE:-roguetown.dme} itself, if its include list is updated) into
+# GOLDMAN_BACKUP_DIR before touching it, and records in GOLDMAN_FETCHED_LIST
+# whether each path should be restored from that backup or simply deleted.
 # =============================================================================
 
 set -uo pipefail
@@ -63,14 +74,42 @@ GOLDMAN_APPLY_URL="${GOLDMAN_API_URL}/apply"
 # as every other path this script deals with).
 DME_FILE="${DME_FILE:-roguetown.dme}"
 
-# A list of every file actually written to disk by this run, used by the
-# Docker entrypoints to wipe the licensed source off the container's
-# filesystem again once it has been compiled -- fetching it into a file on
-# the machine and then leaving it there indefinitely would defeat the
+# A list of every file actually written to disk by this run, used by
+# cleanup_goldman_files.sh to put the working tree back the way it was
+# before this script ran -- either by restoring the pre-existing default
+# file from backup, or by deleting the file entirely if it didn't exist
+# before. Fetching Goldman-licensed source into a file on the machine and
+# then leaving it (or the modification) there indefinitely would defeat the
 # entire point of gating it behind an API key. Always start from a clean
-# (empty) list, even if we bail out before fetching anything below.
+# (empty) list, even if we bail out before fetching anything below. Each
+# line has the form "A <path>" (added -- didn't exist before, delete on
+# cleanup) or "M <path>" (modified -- existed before, restore from backup
+# on cleanup).
 GOLDMAN_FETCHED_LIST="${GOLDMAN_FETCHED_LIST:-.goldman_fetched_files.list}"
 : > "${GOLDMAN_FETCHED_LIST}"
+
+# Directory where original copies of any pre-existing file are stashed
+# before being overwritten, so cleanup_goldman_files.sh can restore them
+# afterwards instead of merely deleting them (which would destroy the
+# default file, not just the fetched licensed copy).
+GOLDMAN_BACKUP_DIR="${GOLDMAN_BACKUP_DIR:-.goldman_backup}"
+rm -rf -- "${GOLDMAN_BACKUP_DIR}"
+
+# Backs up the original contents of ${1} into GOLDMAN_BACKUP_DIR (preserving
+# its relative path) if it exists, and appends the appropriate "A"/"M" entry
+# to GOLDMAN_FETCHED_LIST so cleanup_goldman_files.sh knows whether to
+# restore or delete it later.
+backup_before_overwrite() {
+  local file_path="${1}"
+  if [[ -f "${file_path}" ]]; then
+    local backup_path="${GOLDMAN_BACKUP_DIR}/${file_path}"
+    mkdir -p "$(dirname "${backup_path}")"
+    cp -p -- "${file_path}" "${backup_path}"
+    echo "M ${file_path}" >> "${GOLDMAN_FETCHED_LIST}"
+  else
+    echo "A ${file_path}" >> "${GOLDMAN_FETCHED_LIST}"
+  fi
+}
 
 # If no API key is set, warn and fall back to whatever default files exist.
 if [[ -z "${GOLDMAN_API_KEY:-}" ]]; then
@@ -143,9 +182,9 @@ for FILE_PATH in "${GOLDMAN_FILES[@]}"; do
     -H "Authorization: Bearer ${GOLDMAN_API_KEY}" \
     "${GOLDMAN_API_URL}/file?path=${FILE_PATH}" 2>&1) || true
   if [[ "${HTTP_STATUS}" == "200" ]]; then
+    backup_before_overwrite "${FILE_PATH}"
     mv "${TMP_FILE}" "${FILE_PATH}"
     echo "  -> saved to ${FILE_PATH}"
-    echo "${FILE_PATH}" >> "${GOLDMAN_FETCHED_LIST}"
   else
     rm -f "${TMP_FILE}"
     echo "WARNING: could not fetch ${FILE_PATH} (HTTP ${HTTP_STATUS}) -- keeping default." >&2
@@ -198,6 +237,7 @@ update_dme_includes() {
   done < "${DME_FILE}"
 
   if [[ "${inserted}" -eq 1 ]]; then
+    backup_before_overwrite "${DME_FILE}"
     mv "${tmp_dme}" "${DME_FILE}"
     echo "  -> ${DME_FILE} updated."
   else
