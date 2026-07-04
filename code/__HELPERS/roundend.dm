@@ -134,7 +134,7 @@
 	to_chat(world, "<BR><BR><BR><span class='reallybig'>So ends this tale on Ratwood Keep.</span>")
 	get_end_reason()
 
-	var roundend_music = pick('sound/music/roundend.ogg','sound/music/roundend2.ogg','sound/music/roundend3.ogg')
+	var roundend_music = pick('sound/music/roundend.ogg')
 	var/list/key_list = list()
 	for(var/client/C in GLOB.clients)
 		if(C.mob)
