@@ -78,6 +78,18 @@ fi
 echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${GREEN}Override complete!${RS}"
 
 
+# Fetch the latest Goldman-licensed files (if GOLDMAN_API_KEY is set) and
+# recompile, since .dm/.dmm source changes only take effect once recompiled
+# into the .dmb/.rsc binary.
+echo -e "${PURPLE}[${YELLOW}---${PURPLE}]${RS} Fetching latest Goldman-licensed files..."
+bash /fetch_goldman_files.sh
+
+echo -e "${PURPLE}[${YELLOW}---${PURPLE}]${RS} Recompiling roguetown.dme..."
+if ! DreamMaker -max_errors 0 roguetown.dme; then
+  echo -e "${PURPLE}[${RED}---${PURPLE}]${RS} ${RED}DreamMaker compilation failed (see output above). Aborting startup.${RS}"
+  exit 1
+fi
+
 # Start DreamDaemon
 echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${GREEN}Starting DreamDaemon ...${RS}"
 echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${YELLOW}Enjoy! <3${RS}"

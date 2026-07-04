@@ -12,19 +12,22 @@
 #      only take effect once recompiled into the .dmb/.rsc binary.
 #   3. Hands off to DreamDaemon (exec'd as PID 1) to actually run the server.
 #
-# Environment variables (must be set as RUNTIME env vars, not build args):
+# Environment variables (may be set as RUNTIME env vars, or via a `.env`
+# file — see fetch_goldman_files.sh for the `.env` lookup/precedence rules):
 #   GOLDMAN_API_URL  – base URL of the goldman-roguetown service.
 #                      Defaults to https://goldman-roguetown.onrender.com
 #   GOLDMAN_API_KEY  – the API key issued by Jerry Goldman. If unset, the
 #                      fetch script warns and leaves default files in place.
+#
+# To use a `.env` file, mount/copy it to /tgstation/.env (e.g.
+# `-v $(pwd)/.env:/tgstation/.env:ro` when using `docker run`, or
+# `env_file: .env` when using docker-compose).
 # =============================================================================
 
 set -uo pipefail
 
 echo "[entrypoint] Fetching latest Goldman-licensed files..."
-GOLDMAN_API_URL="${GOLDMAN_API_URL:-https://goldman-roguetown.onrender.com}" \
-  GOLDMAN_API_KEY="${GOLDMAN_API_KEY:-}" \
-  bash /fetch_goldman_files.sh
+bash /fetch_goldman_files.sh
 
 echo "[entrypoint] Recompiling roguetown.dme..."
 if ! DreamMaker -max_errors 0 roguetown.dme; then
