@@ -2,22 +2,22 @@
 	race = /datum/species/lizardfolk
 
 /datum/species/lizardfolk
-	name = "Sissean"
+	name = "Lizardvolk"
 	id = "lizardfolk"
-	desc = "<b>Sissean</b><br>\
-	Sissean are hardy, reptilian people that share a unique bond among their kind due to being the target \
+	desc = "<b>Lizardvolk</b><br>\
+	Lizardvolk are hardy, reptilian people that share a unique bond among their kind due to being the target \
 	of oppression and enslavement by other races, particularly by Humans and Drakians. They take pride in \
 	their resilience and adaptability, and they can be found all over the world for one reason or another.<br>\
 	(+1 Constitution, +1 Willpower, Wild Eater Trait)"
-	expanded_desc = "Sissean are hardy, reptilian people that share a unique bond among their kind due to being the target of oppression \
+	expanded_desc = "Lizardvolk are hardy, reptilian people that share a unique bond among their kind due to being the target of oppression \
 	and enslavement by other races, particularly by Humans and Drakians. They take pride in their resilience and adaptability,\
-	and they can be found all over the world for one reason or another. Once a nomadic, tribal people, Sissean are often forced \
+	and they can be found all over the world for one reason or another. Once a nomadic, tribal people, Lizardvolk are often forced \
 	to hide and settle in deserts, swamps, bogs, and other typically inhospitable lands. Their appearance changes based on the lands \
 	they adapt to, allowing for crocodilian appearance if from the swamp to lizard-like appearances if from the desert. \
 	<br><br> \
 	They can also be found in large, bustling cities, particularly slave cities where their strength, toughness, and endurance \
-	makes them particularly valuable. Sissean often despise weakness and instead find solace in suffering. They tend to be \
-	highly religious, although of course, no race is monolithic. In fact, some Sissean have become successful with some rising to \
+	makes them particularly valuable. Lizardvolk often despise weakness and instead find solace in suffering. They tend to be \
+	highly religious, although of course, no race is monolithic. In fact, some Lizardvolk have become successful with some rising to \
 	the rank of nobility in many different kingdoms despite all adversity, but this often makes them targets of their jealous peers."
 	skin_tone_wording = "Skin Colors"
 	species_traits = list(EYECOLOR,LIPS,STUBBLE,MUTCOLORS)

@@ -45,6 +45,21 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/use_titles = FALSE
 	var/list/race_titles = list()
 
+	/// Associative list of lineage/subrace title -> /datum/species subtype path. When populated,
+	/// get_skin_list() exposes these titles through the existing "Skin Tone" character creation
+	/// picker (see skin_tone_wording), letting players choose a specific lineage (ex: a Beastvolk
+	/// choosing to be Lupian, Vulpine, Tabaxi or plain Otherkin) without any dedicated UI of its own.
+	/// Each subtype may define its own organs/customizers, languages, inherent_traits (traits the
+	/// character spawns with) and racial_trait_choices (additional traits the player may pick from).
+	/// The "default"/catch-all lineage should map to the base species' own type.
+	/// Actually resolving the picked title into a species swap happens in
+	/// /mob/living/carbon/human/set_species() via get_species_subrace_type().
+	var/list/subraces = null
+
+	/// Additional innate racial traits the player may choose one from during character creation,
+	/// on top of whatever this species already grants for free via inherent_traits.
+	var/list/racial_trait_choices = list()
+
 	///append species id to clothing sprite name
 	var/custom_clothes = FALSE
 	///males use female clothes. for elves DO NOT TURN BOTH ON EVER
@@ -322,10 +337,33 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return L
 
 /datum/species/proc/get_skin_list()
+	// Species made up of several lineages (ex: Beastvolk's Lupian/Vulpine/Tabaxi/Otherkin) repurpose
+	// the skin tone picker as their lineage picker instead of offering real skin colors - see subraces.
+	if(length(subraces))
+		var/list/lineages = list()
+		for(var/lineage_name in subraces)
+			lineages[lineage_name] = lineage_name
+		return lineages
 	return GLOB.skin_tones
 
 /datum/species/proc/get_skin_list_tooltip()
 	return GLOB.skin_tones
+
+/// Resolves the /datum/species subtype that should actually be used for species_type, given the
+/// "skin tone" value (really a lineage title, see subraces/get_skin_list) the player picked in
+/// character creation. Reads subraces via initial() rather than instantiating species_type, since
+/// this is looked up on every species assignment. Returns species_type unchanged if it has no
+/// lineages, or if chosen_skin_tone doesn't match one of them.
+/proc/get_species_subrace_type(species_type, chosen_skin_tone)
+	if(!ispath(species_type, /datum/species) || isnull(chosen_skin_tone))
+		return species_type
+	var/list/lineage_subraces = initial(species_type:subraces)
+	if(!length(lineage_subraces))
+		return species_type
+	var/resolved_type = lineage_subraces[chosen_skin_tone]
+	if(resolved_type)
+		return resolved_type
+	return species_type
 
 /datum/species/proc/get_taur_list()
 	return allowed_taur_types

@@ -176,7 +176,7 @@
 	organ_flags = ORGAN_ORGANIC
 
 /datum/species/ooze/check_roundstart_eligible()
-	return TRUE
+	return FALSE
 
 //SLIME FORM WOOO
 

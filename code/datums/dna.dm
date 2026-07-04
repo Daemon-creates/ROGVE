@@ -184,6 +184,8 @@
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, datum/preferences/pref_load = null)
 	if(pref_load)
 		skin_tone = pref_load.skin_tone
+	if(mrace && ispath(mrace))
+		mrace = get_species_subrace_type(mrace, skin_tone)
 	..()
 	if(icon_update)
 		update_body()

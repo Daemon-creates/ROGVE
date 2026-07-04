@@ -2,25 +2,39 @@
 	race = /datum/species/anthromorphsmall
 
 /datum/species/anthromorphsmall
-	name = "Critterkin"
+	name = "Verminvolk"
 	id = "anthromorphsmall"
-	desc = "<b>Critterkin</b><br>\
-	A race akin to wild-kin, except afflicted with significantly smaller stature. \
+	desc = "<b>Verminvolk</b><br>\
+	A race akin to Beastvolk, except afflicted with significantly smaller stature. \
 	Sometimes referred to with the derogatory term 'verminfolk' by those that disrespect the small.<br>\
 	(+1 Speed, Keen Ears Trait)"
 
-	expanded_desc = "A race akin to wild-kin, except afflicted with significantly smaller stature. \
-	Sometimes referred to with the derogatory term 'verminfolk' by those that disrespect the small."
+	expanded_desc = "A race akin to Beastvolk, except afflicted with significantly smaller stature. \
+	Sometimes referred to with the derogatory term 'verminvolk' by those that disrespect the small. \
+	<br><br> \
+	Verminvolk ancestry commonly falls into a handful of well-known lineages: Ratfolk, Catfolk, Corvine, \
+	Locathah, and Grung, alongside a broader catch-all lineage known simply as Otherkin for those whose bestial \
+	features do not neatly trace back to a single ancestral animal."
 	default_color = "444"
 
 	use_titles = TRUE
 	race_titles = list(
-	"Catvolk", "Dogvolk", "Volfvolk", "Lionvolk", "Venardvolk", "Tigervolk", "Sheepvolk",
-	"Goatvolk", "Rousvolk", "Possumvolk", "Pigvolk", "Boarvolk", "Rabbitvolk", "Cabbitvolk", "Harevolk", "Horsevolk",
-	"Donkeyvolk", "Hyenavolk", "Deervolk", "Bearvolk", "Pandavolk", "Coyotevolk", "Moosevolk",
-	"Jackalvolk", "Panthervolk", "Lynxvolk", "Leopardvolk", "Monkeyvolk", "Birdvolk", "Sealvolk", "Frogvolk",
-	"Batvolk", "Ottervolk", "Cowvolk", "Bullvolk", "Beevolk", "Monstervolk", "Chimeravolk"
+	"Ratfolk", "Catfolk", "Corvine", "Locathah", "Grung", "Otherkin"
 	)
+
+	/// Verminvolk lineages - each has its own languages and inherent traits. Otherkin is the
+	/// catch-all default and simply resolves to this species. Picked via the "Lineage" list
+	/// below (see skin_tone_wording/get_skin_list()).
+	subraces = list(
+		"Otherkin" = /datum/species/anthromorphsmall,
+		"Ratfolk" = /datum/species/anthromorphsmall/ratfolk,
+		"Catfolk" = /datum/species/anthromorphsmall/catfolk,
+		"Corvine" = /datum/species/anthromorphsmall/corvine,
+		"Locathah" = /datum/species/anthromorphsmall/locathah,
+		"Grung" = /datum/species/anthromorphsmall/grung,
+	)
+	racial_trait_choices = list(TRAIT_ATHLETE, TRAIT_CLIMBER, TRAIT_EVASIVE)
+	skin_tone_wording = "Lineage"
 
 	species_traits = list(
 		MUTCOLORS,
@@ -190,4 +204,3 @@
 	returned["mcolor2"] = second_color
 	returned["mcolor3"] = third_color
 	return returned
-
