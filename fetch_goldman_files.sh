@@ -50,6 +50,20 @@ fi
 GOLDMAN_API_URL="${GOLDMAN_API_URL:-https://goldman-roguetown.onrender.com}"
 GOLDMAN_APPLY_URL="${GOLDMAN_API_URL}/apply"
 
+# The .dme project file whose include list must be kept in sync with
+# whatever Goldman-licensed .dm files are fetched (relative to cwd, same
+# as every other path this script deals with).
+DME_FILE="${DME_FILE:-roguetown.dme}"
+
+# A list of every file actually written to disk by this run, used by the
+# Docker entrypoints to wipe the licensed source off the container's
+# filesystem again once it has been compiled -- fetching it into a file on
+# the machine and then leaving it there indefinitely would defeat the
+# entire point of gating it behind an API key. Always start from a clean
+# (empty) list, even if we bail out before fetching anything below.
+GOLDMAN_FETCHED_LIST="${GOLDMAN_FETCHED_LIST:-.goldman_fetched_files.list}"
+: > "${GOLDMAN_FETCHED_LIST}"
+
 # If no API key is set, warn and fall back to whatever default files exist.
 if [[ -z "${GOLDMAN_API_KEY:-}" ]]; then
   echo ""
@@ -123,12 +137,68 @@ for FILE_PATH in "${GOLDMAN_FILES[@]}"; do
   if [[ "${HTTP_STATUS}" == "200" ]]; then
     mv "${TMP_FILE}" "${FILE_PATH}"
     echo "  -> saved to ${FILE_PATH}"
+    echo "${FILE_PATH}" >> "${GOLDMAN_FETCHED_LIST}"
   else
     rm -f "${TMP_FILE}"
     echo "WARNING: could not fetch ${FILE_PATH} (HTTP ${HTTP_STATUS}) -- keeping default." >&2
     FETCH_FAILED=1
   fi
 done
+
+# Make sure every fetched/pre-existing .dm file is actually wired into the
+# .dme's include list. DreamMaker only compiles files it is explicitly told
+# about via "#include", so a new .dm file added upstream (in the manifest)
+# would silently be ignored -- or break the build if something else assumes
+# it exists -- unless we add an #include line for it here.
+update_dme_includes() {
+  if [[ ! -f "${DME_FILE}" ]]; then
+    echo "WARNING: ${DME_FILE} not found -- skipping include list update." >&2
+    return
+  fi
+
+  local file_path win_path
+  local -a new_includes=()
+  for file_path in "${GOLDMAN_FILES[@]}"; do
+    # Only .dm files need (and can have) an #include entry; .dmm maps and
+    # tgui assets are wired in differently (or not at all).
+    [[ "${file_path}" == *.dm ]] || continue
+    # Only add an include for files that actually exist on disk -- if the
+    # fetch failed and there is no pre-existing default file either, adding
+    # an #include for it would just break the compile.
+    [[ -f "${file_path}" ]] || continue
+
+    win_path="${file_path//\//\\}"
+    if ! grep -qF "#include \"${win_path}\"" "${DME_FILE}"; then
+      new_includes+=("#include \"${win_path}\"")
+    fi
+  done
+
+  if [[ "${#new_includes[@]}" -eq 0 ]]; then
+    return
+  fi
+
+  echo "Adding ${#new_includes[@]} new file(s) to ${DME_FILE}'s include list..."
+  local tmp_dme="${DME_FILE}.goldman_tmp"
+  local inserted=0
+  : > "${tmp_dme}"
+  while IFS= read -r LINE || [[ -n "${LINE}" ]]; do
+    if [[ "${LINE}" == "// END_INCLUDE" && "${inserted}" -eq 0 ]]; then
+      printf '%s\n' "${new_includes[@]}" >> "${tmp_dme}"
+      inserted=1
+    fi
+    printf '%s\n' "${LINE}" >> "${tmp_dme}"
+  done < "${DME_FILE}"
+
+  if [[ "${inserted}" -eq 1 ]]; then
+    mv "${tmp_dme}" "${DME_FILE}"
+    echo "  -> ${DME_FILE} updated."
+  else
+    echo "WARNING: could not find // END_INCLUDE marker in ${DME_FILE} -- new files were NOT added." >&2
+    rm -f "${tmp_dme}"
+  fi
+}
+
+update_dme_includes
 
 if [[ "${FETCH_FAILED}" -eq 1 ]]; then
   echo ""
