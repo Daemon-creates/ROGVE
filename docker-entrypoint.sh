@@ -32,16 +32,20 @@ set -uo pipefail
 ENV_FILE="${ENV_FILE:-/tgstation/.env}"
 if [[ -f "${ENV_FILE}" ]]; then
   echo "[entrypoint] Loading environment variables from ${ENV_FILE}..."
-  _PRIOR_GOLDMAN_API_URL="${GOLDMAN_API_URL:-}"
-  _PRIOR_GOLDMAN_API_KEY="${GOLDMAN_API_KEY:-}"
+  CONTAINER_GOLDMAN_API_URL="${GOLDMAN_API_URL:-}"
+  CONTAINER_GOLDMAN_API_KEY="${GOLDMAN_API_KEY:-}"
   set -a
   # shellcheck disable=SC1090
   source "${ENV_FILE}"
   set +a
   # Env vars explicitly set on the container take precedence over the .env file.
-  GOLDMAN_API_URL="${_PRIOR_GOLDMAN_API_URL:-${GOLDMAN_API_URL:-}}"
-  GOLDMAN_API_KEY="${_PRIOR_GOLDMAN_API_KEY:-${GOLDMAN_API_KEY:-}}"
-  unset _PRIOR_GOLDMAN_API_URL _PRIOR_GOLDMAN_API_KEY
+  if [[ -n "${CONTAINER_GOLDMAN_API_URL}" ]]; then
+    GOLDMAN_API_URL="${CONTAINER_GOLDMAN_API_URL}"
+  fi
+  if [[ -n "${CONTAINER_GOLDMAN_API_KEY}" ]]; then
+    GOLDMAN_API_KEY="${CONTAINER_GOLDMAN_API_KEY}"
+  fi
+  unset CONTAINER_GOLDMAN_API_URL CONTAINER_GOLDMAN_API_KEY
 fi
 
 echo "[entrypoint] Fetching latest Goldman-licensed files..."
