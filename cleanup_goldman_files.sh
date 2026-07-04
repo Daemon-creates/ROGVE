@@ -47,13 +47,22 @@ while IFS= read -r ENTRY || [[ -n "${ENTRY}" ]]; do
   ENTRY="${ENTRY%$'\r'}"
   [[ -n "${ENTRY}" ]] || continue
 
-  MARKER="${ENTRY:0:1}"
-  FETCHED_FILE="${ENTRY:2}"
+  if [[ "${ENTRY}" =~ ^[AM]\  ]]; then
+    MARKER="${ENTRY:0:1}"
+    FETCHED_FILE="${ENTRY:2}"
+  else
+    # Unrecognized/legacy entry (e.g. from an older version of this
+    # manifest that didn't record A/M markers) -- fall back to the old
+    # delete-only behavior for that single entry.
+    MARKER=""
+    FETCHED_FILE="${ENTRY}"
+  fi
   [[ -n "${FETCHED_FILE}" ]] || continue
 
   case "${MARKER}" in
-    A)
-      # Didn't exist before the fetch -- remove it entirely.
+    A|"")
+      # Didn't exist before the fetch (or a legacy entry) -- remove it
+      # entirely.
       rm -f -- "${FETCHED_FILE}"
       ;;
     M)
@@ -61,17 +70,10 @@ while IFS= read -r ENTRY || [[ -n "${ENTRY}" ]]; do
       # original from backup instead of deleting it.
       BACKUP_FILE="${GOLDMAN_BACKUP_DIR}/${FETCHED_FILE}"
       if [[ -f "${BACKUP_FILE}" ]]; then
-        mkdir -p "$(dirname "${FETCHED_FILE}")"
         mv -f -- "${BACKUP_FILE}" "${FETCHED_FILE}"
       else
         echo "WARNING: no backup found for ${FETCHED_FILE} -- leaving it as-is." >&2
       fi
-      ;;
-    *)
-      # Unrecognized/legacy entry (e.g. from an older version of this
-      # manifest that didn't record A/M markers) -- fall back to the old
-      # delete-only behavior for that single entry.
-      rm -f -- "${ENTRY}"
       ;;
   esac
 done < "${GOLDMAN_FETCHED_LIST}"
