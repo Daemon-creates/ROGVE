@@ -210,15 +210,15 @@
             },
             "dependsOn": ["goldman: fetch files", "dm: reparse"],
             "dependsOrder": "sequence",
-		    "label": "build: compile all (unit tests)"
+            "label": "build: compile all (unit tests)"
         },
-		{
-		    "dependsOn": ["build: compile all (unit tests)", "goldman: cleanup files"],
-		    "dependsOrder": "sequence",
-		    "group": {
-		        "kind": "build"
-		    },
-		    "label": "Build All (unit tests)"
-		},
+        {
+            "dependsOn": ["build: compile all (unit tests)", "goldman: cleanup files"],
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "build"
+            },
+            "label": "Build All (unit tests)"
+        },
 	]
 }
