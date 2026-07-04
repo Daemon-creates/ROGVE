@@ -156,7 +156,7 @@ update_dme_includes() {
     return
   fi
 
-  local file_path win_path
+  local file_path dme_path
   local -a new_includes=()
   for file_path in "${GOLDMAN_FILES[@]}"; do
     # Only .dm files need (and can have) an #include entry; .dmm maps and
@@ -167,9 +167,9 @@ update_dme_includes() {
     # an #include for it would just break the compile.
     [[ -f "${file_path}" ]] || continue
 
-    win_path="${file_path//\//\\}"
-    if ! grep -qF "#include \"${win_path}\"" "${DME_FILE}"; then
-      new_includes+=("#include \"${win_path}\"")
+    dme_path="${file_path//\//\\}"
+    if ! grep -qF "#include \"${dme_path}\"" "${DME_FILE}"; then
+      new_includes+=("#include \"${dme_path}\"")
     fi
   done
 
@@ -180,9 +180,9 @@ update_dme_includes() {
   echo "Adding ${#new_includes[@]} new file(s) to ${DME_FILE}'s include list..."
   local tmp_dme="${DME_FILE}.goldman_tmp"
   local inserted=0
-  : > "${tmp_dme}"
+  > "${tmp_dme}"
   while IFS= read -r LINE || [[ -n "${LINE}" ]]; do
-    if [[ "${LINE}" == "// END_INCLUDE" && "${inserted}" -eq 0 ]]; then
+    if [[ "${inserted}" -eq 0 && "${LINE}" =~ ^[[:space:]]*//[[:space:]]*END_INCLUDE[[:space:]]*$ ]]; then
       printf '%s\n' "${new_includes[@]}" >> "${tmp_dme}"
       inserted=1
     fi
