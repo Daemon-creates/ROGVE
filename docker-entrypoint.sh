@@ -17,9 +17,32 @@
 #                      Defaults to https://goldman-roguetown.onrender.com
 #   GOLDMAN_API_KEY  – the API key issued by Jerry Goldman. If unset, the
 #                      fetch script warns and leaves default files in place.
+#
+# These variables may also be supplied via a `.env` file instead of being
+# passed directly to the container. Mount/copy a `.env` file to
+# /tgstation/.env (e.g. `-v $(pwd)/.env:/tgstation/.env:ro` when using
+# `docker run`, or `env_file: .env` when using docker-compose) and it will
+# be loaded automatically before the Goldman fetch runs. Any GOLDMAN_API_URL
+# / GOLDMAN_API_KEY already present in the container's environment take
+# precedence over values found in the .env file.
 # =============================================================================
 
 set -uo pipefail
+
+ENV_FILE="${ENV_FILE:-/tgstation/.env}"
+if [[ -f "${ENV_FILE}" ]]; then
+  echo "[entrypoint] Loading environment variables from ${ENV_FILE}..."
+  _PRIOR_GOLDMAN_API_URL="${GOLDMAN_API_URL:-}"
+  _PRIOR_GOLDMAN_API_KEY="${GOLDMAN_API_KEY:-}"
+  set -a
+  # shellcheck disable=SC1090
+  source "${ENV_FILE}"
+  set +a
+  # Env vars explicitly set on the container take precedence over the .env file.
+  GOLDMAN_API_URL="${_PRIOR_GOLDMAN_API_URL:-${GOLDMAN_API_URL:-}}"
+  GOLDMAN_API_KEY="${_PRIOR_GOLDMAN_API_KEY:-${GOLDMAN_API_KEY:-}}"
+  unset _PRIOR_GOLDMAN_API_URL _PRIOR_GOLDMAN_API_KEY
+fi
 
 echo "[entrypoint] Fetching latest Goldman-licensed files..."
 GOLDMAN_API_URL="${GOLDMAN_API_URL:-https://goldman-roguetown.onrender.com}" \

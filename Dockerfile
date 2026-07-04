@@ -99,6 +99,11 @@ RUN chmod +x /fetch_goldman_files.sh /docker-entrypoint.sh
 
 VOLUME [ "/tgstation/config", "/tgstation/data" ]
 
+# Optional: mount a .env file (copy .env.example to .env and fill it in) to
+# /tgstation/.env so docker-entrypoint.sh can load GOLDMAN_API_URL /
+# GOLDMAN_API_KEY from it instead of (or in addition to) container env vars,
+# e.g. `docker run -v $(pwd)/.env:/tgstation/.env:ro ...`.
+
 # docker-entrypoint.sh already builds the full DreamDaemon command (binary,
 # port, and flags); CMD is only for any *additional* args, so it must not
 # duplicate that command or DreamDaemon will receive it twice.

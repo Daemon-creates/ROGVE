@@ -14,6 +14,10 @@
 #                     If not set, default files are used and a warning is
 #                     printed to the log.
 #
+# These variables may also be provided via a .env file — see
+# docker-entrypoint.sh, which loads /tgstation/.env (if present) and exports
+# GOLDMAN_API_URL / GOLDMAN_API_KEY before invoking this script.
+#
 # Usage (non-Docker):
 #   GOLDMAN_API_URL=https://... GOLDMAN_API_KEY=... bash fetch_goldman_files.sh
 # =============================================================================
