@@ -2,6 +2,21 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"type": "shell",
+			"command": "bash",
+			"args": ["fetch_goldman_files.sh"],
+			"windows": {
+				"command": "bash",
+				"args": ["fetch_goldman_files.sh"]
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"group": "build",
+			"label": "goldman: fetch files"
+		},
+		{
 			"type": "process",
 			"command": "tools/build/build.sh",
 			"windows": {
@@ -17,7 +32,8 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": "dm: reparse",
+			"dependsOn": ["goldman: fetch files", "dm: reparse"],
+			"dependsOrder": "sequence",
 			"label": "Build All"
 		},
 		{
@@ -38,7 +54,8 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": "dm: reparse",
+			"dependsOn": ["goldman: fetch files", "dm: reparse"],
+			"dependsOrder": "sequence",
 			"label": "Build All (Local Testing)"
 		},
 		{
@@ -59,7 +76,8 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": "dm: reparse",
+			"dependsOn": ["goldman: fetch files", "dm: reparse"],
+			"dependsOrder": "sequence",
 			"label": "Build All (Local Testing - No Dungeon)"
 		},
 		{
@@ -145,7 +163,8 @@
             "group": {
                 "kind": "build"
             },
-            "dependsOn": "dm: reparse",
+            "dependsOn": ["goldman: fetch files", "dm: reparse"],
+            "dependsOrder": "sequence",
             "label": "Build All (unit tests)"
         },
 	]

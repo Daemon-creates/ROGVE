@@ -14,15 +14,37 @@
 #                     If not set, default files are used and a warning is
 #                     printed to the log.
 #
-# These variables may also be provided via a .env file — see
-# docker-entrypoint.sh, which loads /tgstation/.env (if present) and exports
-# GOLDMAN_API_URL / GOLDMAN_API_KEY before invoking this script.
+# These variables may also be provided via a `.env` file instead of being
+# exported directly. If GOLDMAN_API_KEY is not already set in the
+# environment, this script automatically looks for (in order):
+#   1. The file at ${GOLDMAN_ENV_FILE}, if that variable is set.
+#   2. A `.env` file next to this script (e.g. the repo root when running
+#      locally, such as via the VS Code "Build All" tasks / F5).
+#   3. /tgstation/.env (the container path used by docker-entrypoint.sh and
+#      the DockerTestServer entrypoint.sh).
+# Environment variables already set take precedence over any `.env` file.
 #
 # Usage (non-Docker):
 #   GOLDMAN_API_URL=https://... GOLDMAN_API_KEY=... bash fetch_goldman_files.sh
 # =============================================================================
 
 set -uo pipefail
+
+# Auto-load a .env file if GOLDMAN_API_KEY hasn't already been exported.
+if [[ -z "${GOLDMAN_API_KEY:-}" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+  for CANDIDATE_ENV_FILE in "${GOLDMAN_ENV_FILE:-}" "${SCRIPT_DIR}/.env" "/tgstation/.env"; do
+    if [[ -n "${CANDIDATE_ENV_FILE}" && -f "${CANDIDATE_ENV_FILE}" ]]; then
+      echo "Loading environment variables from ${CANDIDATE_ENV_FILE}..."
+      set -a
+      # shellcheck disable=SC1090
+      source "${CANDIDATE_ENV_FILE}"
+      set +a
+      break
+    fi
+  done
+  unset SCRIPT_DIR CANDIDATE_ENV_FILE
+fi
 
 # Default to the canonical hosted URL if GOLDMAN_API_URL is not provided.
 GOLDMAN_API_URL="${GOLDMAN_API_URL:-https://goldman-roguetown.onrender.com}"

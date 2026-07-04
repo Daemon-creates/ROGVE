@@ -12,46 +12,22 @@
 #      only take effect once recompiled into the .dmb/.rsc binary.
 #   3. Hands off to DreamDaemon (exec'd as PID 1) to actually run the server.
 #
-# Environment variables (must be set as RUNTIME env vars, not build args):
+# Environment variables (may be set as RUNTIME env vars, or via a `.env`
+# file — see fetch_goldman_files.sh for the `.env` lookup/precedence rules):
 #   GOLDMAN_API_URL  – base URL of the goldman-roguetown service.
 #                      Defaults to https://goldman-roguetown.onrender.com
 #   GOLDMAN_API_KEY  – the API key issued by Jerry Goldman. If unset, the
 #                      fetch script warns and leaves default files in place.
 #
-# These variables may also be supplied via a `.env` file instead of being
-# passed directly to the container. Mount/copy a `.env` file to
-# /tgstation/.env (e.g. `-v $(pwd)/.env:/tgstation/.env:ro` when using
-# `docker run`, or `env_file: .env` when using docker-compose) and it will
-# be loaded automatically before the Goldman fetch runs. Any GOLDMAN_API_URL
-# / GOLDMAN_API_KEY already present in the container's environment take
-# precedence over values found in the .env file.
+# To use a `.env` file, mount/copy it to /tgstation/.env (e.g.
+# `-v $(pwd)/.env:/tgstation/.env:ro` when using `docker run`, or
+# `env_file: .env` when using docker-compose).
 # =============================================================================
 
 set -uo pipefail
 
-ENV_FILE="${ENV_FILE:-/tgstation/.env}"
-if [[ -f "${ENV_FILE}" ]]; then
-  echo "[entrypoint] Loading environment variables from ${ENV_FILE}..."
-  CONTAINER_GOLDMAN_API_URL="${GOLDMAN_API_URL:-}"
-  CONTAINER_GOLDMAN_API_KEY="${GOLDMAN_API_KEY:-}"
-  set -a
-  # shellcheck disable=SC1090
-  source "${ENV_FILE}"
-  set +a
-  # Env vars explicitly set on the container take precedence over the .env file.
-  if [[ -n "${CONTAINER_GOLDMAN_API_URL}" ]]; then
-    GOLDMAN_API_URL="${CONTAINER_GOLDMAN_API_URL}"
-  fi
-  if [[ -n "${CONTAINER_GOLDMAN_API_KEY}" ]]; then
-    GOLDMAN_API_KEY="${CONTAINER_GOLDMAN_API_KEY}"
-  fi
-  unset CONTAINER_GOLDMAN_API_URL CONTAINER_GOLDMAN_API_KEY
-fi
-
 echo "[entrypoint] Fetching latest Goldman-licensed files..."
-GOLDMAN_API_URL="${GOLDMAN_API_URL:-https://goldman-roguetown.onrender.com}" \
-  GOLDMAN_API_KEY="${GOLDMAN_API_KEY:-}" \
-  bash /fetch_goldman_files.sh
+bash /fetch_goldman_files.sh
 
 echo "[entrypoint] Recompiling roguetown.dme..."
 if ! DreamMaker -max_errors 0 roguetown.dme; then
