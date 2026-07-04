@@ -81,19 +81,10 @@ echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${GREEN}Override complete!${RS}"
 # Fetch the latest Goldman-licensed files (if GOLDMAN_API_KEY is set) and
 # recompile, since .dm/.dmm source changes only take effect once recompiled
 # into the .dmb/.rsc binary. The fetched source is deleted again right
-# after compiling so it doesn't sit around in plaintext on this machine.
-GOLDMAN_FETCHED_LIST="${GOLDMAN_FETCHED_LIST:-.goldman_fetched_files.list}"
-
+# after compiling (via cleanup_goldman_files.sh) so it doesn't sit around
+# in plaintext on this machine.
 cleanup_goldman_files () {
-  if [[ ! -f "${GOLDMAN_FETCHED_LIST}" ]]; then
-    return
-  fi
-  echo -e "${PURPLE}[${YELLOW}---${PURPLE}]${RS} Removing fetched Goldman-licensed source files from disk..."
-  while IFS= read -r FETCHED_FILE || [[ -n "${FETCHED_FILE}" ]]; do
-    [[ -n "${FETCHED_FILE}" ]] || continue
-    rm -f -- "${FETCHED_FILE}"
-  done < "${GOLDMAN_FETCHED_LIST}"
-  rm -f -- "${GOLDMAN_FETCHED_LIST}"
+  bash /cleanup_goldman_files.sh
 }
 
 echo -e "${PURPLE}[${YELLOW}---${PURPLE}]${RS} Fetching latest Goldman-licensed files..."

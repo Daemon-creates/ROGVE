@@ -94,8 +94,9 @@ RUN ln -s /tgstation/libBSQL.so /root/.byond/bin/libBSQL.so
 
 # Goldman runtime sync scripts
 COPY fetch_goldman_files.sh /fetch_goldman_files.sh
+COPY cleanup_goldman_files.sh /cleanup_goldman_files.sh
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /fetch_goldman_files.sh /docker-entrypoint.sh
+RUN chmod +x /fetch_goldman_files.sh /cleanup_goldman_files.sh /docker-entrypoint.sh
 
 VOLUME [ "/tgstation/config", "/tgstation/data" ]
 

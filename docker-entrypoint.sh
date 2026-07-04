@@ -10,12 +10,12 @@
 #   1. Fetches the latest Goldman-licensed files via fetch_goldman_files.sh.
 #   2. Recompiles roguetown.dme with DreamMaker, since .dm/.dmm source changes
 #      only take effect once recompiled into the .dmb/.rsc binary.
-#   3. Deletes the Goldman-licensed source files that were just fetched, so
-#      the licensed .dm source doesn't sit around in plaintext on this
-#      machine for the lifetime of the container -- only the compiled
-#      .dmb/.rsc (which DreamDaemon actually needs) remains on disk. This is
-#      the entire point of gating the source behind the API key in the
-#      first place.
+#   3. Deletes the Goldman-licensed source files that were just fetched (via
+#      cleanup_goldman_files.sh), so the licensed .dm source doesn't sit
+#      around in plaintext on this machine for the lifetime of the container
+#      -- only the compiled .dmb/.rsc (which DreamDaemon actually needs)
+#      remains on disk. This is the entire point of gating the source behind
+#      the API key in the first place.
 #   4. Hands off to DreamDaemon (exec'd as PID 1) to actually run the server.
 #
 # Environment variables (may be set as RUNTIME env vars, or via a `.env`
@@ -32,21 +32,12 @@
 
 set -uo pipefail
 
-GOLDMAN_FETCHED_LIST="${GOLDMAN_FETCHED_LIST:-.goldman_fetched_files.list}"
-
 # Deletes every Goldman-licensed source file fetched by fetch_goldman_files.sh
 # in this run, so it doesn't linger in plaintext on this machine's disk.
 # Called both after a successful compile and before aborting on failure.
+# See cleanup_goldman_files.sh for details.
 cleanup_goldman_files() {
-  if [[ ! -f "${GOLDMAN_FETCHED_LIST}" ]]; then
-    return
-  fi
-  echo "[entrypoint] Removing fetched Goldman-licensed source files from disk..."
-  while IFS= read -r FETCHED_FILE || [[ -n "${FETCHED_FILE}" ]]; do
-    [[ -n "${FETCHED_FILE}" ]] || continue
-    rm -f -- "${FETCHED_FILE}"
-  done < "${GOLDMAN_FETCHED_LIST}"
-  rm -f -- "${GOLDMAN_FETCHED_LIST}"
+  bash /cleanup_goldman_files.sh
 }
 
 echo "[entrypoint] Fetching latest Goldman-licensed files..."

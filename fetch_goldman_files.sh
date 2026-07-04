@@ -26,6 +26,14 @@
 #
 # Usage (non-Docker):
 #   GOLDMAN_API_URL=https://... GOLDMAN_API_KEY=... bash fetch_goldman_files.sh
+#
+# IMPORTANT: whatever fetches via this script MUST call
+# cleanup_goldman_files.sh once DreamMaker has finished compiling, in every
+# environment -- not just inside Docker. Otherwise the licensed .dm source
+# is left sitting in plaintext on that machine's disk indefinitely, which
+# defeats the entire point of gating it behind an API key. The VS Code
+# "Build All" tasks (see .vscode/tasks.json) run "goldman: cleanup files"
+# right after compiling for exactly this reason.
 # =============================================================================
 
 set -uo pipefail
