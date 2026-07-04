@@ -65,7 +65,7 @@ FROM dm_base as build
 
 COPY . .
 
-RUN DreamMaker -max_errors 0 tgstation.dme && tools/deploy.sh /deploy
+RUN DreamMaker -max_errors 0 roguetown.dme && tools/deploy.sh /deploy
 
 FROM dm_base
 
@@ -99,5 +99,8 @@ RUN chmod +x /fetch_goldman_files.sh /docker-entrypoint.sh
 
 VOLUME [ "/tgstation/config", "/tgstation/data" ]
 
+# docker-entrypoint.sh already builds the full DreamDaemon command (binary,
+# port, and flags); CMD is only for any *additional* args, so it must not
+# duplicate that command or DreamDaemon will receive it twice.
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ "DreamDaemon", "tgstation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
+CMD []
