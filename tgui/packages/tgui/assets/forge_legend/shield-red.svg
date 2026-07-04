@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="36" viewBox="0 0 32 36">
+  <!--
+    Heraldic ruby shield badge used on the "Forge Your Legend" footer
+    action buttons (save/ready state icons).
+  -->
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b23a2e" />
+      <stop offset="55%" stop-color="#7a1f1a" />
+      <stop offset="100%" stop-color="#360d0a" />
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f2d999" />
+      <stop offset="100%" stop-color="#8a6a2a" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M16 1.5 L29.5 5.5 L29.5 15.5 C29.5 26 16 34.5 16 34.5
+       C16 34.5 2.5 26 2.5 15.5 L2.5 5.5 Z"
+    fill="url(#rim)"
+  />
+  <path
+    d="M16 3.4 L27.4 6.8 L27.4 15.5 C27.4 24.6 16 32.2 16 32.2
+       C16 32.2 4.6 24.6 4.6 15.5 L4.6 6.8 Z"
+    fill="url(#face)"
+    stroke="#1a0f08"
+    stroke-width="0.6"
+  />
+  <path
+    d="M16 4.6 L25.9 7.5 L25.9 15.3"
+    fill="none"
+    stroke="#e0897a"
+    stroke-width="1.1"
+    stroke-linecap="round"
+    opacity="0.55"
+  />
+  <path
+    d="M16 9.5 L20.4 11.6 L20.4 16.6 C20.4 21.4 16 25.4 16 25.4
+       C16 25.4 11.6 21.4 11.6 16.6 L11.6 11.6 Z"
+    fill="#4a120d"
+    stroke="#f2c3b4"
+    stroke-width="0.8"
+  />
+  <path
+    d="M16 11.4 C17.4 12.9 18.2 13.5 20 13.9 C18.2 14.3 17.4 15 16 16.5
+       C14.6 15 13.8 14.3 12 13.9 C13.8 13.5 14.6 12.9 16 11.4 Z"
+    fill="#f2c3b4"
+  />
+</svg>

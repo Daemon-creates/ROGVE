@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="34" viewBox="0 0 28 34">
+  <!--
+    Gilded heraldic flourish used beside the "Forge Your Legend" banner
+    title - a small crested shield flanked by filigree scrollwork,
+    replacing the plain rotated-square diamond marker.
+  -->
+  <defs>
+    <linearGradient id="flourish-face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5e6bd" />
+      <stop offset="55%" stop-color="#d8b978" />
+      <stop offset="100%" stop-color="#8a6a2a" />
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="#d8b978" stroke-width="1.1" stroke-linecap="round">
+    <path d="M2 20 C2 12 7 7 13 5" opacity="0.85" />
+    <path d="M26 20 C26 12 21 7 15 5" opacity="0.85" />
+    <path d="M4 26 C6 21 9 18 13 16.5" opacity="0.55" />
+    <path d="M24 26 C22 21 19 18 15 16.5" opacity="0.55" />
+  </g>
+  <path
+    d="M14 4 L20.5 6.6 L20.5 13.5 C20.5 19.6 14 24 14 24
+       C14 24 7.5 19.6 7.5 13.5 L7.5 6.6 Z"
+    fill="url(#flourish-face)"
+    stroke="#8a6a2a"
+    stroke-width="0.9"
+  />
+  <path
+    d="M14 7 L17.6 8.6 L17.6 13.3 C17.6 16.7 14 19.2 14 19.2
+       C14 19.2 10.4 16.7 10.4 13.3 L10.4 8.6 Z"
+    fill="#7a1f1a"
+    stroke="#f2d999"
+    stroke-width="0.6"
+  />
+  <path
+    d="M14 8.6 C14.9 9.9 15.5 10.4 16.8 10.7 C15.5 11 14.9 11.6 14 12.9
+       C13.1 11.6 12.5 11 11.2 10.7 C12.5 10.4 13.1 9.9 14 8.6 Z"
+    fill="#f2d999"
+  />
+  <circle cx="14" cy="2.2" r="2" fill="#f2d999" stroke="#8a6a2a" stroke-width="0.6" />
+</svg>
