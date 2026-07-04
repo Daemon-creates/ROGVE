@@ -115,7 +115,7 @@
 	restricted_virtues = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless)
 
 /datum/species/construct/metal/check_roundstart_eligible()
-	return TRUE
+	return FALSE
 
 /datum/species/construct/metal/get_skin_list()
 	return list(

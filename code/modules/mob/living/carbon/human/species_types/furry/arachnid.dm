@@ -67,7 +67,7 @@
 		/datum/customizer/organ/tail_feature/anthro,
 		/datum/customizer/organ/frills/anthro,
 		/datum/customizer/organ/testicles/anthro,
-		/datum/customizer_choice/organ/horns/anthro,
+		/datum/customizer/organ/horns/anthro,,
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/human,
 		/datum/customizer/organ/vagina/anthro,
@@ -136,7 +136,7 @@
 	forced_taur = TRUE
 
 /datum/species/arachnid/check_roundstart_eligible()
-	return TRUE
+	return FALSE
 
 /datum/species/arachnid/qualifies_for_rank(rank, list/features)
 	return TRUE

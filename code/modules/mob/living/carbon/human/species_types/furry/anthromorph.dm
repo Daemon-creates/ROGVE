@@ -2,35 +2,53 @@
 	race = /datum/species/anthromorph
 
 /datum/species/anthromorph
-	name = "Wild-Kin"
+	name = "Beastvolk"
 	id = "anthromorph"
-	desc = "<b>Wild-Kin</b><br>\
-	Wild-kins are a highly diverse and varied group of people, the majority of which are descendants of the \
+	desc = "<b>Beastvolk</b><br>\
+	Beastvolk are a highly diverse and varied group of people, the majority of which are descendants of the \
 	first followers of Dendor who rejected civilization in favour of the deep forests. However, some came from \
-	magical anomalies or curses, Divine or otherwise.<br>\
+	magical anomalies or curses, Divine or otherwise. Beastvolk ancestry includes the Lupian, Vulpine, and Tabaxi \
+	lineages, as well as the Otherkin, whose lineage is not tied to a single ancestral animal.<br>\
 	(+1 Constitution, +1 Perception)"
 
-	expanded_desc = "Wild-kins are a highly diverse and varied group of people, the majority of which are descendants of the \
+	expanded_desc = "Beastvolk are a highly diverse and varied group of people, the majority of which are descendants of the \
 	first followers of Dendor who rejected civilization in favour of the deep forests. However, some came from \
 	magical anomalies or curses, Divine or otherwise. \
 	<br><br> \ Their bloodlines were blessed by Dendor for their ancestor&#39;s devotion \
-	and this is reflected in their appearance. Some descendants of the first Dendorite wild-kins, \
+	and this is reflected in their appearance. Some descendants of the first Dendorite beastvolk, \
 	especially those not as devoted to the ways of Dendor and filled \
 	with wanderlust, emerged from their remote communities to embrace the civilization their ancestors had once rejected. \
 	<br><br> \
 	At first, they faced discrimination from people wary of their abnormal appearances. Yet, their appearance was a blessing \
-	from Dendor, and the clergy of the Ten made this known throughout the lands of the faithful. Wild-kins are now fully \
+	from Dendor, and the clergy of the Ten made this known throughout the lands of the faithful. Beastvolk are now fully \
 	accepted, with many even holding titles of landed nobility. However, there is still an air of distrust and uncertainty \
-	surrounding them, especially for those who acquired their features during life rather than through birth."
+	surrounding them, especially for those who acquired their features during life rather than through birth. \
+	<br><br> \
+	Beastvolk ancestry commonly falls into a handful of well-known lineages: the wolf-like Lupian, the fox-like Vulpine, \
+	and the feline Tabaxi, alongside a broader catch-all lineage known simply as Otherkin for those whose bestial \
+	features do not neatly trace back to a single ancestral animal."
 
 	use_titles = TRUE
 	race_titles = list(
+	"Lupian", "Vulpine", "Tabaxi", "Otherkin",
 	"Cat-Kin", "Dog-Kin", "Volf-Kin", "Lion-Kin", "Venard-Kin", "Tiger-Kin", "Sheep-Kin",
 	"Goat-Kin", "Rous-Kin", "Possum-Kin", "Pig-Kin", "Boar-Kin", "Rabbit-Kin", "Cabbit-Kin", "Hare-Kin", "Horse-Kin",
 	"Donkey-Kin", "Hyena-Kin", "Deer-Kin", "Bear-Kin", "Panda-Kin", "Coyote-Kin", "Moose-Kin",
 	"Jackal-Kin", "Panther-Kin", "Lynx-Kin", "Leopard-Kin", "Monkey-Kin", "Bird-Kin", "Seal-Kin", "Frog-Kin",
 	"Bat-Kin", "Otter-Kin", "Cow-Kin", "Bull-Kin", "Bee-Kin", "Lizard-Kin", "Insect-Kin", "Spider-Kin", "Monster-Kin", "Chimera"
 	)
+
+	/// Beastvolk lineages - each has its own features (organs/customizers), languages and
+	/// inherent traits. Otherkin is the catch-all default and simply resolves to this species.
+	/// Picked via the "Lineage" list below (see skin_tone_wording/get_skin_list()).
+	subraces = list(
+		"Otherkin" = /datum/species/anthromorph,
+		"Lupian" = /datum/species/lupian,
+		"Vulpine" = /datum/species/vulpkanin,
+		"Tabaxi" = /datum/species/tabaxi,
+	)
+	racial_trait_choices = list(TRAIT_ATHLETE, TRAIT_BRUTE, TRAIT_NATURALARMOR)
+	skin_tone_wording = "Lineage"
 
 	default_color = "444"
 	species_traits = list(
@@ -242,4 +260,3 @@
 	returned["mcolor2"] = second_color
 	returned["mcolor3"] = third_color
 	return returned
-

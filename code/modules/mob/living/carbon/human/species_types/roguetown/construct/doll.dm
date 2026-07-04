@@ -104,7 +104,7 @@
 	)
 
 /datum/species/construct/metal/porcelain/check_roundstart_eligible()
-	return TRUE
+	return FALSE
 
 /datum/species/construct/metal/porcelain/get_skin_list()
 	return list(
