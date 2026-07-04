@@ -78,8 +78,31 @@ fi
 echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${GREEN}Override complete!${RS}"
 
 
+# Fetch the latest Goldman-licensed files (if GOLDMAN_API_KEY is set) and
+# recompile, since .dm/.dmm source changes only take effect once recompiled
+# into the .dmb/.rsc binary. The fetched source is deleted again right
+# after compiling (via cleanup_goldman_files.sh) so it doesn't sit around
+# in plaintext on this machine.
+cleanup_goldman_files () {
+  bash /cleanup_goldman_files.sh
+}
+
+echo -e "${PURPLE}[${YELLOW}---${PURPLE}]${RS} Fetching latest Goldman-licensed files..."
+bash /fetch_goldman_files.sh
+
+echo -e "${PURPLE}[${YELLOW}---${PURPLE}]${RS} Recompiling roguetown.dme..."
+COMPILE_STATUS=0
+DreamMaker -max_errors 0 roguetown.dme || COMPILE_STATUS=$?
+
+cleanup_goldman_files
+
+if [[ "${COMPILE_STATUS}" -ne 0 ]]; then
+  echo -e "${PURPLE}[${RED}---${PURPLE}]${RS} ${RED}DreamMaker compilation failed (see output above). Aborting startup.${RS}"
+  exit 1
+fi
+
 # Start DreamDaemon
 echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${GREEN}Starting DreamDaemon ...${RS}"
 echo -e "${PURPLE}[${GREEN}---${PURPLE}]${RS} ${YELLOW}Enjoy! <3${RS}"
 cd /tgstation
-DreamDaemon tgstation.dmb -port 1337 -trusted -close -verbose
+DreamDaemon roguetown.dmb -port 1337 -trusted -close -verbose

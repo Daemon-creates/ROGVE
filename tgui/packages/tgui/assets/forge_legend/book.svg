@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!--
+    Gilded tome badge used on the "Load File" footer action button.
+  -->
+  <defs>
+    <linearGradient id="cover" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a4a2a" />
+      <stop offset="60%" stop-color="#5c3620" />
+      <stop offset="100%" stop-color="#3b2418" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M16 6.5 C13 4.6 8.5 4 3.5 4.6 L3.5 25.6 C8.5 25 13 25.6 16 27.5"
+    fill="url(#cover)"
+    stroke="#d8b978"
+    stroke-width="1.2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M16 6.5 C19 4.6 23.5 4 28.5 4.6 L28.5 25.6 C23.5 25 19 25.6 16 27.5"
+    fill="url(#cover)"
+    stroke="#d8b978"
+    stroke-width="1.2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M16 6.5 L16 27.5"
+    fill="none"
+    stroke="#1a0f08"
+    stroke-width="1"
+  />
+  <g fill="none" stroke="#f2d999" stroke-width="0.7" opacity="0.75">
+    <path d="M6 8.4 C9 7.6 12 7.8 14.3 9" />
+    <path d="M6 12.4 C9 11.6 12 11.8 14.3 13" />
+    <path d="M6 16.4 C9 15.6 12 15.8 14.3 17" />
+    <path d="M17.7 9 C20 7.8 23 7.6 26 8.4" />
+    <path d="M17.7 13 C20 11.8 23 11.6 26 12.4" />
+    <path d="M17.7 17 C20 15.8 23 15.6 26 16.4" />
+  </g>
+</svg>

@@ -65,7 +65,7 @@ FROM dm_base as build
 
 COPY . .
 
-RUN DreamMaker -max_errors 0 tgstation.dme && tools/deploy.sh /deploy
+RUN DreamMaker -max_errors 0 roguetown.dme && tools/deploy.sh /deploy
 
 FROM dm_base
 
@@ -81,6 +81,7 @@ RUN apt-get update \
     libmariadb2 \
     mariadb-client \
     libssl1.0.0 \
+    curl \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /root/.byond/bin
 
@@ -88,9 +89,24 @@ COPY --from=rust_g /rust_g/target/release/librust_g.so /root/.byond/bin/rust_g
 COPY --from=bsql /bsql/artifacts/src/BSQL/libBSQL.so ./
 COPY --from=build /deploy ./
 
-#bsql fexists memes
+# bsql fexists memes
 RUN ln -s /tgstation/libBSQL.so /root/.byond/bin/libBSQL.so
+
+# Goldman runtime sync scripts
+COPY fetch_goldman_files.sh /fetch_goldman_files.sh
+COPY cleanup_goldman_files.sh /cleanup_goldman_files.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /fetch_goldman_files.sh /cleanup_goldman_files.sh /docker-entrypoint.sh
 
 VOLUME [ "/tgstation/config", "/tgstation/data" ]
 
-ENTRYPOINT [ "DreamDaemon", "tgstation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
+# Optional: mount a .env file (copy .env.example to .env and fill it in) to
+# /tgstation/.env so docker-entrypoint.sh can load GOLDMAN_API_URL /
+# GOLDMAN_API_KEY from it instead of (or in addition to) container env vars,
+# e.g. `docker run -v $(pwd)/.env:/tgstation/.env:ro ...`.
+
+# docker-entrypoint.sh already builds the full DreamDaemon command (binary,
+# port, and flags); CMD is only for any *additional* args, so it must not
+# duplicate that command or DreamDaemon will receive it twice.
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD []

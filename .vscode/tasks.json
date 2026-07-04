@@ -2,6 +2,48 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"type": "shell",
+			"command": "bash",
+			"args": ["fetch_goldman_files.sh"],
+			"windows": {
+				"command": "./fetch_goldman_files.sh",
+				"args": [],
+				"options": {
+					"shell": {
+						"executable": "${env:ProgramFiles}\\Git\\bin\\bash.exe",
+						"args": ["-c"]
+					}
+				}
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"group": "build",
+			"label": "goldman: fetch files"
+		},
+		{
+			"type": "shell",
+			"command": "bash",
+			"args": ["cleanup_goldman_files.sh"],
+			"windows": {
+				"command": "./cleanup_goldman_files.sh",
+				"args": [],
+				"options": {
+					"shell": {
+						"executable": "${env:ProgramFiles}\\Git\\bin\\bash.exe",
+						"args": ["-c"]
+					}
+				}
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"group": "build",
+			"label": "goldman: cleanup files"
+		},
+		{
 			"type": "process",
 			"command": "tools/build/build.sh",
 			"windows": {
@@ -13,11 +55,18 @@
 				}
 			},
 			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": "build",
+			"dependsOn": ["goldman: fetch files", "dm: reparse"],
+			"dependsOrder": "sequence",
+			"label": "build: compile all"
+		},
+		{
+			"dependsOn": ["build: compile all", "goldman: cleanup files"],
+			"dependsOrder": "sequence",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": "dm: reparse",
 			"label": "Build All"
 		},
 		{
@@ -34,11 +83,18 @@
 				}
 			},
 			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": "build",
+			"dependsOn": ["goldman: fetch files", "dm: reparse"],
+			"dependsOrder": "sequence",
+			"label": "build: compile all (Local Testing)"
+		},
+		{
+			"dependsOn": ["build: compile all (Local Testing)", "goldman: cleanup files"],
+			"dependsOrder": "sequence",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": "dm: reparse",
 			"label": "Build All (Local Testing)"
 		},
 		{
@@ -55,11 +111,18 @@
 				}
 			},
 			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": "build",
+			"dependsOn": ["goldman: fetch files", "dm: reparse"],
+			"dependsOrder": "sequence",
+			"label": "build: compile all (Local Testing - No Dungeon)"
+		},
+		{
+			"dependsOn": ["build: compile all (Local Testing - No Dungeon)", "goldman: cleanup files"],
+			"dependsOrder": "sequence",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": "dm: reparse",
 			"label": "Build All (Local Testing - No Dungeon)"
 		},
 		{
@@ -145,7 +208,16 @@
             "group": {
                 "kind": "build"
             },
-            "dependsOn": "dm: reparse",
+            "dependsOn": ["goldman: fetch files", "dm: reparse"],
+            "dependsOrder": "sequence",
+            "label": "build: compile all (unit tests)"
+        },
+        {
+            "dependsOn": ["build: compile all (unit tests)", "goldman: cleanup files"],
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "build"
+            },
             "label": "Build All (unit tests)"
         },
 	]
