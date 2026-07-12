@@ -214,6 +214,8 @@
 #define ABSOLVER (1<<2)
 
 #define GUILDSMEN	(1<<11)
+#define MAGEGUILD	(1<<12)
+#define DRUID		(1<<13)
 
 #define GUILDMASTER (1<<1)
 #define GUILDSMAN  	(1<<2)
