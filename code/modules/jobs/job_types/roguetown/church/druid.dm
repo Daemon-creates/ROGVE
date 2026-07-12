@@ -2,7 +2,7 @@
 	title = "Druid"
 	f_title = "Druidess"
 	flag = DRUID
-	department_flag = CHURCHMEN
+	department_flag = DRUID
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4
