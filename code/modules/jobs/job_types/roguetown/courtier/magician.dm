@@ -1,7 +1,7 @@
 /datum/job/roguetown/magician
 	title = "Court Magician"
 	flag = WIZARD
-	department_flag = COURTIERS
+	department_flag = MAGEGUILD
 	selection_color = JCOLOR_COURTIER
 	faction = "Station"
 	total_positions = 1

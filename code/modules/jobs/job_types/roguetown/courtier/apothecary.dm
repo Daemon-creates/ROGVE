@@ -1,7 +1,7 @@
 /datum/job/roguetown/apothecary
 	title = "Apothecary"
 	flag = APOTHECARY
-	department_flag = COURTIERS
+	department_flag = GUILDSMEN
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2

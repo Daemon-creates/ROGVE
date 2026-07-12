@@ -1,7 +1,7 @@
 /datum/job/roguetown/churchling
 	title = "Churchling"
 	flag = CHURCHLING
-	department_flag = YOUNGFOLK
+	department_flag = CHURCHMEN
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
