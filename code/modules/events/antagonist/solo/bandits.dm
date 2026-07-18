@@ -25,21 +25,48 @@
 	var/leader = FALSE
 
 /datum/round_event/antagonist/solo/bandits/start()
-	var/datum/job/bandit_job = SSjob.GetJob("Bandit")
-	bandit_job.total_positions = length(setup_minds)
-	bandit_job.spawn_positions = length(setup_minds)
+	var/datum/job/leader_job = SSjob.GetJob("Bandit Leader")
+	var/datum/job/specialist_job = SSjob.GetJob("Bandit Specialist")
+	var/datum/job/rabble_job = SSjob.GetJob("Bandit Rabble")
+
+	// Cache the specialist job's configured slot count before we start mutating
+	// total_positions below, so it stays the single source of truth for the cap.
+	var/max_specialists = initial(specialist_job.total_positions)
+
+	var/leader_count = 0
+	var/specialist_count = 0
+	var/rabble_count = 0
 	SSmapping.retainer.bandit_goal = rand(200,400) + (length(setup_minds) * rand(200,400))
 	for(var/datum/mind/antag_mind as anything in setup_minds)
 		var/datum/job/J = SSjob.GetJob(antag_mind.current?.job)
 		J?.current_positions = max(J?.current_positions-1, 0)
 		antag_mind.current.unequip_everything()
 		SSjob.AssignRole(antag_mind.current, "Bandit")
-		SSmapping.retainer.bandits |= antag_mind.current
+		var/assigned_title
+		if(!leader_count)
+			assigned_title = "Bandit Leader"
+			leader_count++
+		else if(specialist_count < max_specialists)
+			assigned_title = "Bandit Specialist"
+			specialist_count++
+		else
+			assigned_title = "Bandit Rabble"
+			rabble_count++
+
+		SSjob.AssignRole(antag_mind.current, assigned_title)
 		antag_mind.add_antag_datum(/datum/antagonist/bandit)
 
-		SSrole_class_handler.setup_class_handler(antag_mind.current, list(CTAG_BANDIT = 20))
-		antag_mind.current:advsetup = TRUE
-		antag_mind.current.hud_used?.set_advclass()
+		if(assigned_title == "Bandit Specialist")
+			SSrole_class_handler.setup_class_handler(antag_mind.current, list(CTAG_BANDIT_SPECIALIST = 20))
+			antag_mind.current:advsetup = TRUE
+			antag_mind.current.hud_used?.set_advclass()
+
+		leader_job.total_positions = leader_count
+		leader_job.spawn_positions = leader_count
+		specialist_job.total_positions = specialist_count
+		specialist_job.spawn_positions = specialist_count
+		rabble_job.total_positions = rabble_count
+		rabble_job.spawn_positions = rabble_count
 
 	SSrole_class_handler.bandits_in_round = TRUE
 

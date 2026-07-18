@@ -86,7 +86,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/banditlate
 	name = "Bandit"
 	icon_state = "arrow"
-	jobspawn_override = list("Bandit")
+	jobspawn_override = list("Bandit Leader", "Bandit Specialist", "Bandit Rabble")
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/bogguardlate
@@ -530,7 +530,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "bandit"
 	icon = 'icons/mob/landmarks.dmi'
 	icon_state = "arrow"
-	jobspawn_override = list("Bandit")
+	jobspawn_override = list("Bandit Leader", "Bandit Specialist", "Bandit Rabble")
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/bandit/Initialize(mapload)

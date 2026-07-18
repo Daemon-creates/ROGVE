@@ -1,9 +1,9 @@
-/datum/advclass/sawbones // doctor class. like the pilgrim, but more evil
+/datum/advclass/bandit_specialist/sawbones // doctor class. like the pilgrim, but more evil
 	name = "Sawbones"
 	tutorial = "It was an accident! Your patient wasn't using his second kidney, anyway. After an unfortunate 'misunderstanding' with the town and your medical practice, you know practice medicine on the run with your new associates. Business has never been better!"
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
-	outfit = /datum/outfit/job/roguetown/bandit/sawbones
+	outfit = /datum/outfit/job/roguetown/bandit_specialist/sawbones
 	category_tags = list(CTAG_BANDIT)
 	cmode_music = 'sound/music/combat_physician.ogg'
 	subclass_social_rank = SOCIAL_RANK_PEASANT
@@ -30,7 +30,7 @@
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 	)
 
-/datum/outfit/job/roguetown/bandit/sawbones/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/bandit_specialist/sawbones/pre_equip(mob/living/carbon/human/H)
 	..()
 	mask = /obj/item/clothing/mask/rogue/facemask/steel
 	head = /obj/item/clothing/head/roguetown/nightman
@@ -57,7 +57,7 @@
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 
-/datum/outfit/job/roguetown/bandit/sawbones/post_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/bandit_specialist/sawbones/post_equip(mob/living/carbon/human/H)
 	. = ..()
 	for(var/datum/bounty/b in GLOB.head_bounties)
 		if(b.target == H.real_name || b.target_hidden == H.real_name)

@@ -22,7 +22,7 @@
 			continue
 		if(!H.patron || !istype(H.patron, /datum/patron/inhumen/matthios))
 			continue
-		if(istype(H.mind?.assigned_role, /datum/job/roguetown/bandit) || H.job == "Bandit")
+		if(istype(H.mind?.assigned_role, /datum/job/roguetown/bandit_leader) || istype(H.mind?.assigned_role, /datum/job/roguetown/bandit_specialist) || istype(H.mind?.assigned_role, /datum/job/roguetown/bandit_rabble) || (H.job in list("Bandit Leader", "Bandit Specialist", "Bandit Rabble")))
 			continue
 		if(H.get_skill_level(/datum/skill/misc/stealing) < 2)
 			continue
@@ -38,7 +38,7 @@
 			continue
 		if(!human_mob.patron || !istype(human_mob.patron, /datum/patron/inhumen/matthios))
 			continue
-		if(istype(human_mob.mind?.assigned_role, /datum/job/roguetown/bandit) || human_mob.job == "Bandit")
+		if(istype(human_mob.mind?.assigned_role, /datum/job/roguetown/bandit_leader) || istype(human_mob.mind?.assigned_role, /datum/job/roguetown/bandit_specialist) || istype(human_mob.mind?.assigned_role, /datum/job/roguetown/bandit_rabble) || (human_mob.job in list("Bandit Leader", "Bandit Specialist", "Bandit Rabble")))
 			continue
 		if(human_mob.get_skill_level(/datum/skill/misc/stealing) < 2)
 			continue

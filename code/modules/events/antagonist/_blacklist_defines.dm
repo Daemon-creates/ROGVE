@@ -15,7 +15,9 @@
 		"Absolver",\
 		"Veteran",\
 		"Bathmaster",\
-		"Bandit",\
+		"Bandit Leader",\
+		"Bandit Specialist",\
+		"Bandit Rabble",\
 		"Guildmaster",\
 		"Court Magician",\
 		"Keeper",\

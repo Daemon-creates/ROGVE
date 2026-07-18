@@ -1,9 +1,9 @@
-/datum/advclass/iconoclast //Support Cleric, Heavy armor, unarmed, miracles.
-	name = "Iconoclast"
+/datum/advclass/bandit_specialist/zealot //Support Cleric, Heavy armor, unarmed, miracles.
+	name = "Zealot"
 	tutorial = "Trained by an Ecclesial sect, you uphold the Ideological purity of the Matthian Creed. Take from the wealthy, give to the worthless, empower. They will look up to you, in search of the God of Robbery's guidance. Be their light in the dark."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = ACCEPTED_RACES
-	outfit = /datum/outfit/job/roguetown/bandit/iconoclast
+	outfit = /datum/outfit/job/roguetown/bandit_specialist/zealot
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	category_tags = list(CTAG_BANDIT)
 	maximum_possible_slots = 1 // We only want one of these.
@@ -38,7 +38,7 @@
 	)
 	cmode_music = 'sound/music/Iconoclast.ogg'
 
-/datum/outfit/job/roguetown/bandit/iconoclast/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/bandit_specialist/zealot/pre_equip(mob/living/carbon/human/H)
 	..()
 	if (!(istype(H.patron, /datum/patron/inhumen/matthios)))	//This is the only class that forces Matthios. Needed for miracles + limited slot.
 		to_chat(H, span_warning("Matthios embraces me.. I must uphold his creed. I am his light in the darkness."))
@@ -63,7 +63,7 @@
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)	//Starts off maxed out.
 
-/datum/outfit/job/roguetown/bandit/iconoclast/post_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/bandit_specialist/zealot/post_equip(mob/living/carbon/human/H)
 	. = ..()
 	for(var/datum/bounty/b in GLOB.head_bounties)
 		if(b.target == H.real_name || b.target_hidden == H.real_name)

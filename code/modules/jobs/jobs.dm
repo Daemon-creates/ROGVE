@@ -175,7 +175,9 @@ GLOBAL_LIST_INIT(wanderer_positions, list(
 	"Assassin",
 	"Court Agent",
 	"Enslaved Adventurer",
-	"Bandit",
+	"Bandit Leader",
+	"Bandit Specialist",
+	"Bandit Rabble",
 	"Wretch",
 	"Gnoll",
 ))
@@ -207,7 +209,9 @@ GLOBAL_LIST_INIT(roguefight_positions, list(
 GLOBAL_LIST_INIT(foreign_positions, list(
 	"Adventurer",
 	"Mercenary",
-	"Bandit",
+	"Bandit Leader",
+	"Bandit Specialist",
+	"Bandit Rabble",
 	"Wretch",
 	"Inquisitor",
 	"Suitor",
