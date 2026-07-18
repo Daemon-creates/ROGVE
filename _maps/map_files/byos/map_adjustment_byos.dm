@@ -48,13 +48,13 @@
 		// /datum/job/roguetown/lunatic = list(display_title = "Madman", f_title = "Madwoman"),
 
 		// Outcasts & Misc
-		/datum/job/roguetown/bandit = list(display_title = "Pirate", f_title = "Pirate"),
+		/datum/job/roguetown/bandit_leader = list(display_title = "Pirate", f_title = "Pirate"),
 		/datum/job/roguetown/orphan = list(display_title = "Stowaway", f_title = "Stowaway"),
 		/datum/job/roguetown/beggar = list(display_title = "Stowaway", f_title = "Stowaway"),
 	)
 	tutorial_adjust = list(
 		/datum/job/roguetown/lord = "You have been sent by the queen to oversee the colony of New Kingsfield. CHANGE THIS LATER.",
-		/datum/job/roguetown/bandit = "At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. Yet one of many faces in a SALTY PORT tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
+		/datum/job/roguetown/bandit_leader = "At some point in your lyfe, you'd fallen to the wrong side of the PIRATESHIP!. Whether by butchery or finesse, you're known throughout the SEVEN SEAS. Yet one of many faces in a SALTY PORT tavern, hung up on a wall. A tale told by the locals. Now, you lyve in a PIRATES COVE with your fellows, to avoid an unpleasant end."
 		// /datum/job/roguetown/orphan = "CHANGE THIS LATER!",
 
 	)
