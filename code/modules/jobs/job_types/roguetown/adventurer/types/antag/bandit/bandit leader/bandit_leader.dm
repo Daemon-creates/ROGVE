@@ -41,20 +41,20 @@
 		if(!H.mind)
 			return
 		H.ambushable = FALSE
-
+	
 /datum/outfit/job/roguetown/bandit_leader/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	H.verbs |= /mob/proc/haltyell_exhausting
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/black
-	gloves = /obj/item/clothing/gloves/roguetown/chain/blk
-	pants = /obj/item/clothing/under/roguetown/chainlegs/blk
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored/black
+	pants = /obj/item/clothing/under/roguetown/platelegs
+	gloves = /obj/item/clothing/gloves/roguetown/plate
 	cloak = /obj/item/clothing/cloak/tabard/blkknight
 	neck = /obj/item/clothing/neck/roguetown/gorget
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/blkknight
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/blkknight
-	belt = /obj/item/storage/belt/rogue/leather
+	belt = /obj/item/storage/belt/rogue/leather/steel
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	id = /obj/item/mattcoin
 	backpack_contents = list(
