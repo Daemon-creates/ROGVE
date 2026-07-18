@@ -48,7 +48,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	gloves = /obj/item/clothing/wrists/roguetown/bracers/leather
+	gloves = /obj/item/clothing/gloves/roguetown/chain/iron
 	backr = /obj/item/storage/backpack/rogue/satchel
 	backl = /obj/item/rogueweapon/mace/goden
 	backpack_contents = list(
