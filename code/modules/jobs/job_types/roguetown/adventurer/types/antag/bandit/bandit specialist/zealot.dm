@@ -45,13 +45,12 @@
 		H.set_patron(/datum/patron/inhumen/matthios)
 	belt = /obj/item/storage/belt/rogue/leather
 	pants = /obj/item/clothing/under/roguetown/trou/leather
-	r_hand = /obj/item/rogueweapon/mace/goden
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron
-	shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt/random
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
-	hands = /obj/item/clothing/gloves/roguetown/chain/iron
+	wrists = /obj/item/clothing/wrists/roguetown/bracers
+	gloves = /obj/item/clothing/wrists/roguetown/bracers/leather
 	backr = /obj/item/storage/backpack/rogue/satchel
+	backl = /obj/item/rogueweapon/mace/goden
 	backpack_contents = list(
 					/obj/item/needle/thorn = 1,
 					/obj/item/natural/cloth = 1,
@@ -59,8 +58,7 @@
 					/obj/item/ritechalk = 1,
 					)
 	head = /obj/item/clothing/head/roguetown/roguehood
-	armor = /obj/item/clothing/suit/roguetown/armor/plate
-	beltr = /obj/item/rogueweapon/katar
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron
 	id = /obj/item/mattcoin
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)	//Starts off maxed out.
