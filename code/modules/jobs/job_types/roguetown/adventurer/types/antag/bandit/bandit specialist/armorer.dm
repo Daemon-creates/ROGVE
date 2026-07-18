@@ -46,8 +46,10 @@
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	cloak = /obj/item/clothing/cloak/apron/blacksmith
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	backl = /obj/item/storage/backpack/rogue/backpack
+	backr = /obj/item/rogueweapon/pick/steel
 	id = /obj/item/mattcoin
 	backpack_contents = list(
 					/obj/item/flint = 1,
