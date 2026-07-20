@@ -31,15 +31,16 @@
 	H.verbs |= /mob/proc/haltyell_exhausting
 	head = /obj/item/clothing/head/roguetown/chaperon/noble/bailiff
 	cloak = /obj/item/clothing/cloak/stabard/guardhood/town
+	backr = /obj/item/storage/backpack/rogue/satchel
 	neck = /obj/item/clothing/neck/roguetown/leather
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron
 	wrists = /obj/item/rope/chain
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
-	gloves = /obj/item/clothing/gloves/roguetown/chain/blk
+	gloves = /obj/item/clothing/gloves/roguetown/chain
 	beltr = /obj/item/rogueweapon/mace/cudgel
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/flashlight/flare/torch/lantern/prelit
-	pants = /obj/item/clothing/under/roguetown/trou
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	H.adjust_blindness(-3)
 
