@@ -45,16 +45,16 @@
 /datum/outfit/job/roguetown/bandit_leader/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	H.verbs |= /mob/proc/haltyell_exhausting
-	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored/black
-	pants = /obj/item/clothing/under/roguetown/platelegs
-	gloves = /obj/item/clothing/gloves/roguetown/plate
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored/bandit
+	pants = /obj/item/clothing/under/roguetown/platelegs/bandit
+	gloves = /obj/item/clothing/gloves/roguetown/plate/bandit
 	cloak = /obj/item/clothing/cloak/tabard/blkknight
-	neck = /obj/item/clothing/neck/roguetown/gorget
-	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
+	neck = /obj/item/clothing/neck/roguetown/gorget/bandit
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/bandit
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/blkknight
-	wrists = /obj/item/clothing/wrists/roguetown/bracers
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/bandit
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/blkknight
-	belt = /obj/item/storage/belt/rogue/leather/steel
+	belt = /obj/item/storage/belt/rogue/leather/steel/bandit
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	id = /obj/item/mattcoin
 	backpack_contents = list(
@@ -117,3 +117,24 @@
 			my_crime = "Leading a band of Brigands"
 		add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, rand(500, 700), TRUE, my_crime, "The Justiciary of [SSmapping.map_adjustment.realm_name]")
 		to_chat(H, span_danger("You are playing an Antagonist role. By choosing to spawn as the Bandit Leader, you are expected to actively create conflict with other players regardless of bounty status. Failing to play this role with the appropriate gravitas may result in punishment for Low Roleplay standards."))
+
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/bandit
+	color = "#685542"
+
+/obj/item/clothing/under/roguetown/platelegs/bandit
+	color = "#685542"
+
+/obj/item/clothing/gloves/roguetown/plate/bandit
+	color = "#685542"
+
+/obj/item/clothing/neck/roguetown/gorget/bandit
+	color = "#685542"
+
+/obj/item/clothing/suit/roguetown/armor/chainmail/bandit
+	color = "#685542"
+
+/obj/item/clothing/wrists/roguetown/bracers/bandit
+	color = "#685542"
+
+/obj/item/storage/belt/rogue/leather/steel/bandit
+	color = "#685542"
