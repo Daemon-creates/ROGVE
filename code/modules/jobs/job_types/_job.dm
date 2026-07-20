@@ -174,6 +174,41 @@
 	///The social rank of the job, determines the examine text when examining others or being examined
 	var/social_rank = SOCIAL_RANK_DIRT
 
+	/// Optional grouping key used to organize this job in the round-start role preference list.
+	/// If left unset, get_faction_group() derives one from department_flag/antag_job.
+	var/job_group = null
+
+/**
+ * Returns the faction/section key this job should be displayed under in the
+ * "Add Role Loadout" picker. Valid keys: "keep", "garrison", "church",
+ * "mageguild", "merchantguild", "thievesguild", "mercenary", "town", "antag".
+ */
+/datum/job/proc/get_faction_group()
+	if(job_group)
+		return job_group
+	if(antag_job)
+		return "antag"
+	switch(department_flag)
+		if(NOBLEMEN, COURTIERS)
+			return "keep"
+		if(GARRISON)
+			return "garrison"
+		if(CHURCHMEN, INQUISITION)
+			return "church"
+		if(GUILDSMEN, YEOMEN)
+			return "merchantguild"
+		if(MAGEGUILD)
+			return "mageguild"
+		if(WANDERERS)
+			return "mercenary"
+		if(DRUID)
+			return "druid"
+		if(PEASANTS)
+			return "town"
+		if(SLOP)
+			return "antag"
+	return "town"
+
 /datum/job/proc/special_job_check(mob/dead/new_player/player)
 	return TRUE
 

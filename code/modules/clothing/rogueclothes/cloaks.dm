@@ -1630,6 +1630,13 @@
 	item_state = "guard_hood"
 	body_parts_covered = CHEST
 
+/obj/item/clothing/cloak/stabard/guardhood/town
+	name = "town guard hood"
+	desc = "A hood of the town guard."
+	color = CLOTHING_BLUE
+	detail_color = CLOTHING_BLUE
+
+
 /obj/item/clothing/cloak/stabard/guardhood/attack_right(mob/user)
 	if(picked)
 		return
