@@ -9,7 +9,7 @@
 	addtimer(CALLBACK(src, PROC_REF(set_up), H), 30 SECONDS)
 
 /datum/charflaw/lawless/proc/set_up(mob/living/carbon/human/H)
-	if (has_bounty(H) || (H.job && H.job == "Wretch") || (H.advjob && H.advjob == "Wanted") || (H.job && H.job == "Bandit"))
+	if (has_bounty(H) || (H.job && H.job == "Wretch") || (H.advjob && H.advjob == "Wanted") || (H.job && (H.job == "Bandit Leader" || H.job == "Bandit Specialist" || H.job == "Bandit Rabble")))
 		// no doubling up on this stuff, you just get a random flaw instead.
 		var/list/flaws_without_random = GLOB.character_flaws.Copy()
 		flaws_without_random -= "Random or No Flaw"
