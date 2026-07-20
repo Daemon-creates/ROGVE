@@ -1943,7 +1943,7 @@
 #include "code\modules\jobs\job_types\roguetown\garrison\manorguard\manorguard.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\manorguard\skirmisher.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\manorguard\standard_bearer.dm"
-#include "code\modules\jobs\job_types\roguetown\garrison\town\baliff\baliff.dm"
+#include "code\modules\jobs\job_types\roguetown\garrison\town\bailiff\bailiff.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\town\town watch\townwatch.dm"
 #include "code\modules\jobs\job_types\roguetown\Inquisition\absolutionist.dm"
 #include "code\modules\jobs\job_types\roguetown\Inquisition\orthodoxist.dm"
