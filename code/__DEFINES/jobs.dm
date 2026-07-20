@@ -128,7 +128,6 @@
 #define PRIEST		(1<<0)
 #define MONK		(1<<1)
 #define GRAVEDIGGER	(1<<2)
-#define DRUID		(1<<3)
 
 #define COURTIERS	(1<<3)
 

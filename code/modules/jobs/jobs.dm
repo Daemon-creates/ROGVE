@@ -95,6 +95,8 @@ GLOBAL_LIST_INIT(garrison_positions, list(
 	"Veteran",
 	"Man at Arms",
 	"Squire",
+	"Boggard",
+	"Bog Master",
 	"Vanguard",
 	"Dungeoneer",
 	"Master Warden",

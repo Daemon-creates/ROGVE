@@ -1930,6 +1930,8 @@
 #include "code\modules\jobs\job_types\roguetown\garrison\warden.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\wardenmaster.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\watchcaptain.dm"
+#include "code\modules\jobs\job_types\roguetown\garrison\bog\boggard\boggard.dm"
+#include "code\modules\jobs\job_types\roguetown\garrison\bog\boggard\bogmaster.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\knight\knight.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\knight\knight_champion.dm"
 #include "code\modules\jobs\job_types\roguetown\garrison\knight\knight_foot.dm"

@@ -56,6 +56,8 @@
 		daily_payments["Master Warden"] = 35 //Garrison
 		daily_payments["City Guard"] = 30
 		daily_payments["Vanguard"] = 20
+		daily_payments["Boggard"] = 20
+		daily_payments["Bog Master"] = 20
 	daily_payments["Rookie"] = 20//paid more than squires because they don't get to live in a castle with maids cooking them dinner
 	daily_payments["Veteran"] = 30
 	daily_payments["Squire"] = 10
