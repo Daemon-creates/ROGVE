@@ -29,18 +29,15 @@
 /datum/outfit/job/roguetown/townwatch/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	H.verbs |= /mob/proc/haltyell_exhausting
-	neck = /obj/item/clothing/neck/roguetown/gorget
-	pants = /obj/item/clothing/under/roguetown/chainlegs
-	cloak = /obj/item/clothing/cloak/citywatch
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/citywatch
-	head = /obj/item/clothing/head/roguetown/helmet/citywatch
+	neck = /obj/item/clothing/neck/roguetown/coif/padded
+	cloak = /obj/item/clothing/cloak/stabard/guardhood/town
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/cuirass
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
-	gloves = /obj/item/clothing/gloves/roguetown/chain
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
-	belt = /obj/item/storage/belt/rogue/leather/black
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/citywatch
-
+	wrists = /obj/item/rope/chain
+	gloves = /obj/item/clothing/gloves/roguetown/leather
 	beltr = /obj/item/rogueweapon/mace/cudgel
 	belt = /obj/item/storage/belt/rogue/leather
-	backr = /obj/item/storage/backpack/rogue/satchel
+	beltl = /obj/item/flashlight/flare/torch/prelit
+	pants = /obj/item/clothing/under/roguetown/trou
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	H.adjust_blindness(-3)
