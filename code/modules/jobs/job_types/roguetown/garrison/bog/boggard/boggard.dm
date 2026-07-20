@@ -38,7 +38,7 @@
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
-	belt = /obj/item/storage/belt/rogue/leather/suspenders
+	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/flashlight/flare/torch/lantern/prelit
 	beltr = /obj/item/rogueweapon/sword/short/messer/iron
 	pants = /obj/item/clothing/under/roguetown/trou/leather

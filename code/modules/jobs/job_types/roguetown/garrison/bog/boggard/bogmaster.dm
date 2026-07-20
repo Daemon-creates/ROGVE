@@ -29,18 +29,18 @@
 /datum/outfit/job/roguetown/bogmaster/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	H.verbs |= /mob/proc/haltyell_exhausting
-	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored
-	pants = /obj/item/clothing/under/roguetown/chainlegs
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored/iron
+	backr = /obj/item/storage/backpack/rogue/satchel
 	cloak = /obj/item/clothing/cloak/stabard/bog
-	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
-	neck = /obj/item/clothing/neck/roguetown/bervor
-	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	gloves = /obj/item/clothing/gloves/roguetown/chain
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
-	beltl = /obj/item/keyring/guardcastle
+	backl = /obj/item/rogueweapon/shield/tower
+	neck = /obj/item/clothing/neck/roguetown/gorget
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron
+	wrists = /obj/item/clothing/wrists/roguetown/splintarms
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
 	beltr = /obj/item/rogueweapon/mace/steel
 	belt = /obj/item/storage/belt/rogue/leather
-	backr = /obj/item/storage/backpack/rogue/satchel
-	backl = /obj/item/rogueweapon/shield/tower
+	beltl = /obj/item/flashlight/flare/torch/lantern/prelit
+	pants = /obj/item/clothing/under/roguetown/splintlegs
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	H.adjust_blindness(-3)
