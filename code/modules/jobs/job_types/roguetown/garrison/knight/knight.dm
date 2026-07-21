@@ -18,18 +18,13 @@
 	job_traits = list(TRAIT_NOBLE, TRAIT_STEELHEARTED, TRAIT_GUARDSMAN)
 	give_bank_account = 22
 	noble_income = 10
-	min_pq = 8
+	min_pq = 0
 	max_pq = null
 	round_contrib_points = 2
 
 	cmode_music = 'sound/music/combat_knight.ogg'
 	social_rank = SOCIAL_RANK_MINOR_NOBLE
-	job_subclasses = list(
-		/datum/advclass/knight/heavy,
-		/datum/advclass/knight/footknight,
-		/datum/advclass/knight/mountedknight,
-		/datum/advclass/knight/irregularknight
-		)
+	job_subclasses = list()
 
 /datum/outfit/job/roguetown/knight
 	job_bitflag = BITFLAG_GARRISON
@@ -55,13 +50,6 @@
 		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, cloak_and_title_setup)), 50)
 
 /datum/outfit/job/roguetown/knight
-	neck = /obj/item/clothing/neck/roguetown/bevor
-	gloves = /obj/item/clothing/gloves/roguetown/plate
-	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
-	belt = /obj/item/storage/belt/rogue/leather/steel
-	backr = /obj/item/storage/backpack/rogue/satchel/black
-	id = /obj/item/scomstone/bad/garrison
 	backpack_contents = list(
 		/obj/item/storage/keyring/guardknight = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
@@ -69,6 +57,27 @@
 
 /datum/outfit/job/roguetown/knight/pre_equip(mob/living/carbon/human/H)
 	..()
+	head =/obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle
+	neck = /obj/item/clothing/neck/roguetown/bevor
+
+	cloak = /obj/item/clothing/cloak/tabard/knight/guard
+	backr = /obj/item/storage/backpack/rogue/satchel/black
+	backl = /obj/item/rogueweapon/shield/heater/crafted
+
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/full
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
+
+	gloves = /obj/item/clothing/gloves/roguetown/plate
+	wrists = /obj/item/clothing/wrists/roguetown/bracers
+	
+	pants = /obj/item/clothing/under/roguetown/platelegs
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
+
+	belt = /obj/item/storage/belt/rogue/leather/steel
+	beltl = /obj/item/rogueweapon/scabbard/sword
+	beltr = /obj/item/rogueweapon/scabbard/sheath
+
+	id = /obj/item/scomstone/bad/garrison
 	H.verbs |= /mob/living/carbon/human/proc/take_squire
 
 /mob/living/carbon/human/proc/take_squire()
