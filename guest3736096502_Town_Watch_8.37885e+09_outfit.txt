@@ -1,0 +1,11 @@
+head = /obj/item/clothing/head/roguetown/helmet/kettle/iron
+	neck = /obj/item/clothing/neck/roguetown/coif/padded
+	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/retinue
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/iron
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	gloves = /obj/item/clothing/gloves/roguetown/plate/iron
+	beltr = /obj/item/rogueweapon/mace/cudgel
+	belt = /obj/item/storage/belt/rogue/leather
+	beltl = /obj/item/flashlight/flare/torch/prelit
+	pants = /obj/item/clothing/under/roguetown/splintlegs
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
