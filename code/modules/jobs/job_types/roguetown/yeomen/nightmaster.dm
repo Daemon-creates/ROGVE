@@ -1,7 +1,7 @@
 /datum/job/roguetown/niteman
 	title = "Bathmaster"
 	flag = NITEMASTER
-	department_flag = YEOMEN
+	department_flag = SLOP
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1

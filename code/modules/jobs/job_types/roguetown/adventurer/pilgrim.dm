@@ -1,7 +1,7 @@
 /datum/job/roguetown/pilgrim
 	title = "Refugee"
 	flag = PILGRIM
-	department_flag = PEASANTS
+	department_flag = SLOP
 	faction = "Station"
 	total_positions = 40
 	spawn_positions = 40 //brings back round-start spawn of pilgrims!!!
