@@ -18,7 +18,6 @@
 	min_pq = 5
 	max_pq = null
 	give_bank_account = 100
-	can_leave_round = FALSE
 
 /datum/outfit/job/roguetown/mayor
 	name = "Mayor"
@@ -33,6 +32,6 @@
 	pants = /obj/item/clothing/under/roguetown/tights/black
 	shoes = /obj/item/clothing/shoes/roguetown/armor
 	belt = /obj/item/storage/belt/rogue/leather
-	beltr = /obj/item/ammopouch
+	beltr = /obj/item/quiver/bullet
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	backr = /obj/item/storage/backpack/rogue/satchel
