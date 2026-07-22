@@ -56,7 +56,7 @@
 		if("Low-Town accent")
 			return strings("poor_replacement.json", type, convert_HTML = TRUE)
 		if("Merchant accent")
-			return strings("merchang_replacement.json", type, convert_HTML = TRUE)
+			return strings("merchant_replacement.json", type, convert_HTML = TRUE)
 
 /datum/species/proc/get_accent_list(mob/living/carbon/human/H, type, convert_HTML = TRUE)
 	return get_accent_list_for_name(H.char_accent, type, convert_HTML)
