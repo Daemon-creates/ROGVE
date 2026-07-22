@@ -1,7 +1,7 @@
 /datum/job/roguetown/marshal // A somewhat ham-fisted merge between bailiff and the old town sheriff role. The latter was built like a modern day officer, but we medieval in this bitch!
 	title = "Marshal"
 	flag = MARSHAL
-	department_flag = NOBLEMEN
+	department_flag = GARRISON
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
