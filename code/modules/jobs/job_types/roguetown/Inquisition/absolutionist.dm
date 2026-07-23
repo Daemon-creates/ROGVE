@@ -1,13 +1,13 @@
 /datum/job/roguetown/absolver
-	title = "Absolver"
+	title = "Flagellant"
 	flag = ABSOLVER
 	department_flag = INQUISITION
 	faction = "Station"
-	total_positions = 1 // THE ONE.
-	spawn_positions = 1
+	total_positions = 2 // THE ONE.
+	spawn_positions = 2
 	allowed_races = RACES_NO_CONSTRUCT
 	allowed_patrons = list(/datum/patron/old_god) //Requires the character to be a practicing Psydonite.
-	tutorial = "Once, you were alone in this monastery; a chapel of stone, protecting a shard of Psydon's divinity. Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. Temper the floch with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."
+	tutorial = "You have taken Psydon’s suffering as your own, scourging weakness from your flesh so that the soul might remain pure. Where the Inquisitor seeks hidden heresy, you follow close behind bearing their instruments, tending their wounds, recording confessions, and preparing the wayward for absolution. Endure pain without complaint, draw truth from the faithless, and remind the condemned that mercy is found only through suffering."
 	selection_color = JCOLOR_INQUISITION
 	outfit = /datum/outfit/job/roguetown/absolver
 	display_order = JDO_ABSOLVER
@@ -37,7 +37,7 @@
 
 /datum/advclass/absolver
 	name = "Absolver"
-	tutorial = "Once, you were alone in this monastery; a chapel of stone, protecting a shard of Psydon's divinity. Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. Temper the floch with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."
+	tutorial = "You have taken Psydon’s suffering as your own, scourging weakness from your flesh so that the soul might remain pure. Where the Inquisitor seeks hidden heresy, you follow close behind bearing their instruments, tending their wounds, recording confessions, and preparing the wayward for absolution. Endure pain without complaint, draw truth from the faithless, and remind the condemned that mercy is found only through suffering."
 	outfit = /datum/outfit/job/roguetown/absolver/basic
 	subclass_languages = list(/datum/language/otavan)
 	category_tags = list(CTAG_ABSOLVER)

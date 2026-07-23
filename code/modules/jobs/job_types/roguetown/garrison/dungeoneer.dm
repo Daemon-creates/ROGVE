@@ -1,7 +1,7 @@
 /datum/job/roguetown/dungeoneer
-	title = "Dungeoneer"
+	title = "Headsman"
 	flag = DUNGEONEER
-	department_flag = GARRISON
+	department_flag = SLOP
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -23,7 +23,7 @@
 	min_pq = 15
 	max_pq = null
 	round_contrib_points = 2
-	social_rank = SOCIAL_RANK_YEOMAN
+	social_rank = SOCIAL_RANK_PEASANT
 	cmode_music = 'sound/music/combat_dungeoneer.ogg'
 	job_subclasses = list(
 		/datum/advclass/dungeoneer
@@ -51,8 +51,8 @@
 	job_bitflag = BITFLAG_GARRISON
 
 /datum/advclass/dungeoneer
-	name = "Dungeoneer"
-	tutorial = "Penance, filthy sense of sadism or a queer outlook on justice, something has led you to don the shunned mask and fulfill the whims of the your patron ruler. Their whims are your guidance, as you've no 'moral quandaries' to care for."
+	name = "Headsman"
+	tutorial = "Penance, filthy sense of sadism or a queer outlook on justice, something has led you to don the shunned mask and fulfill the whims of the bailiff and mayor. Their whims are your guidance, as you've no 'moral quandaries' to care for."
 	outfit = /datum/outfit/job/roguetown/dungeoneer/base
 
 	category_tags = list(CTAG_DUNGEONEER)
@@ -63,17 +63,12 @@
 	)
 	subclass_skills = list(
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_MASTER, //hilarious
-		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE, //familiar with the weapon as per the labor camp implications
-		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_MASTER,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN,//Enough for majority of surgeries without grinding.
-		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE,
 	)
 
 /datum/outfit/job/roguetown/dungeoneer/base/pre_equip(mob/living/carbon/human/H)

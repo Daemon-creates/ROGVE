@@ -96,7 +96,7 @@
 		"Otava" = SKIN_COLOR_OTAVA,
 		"Etrusca" = SKIN_COLOR_ETRUSCA,
 		"Gronn" = SKIN_COLOR_GRONN,
-		"North Zybantium (Chorodiaki)" = SKIN_COLOR_GIZA,
+		"Giza" = SKIN_COLOR_GIZA,
 		"West Zybantium (Vrdaqnan)" = SKIN_COLOR_SHALVISTINE,
 		"East Zybantium (Nshkormh)" = SKIN_COLOR_LALVESTINE,
 		"Naledi" = SKIN_COLOR_NALEDI,
