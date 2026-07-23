@@ -129,6 +129,7 @@
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))
 		head = /obj/item/clothing/head/roguetown/nun
+		backl = /obj/item/storage/backpack/rogue/satchel
 		neck = /obj/item/clothing/neck/roguetown/psicross
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/nun
 		beltr = /obj/item/storage/belt/rogue/pouch/coins/mid
@@ -137,6 +138,13 @@
 		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	else
 		head = /obj/item/clothing/head/roguetown/menacing/bandit
+		neck = /obj/item/clothing/neck/roguetown/psicross
+		backl = /obj/item/storage/backpack/rogue/satchel
+		cloak = /obj/item/clothing/cloak/psydontabard
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+		pants = /obj/item/clothing/under/roguetown/trou/leather
+		belt = /obj/item/storage/belt/rogue/leather/rope
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	backpack_contents = list(/obj/item/ritechalk, /obj/item/mini_flagpole/church)
 	H.cmode_music = 'sound/music/cmode/church/combat_acolyte.ogg' // has to be defined here for the selection below to work. sm1 please rewrite cmusic to apply pre-equip.
 
