@@ -1,0 +1,143 @@
+//Head of the druid grove. One of eight roles in the druid grove faction alongside druidkeeper.dm, totemwarrior.dm,
+//exile.dm, grover.dm, briar.dm and thorn.dm (see the parent church/druid.dm for the rank-and-file Druid role).
+/datum/job/roguetown/archdruid
+	title = "Archdruid"
+	f_title = "Archdruidess"
+	flag = ARCHDRUID
+	department_flag = DRUID
+	faction = "Station"
+	total_positions = 1
+	spawn_positions = 1
+
+	allowed_sexes = list(MALE, FEMALE)
+	allowed_races = ACCEPTED_RACES
+	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways
+	outfit = /datum/outfit/job/roguetown/archdruid
+	social_rank = SOCIAL_RANK_MINOR_NOBLE
+	tutorial = "You are the head of the grove, sworn to Dendor above all others. The sacrist, the totem warriors, the druids, and all who shelter within the circle answer to you. \
+	It falls to you to keep balance between the wild and the folk who live beside it--and to keep your circle from straying from Dendor's path, whatever the briar may whisper."
+
+	display_order = JDO_ARCHDRUID
+	give_bank_account = TRUE
+	min_pq = 15
+	max_pq = null
+	round_contrib_points = 5
+	cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg'
+
+	//Head of the grove or not, you're still clergy of a sort, not nobility.
+	virtue_restrictions = list(/datum/virtue/utility/noble)
+	job_traits = list(TRAIT_SEEDKNOW, TRAIT_OUTDOORSMAN, TRAIT_RITUALIST, TRAIT_HOMESTEAD_EXPERT, TRAIT_WILDERNESSGUIDE, TRAIT_WOODWALKER, TRAIT_STEELHEARTED)
+
+	advclass_cat_rolls = list(CTAG_ARCHDRUID = 1)
+	job_subclasses = list(
+		/datum/advclass/archdruid
+	)
+
+/datum/advclass/archdruid
+	name = "Archdruid"
+	tutorial = "You are the head of the grove, sworn to Dendor above all others. The sacrist, the totem warriors, the druids, and all who shelter within the circle answer to you. \
+	It falls to you to keep balance between the wild and the folk who live beside it--and to keep your circle from straying from Dendor's path, whatever the briar may whisper."
+	outfit = /datum/outfit/job/roguetown/archdruid/basic
+	category_tags = list(CTAG_ARCHDRUID)
+	subclass_languages = list(/datum/language/beast)
+	subclass_stats = list(
+		STATKEY_INT = 2,
+		STATKEY_WIL = 3,
+		STATKEY_PER = 1,
+		STATKEY_SPD = -1
+	)
+	subclass_skills = list(
+		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
+		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/labor/farming = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/magic/druidic = SKILL_LEVEL_MASTER, //Shapeshifting.
+		/datum/skill/misc/tracking = SKILL_LEVEL_MASTER,
+		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/magic/holy = SKILL_LEVEL_MASTER,
+	)
+
+/datum/outfit/job/roguetown/archdruid
+	name = "Archdruid"
+	jobtype = /datum/job/roguetown/archdruid
+	allowed_patrons = list(/datum/patron/divine/dendor)
+	has_loadout = TRUE
+
+/datum/outfit/job/roguetown/archdruid/basic
+
+/datum/outfit/job/roguetown/archdruid/basic/pre_equip(mob/living/carbon/human/H)
+	..()
+	H.adjust_blindness(-3)
+	belt = /obj/item/storage/belt/rogue/leather/
+	backr = /obj/item/rogueweapon/woodstaff
+	neck = /obj/item/storage/belt/rogue/pouch/coins/mid
+	beltr = /obj/item/flashlight/flare/torch/lantern
+	beltl = /obj/item/rogueweapon/whip
+	backl = /obj/item/storage/backpack/rogue/satchel
+	head = /obj/item/clothing/head/roguetown/dendormask
+	id = /obj/item/clothing/neck/roguetown/psicross/dendor //Ring slot amulet for wildform so it is not dropping on the ground.
+	shirt = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
+	cloak = /obj/item/clothing/cloak/templar/dendor
+	backpack_contents = list(/obj/item/ritechalk = 2, /obj/item/storage/keyring/churchie = 1, /obj/item/seeds/treesap = 2)
+	if(H.age == AGE_OLD)
+		H.adjust_skillrank_up_to(/datum/skill/magic/holy, 6, TRUE)
+		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 6, TRUE)
+	H.ambushable = FALSE
+
+/datum/outfit/job/roguetown/archdruid/basic/choose_loadout(mob/living/carbon/human/H)
+	. = ..()
+	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H))
+
+/datum/job/roguetown/archdruid/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
+	..()
+	if(!ishuman(L))
+		return
+
+	var/mob/living/carbon/human/H = L
+	H.advsetup = 1
+	H.invisibility = INVISIBILITY_MAXIMUM
+	H.become_blind("advsetup")
+
+	spawn(50)
+		if(H && H.client)
+			_delayed_path_choice(H)
+
+/datum/job/roguetown/archdruid/proc/grant_old_path(mob/living/carbon/human/H)
+	if(!H || !H.mind || !H.patron)
+		return
+
+	REMOVE_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)
+	to_chat(H, span_notice("I remain on the old path of devotion."))
+
+/datum/job/roguetown/archdruid/proc/grant_radical_path(mob/living/carbon/human/H)
+	if(!H || !H.mind || !H.patron)
+		return
+
+	ADD_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.miracle_points += 3
+	H.church_favor += 1600
+	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)
+	to_chat(H, span_notice("I embrace the radical path."))
+
+/datum/job/roguetown/archdruid/proc/_delayed_path_choice(mob/living/carbon/human/H)
+	if(!H || !H.client || !H.mind)
+		return
+
+	var/choice = alert(H, "Choose your path.", "Druidic Doctrine", "Loyalist", "Radical")
+
+	if(choice == "Radical")
+		grant_radical_path(H)
+	else
+		grant_old_path(H)

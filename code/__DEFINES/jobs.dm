@@ -131,7 +131,15 @@
 #define OBLATE		(1<<4)
 #define SEXTON		(1<<5)
 
-#define COURTIERS	(1<<3)
+#define GROVE			(1<<6)
+#define ARCHDRUID	(1<<0)
+#define DRUIDKEEPER	(1<<1)
+#define TOTEMWARRIOR	(1<<2)
+#define GROVEEXILE	(1<<3)
+#define GROVER		(1<<4)
+#define BRIAR		(1<<5)
+#define THORN		(1<<6)
+#define COURTIERS	(1<<7)
 
 #define JESTER		(1<<0)
 #define WIZARD		(1<<1)
@@ -288,12 +296,20 @@
 #define JDO_MARTYR 11
 #define JDO_TEMPLAR 12
 #define JDO_MONK 13
-#define JDO_DRUID 13.1
 #define JDO_OBLATE 13.2
 #define JDO_SEXTON 13.3
 #define JDO_CHURCHLING 14
 #define JDO_KEEPER 14.1
 #define JDO_GRAVEMAN 15
+
+#define JDO_ARCHDRUID 13.05
+#define JDO_DRUIDKEEPER 13.06
+#define JDO_TOTEMWARRIOR 13.07
+#define JDO_DRUID 13.1
+#define JDO_GROVEEXILE 13.11
+#define JDO_GROVER 13.12
+#define JDO_BRIAR 13.13
+#define JDO_THORN 13.14
 
 #define JDO_MERCHANT 17
 #define JDO_SHOPHAND 17.1
