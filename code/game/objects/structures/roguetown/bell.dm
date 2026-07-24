@@ -59,7 +59,7 @@
 			var/list/rolestonotify = list()
 			switch(localarea)
 				if("church")
-					rolestonotify = list("Bishop", "Acolyte", "Druid", "Martyr", "Templar", "Churchling")
+					rolestonotify = list("Bishop", "Acolyte", "Druid", "Martyr", "Templar", "Bedesman", "Bedeswoman", "Oblate", "Sexton")
 				if("Shop")
 					rolestonotify = list("Merchant", "Shophand")
 				if("Physician")

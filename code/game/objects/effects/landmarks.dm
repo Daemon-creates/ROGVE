@@ -460,8 +460,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/churchling
-	name = "Churchling"
+	name = "Bedesman"
 	icon_state = "arrow"
+
+/obj/effect/landmark/start/oblate
+	name = "Oblate"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/sexton
+	name = "Sexton"
 
 /obj/effect/landmark/start/orphan
 	name = "Vagabond"

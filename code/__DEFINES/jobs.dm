@@ -128,6 +128,8 @@
 #define PRIEST		(1<<0)
 #define MONK		(1<<1)
 #define GRAVEDIGGER	(1<<2)
+#define OBLATE		(1<<4)
+#define SEXTON		(1<<5)
 
 #define COURTIERS	(1<<3)
 
@@ -287,6 +289,8 @@
 #define JDO_TEMPLAR 12
 #define JDO_MONK 13
 #define JDO_DRUID 13.1
+#define JDO_OBLATE 13.2
+#define JDO_SEXTON 13.3
 #define JDO_CHURCHLING 14
 #define JDO_KEEPER 14.1
 #define JDO_GRAVEMAN 15
@@ -381,6 +385,8 @@
 
 #define CHURCH_ROLES \
 	/datum/job/roguetown/churchling,\
+	/datum/job/roguetown/oblate,\
+	/datum/job/roguetown/sexton,\
 	/datum/job/roguetown/druid,\
 	/datum/job/roguetown/monk,\
 	/datum/job/roguetown/priest,\

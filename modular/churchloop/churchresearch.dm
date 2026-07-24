@@ -416,7 +416,7 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 		cands += lowertext("[H.mind.vars["special_role"]]")
 
 	for(var/txt in cands)
-		if(findtext(txt, "churchling"))
+		if(findtext(txt, "bedesman") || findtext(txt, "bedeswoman"))
 			return TRUE
 
 	return FALSE
