@@ -27,7 +27,6 @@
 
 	advclass_cat_rolls = list(CTAG_TOTEMWARRIOR = 2)
 	job_subclasses = list(
-		/datum/advclass/totemwarrior,
 		/datum/advclass/totemwarrior/bear,
 		/datum/advclass/totemwarrior/volf,
 		/datum/advclass/totemwarrior/zad,
@@ -235,7 +234,6 @@
 	..()
 	mask = /obj/item/clothing/mask/rogue/sack
 	head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
-	cloak = /obj/item/clothing/cloak/raincloak/feather_cloak
 	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/bronze/light
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
@@ -246,7 +244,7 @@
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shorts
 	shoes = /obj/item/clothing/shoes/roguetown/boots/furlinedanklets
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
-	
+
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/combat/bows, 6, TRUE)
 	H.ambushable = FALSE
