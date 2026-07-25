@@ -78,12 +78,12 @@
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/dendormask
 	backr = /obj/item/rogueweapon/woodstaff
-	cloak = /obj/item/clothing/cloak/raincloak/furcloak/darkgreen
+	cloak = /obj/item/clothing/cloak/raincloak/furcloak
 	backl = /obj/item/storage/backpack/rogue/satchel
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/rogueweapon/sickle
-	pants = /obj/item/clothing/under/roguetown/loincloth
+	pants = /obj/item/clothing/under/roguetown/loincloth/brown
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/holy, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)

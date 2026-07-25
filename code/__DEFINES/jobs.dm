@@ -1,4 +1,3 @@
-
 #define ENGSEC			(1<<0)
 
 #define CAPTAIN			(1<<0)
@@ -181,14 +180,31 @@
 #define LUNATIC		(1<<17)
 #define MIGRANT		(1<<18)
 #define ASSASSIN	(1<<19)
-#define YOUNGFOLK	(1<<6)
+// YOUNGFOLK used to be (1<<6), colliding with GROVE (also (1<<6)) - both are
+// real, live department_flag values checked in the same switch(department_flag)
+// in job.dm (bitflag_to_department), new_player.dm (LateChoices) and _job.dm
+// (get_faction_group), so a job flagged YOUNGFOLK would silently mismatch
+// whichever case (GROVE or YOUNGFOLK) happened to be written first. Moved to
+// (1<<20), well past every other bit used in this file (the highest is
+// ASSASSIN at (1<<19)), to make it collision-free with every flag here,
+// not just the other department_flag values.
+#define YOUNGFOLK	(1<<20)
 
 #define APPRENTICE	(1<<0)
 #define CHURCHLING	(1<<1)
 #define ORPHAN		(1<<2)
 #define SHOPHAND	(1<<3)
 
-#define WANDERERS		(1<<7)
+// WANDERERS used to be (1<<7), colliding with COURTIERS (also (1<<7)) - both
+// are real, live department_flag values checked in the same
+// switch(department_flag) in job.dm (bitflag_to_department), new_player.dm
+// (LateChoices) and _job.dm (get_faction_group), so a job flagged WANDERERS
+// would silently mismatch whichever case (COURTIERS or WANDERERS) happened to
+// be written first, landing wanderer/mercenary roles under "Courtiers"/"keep"
+// instead of "Wanderers"/"mercenary". Moved to (1<<21), well past every other
+// bit used in this file, to make it collision-free with every flag here, not
+// just the other department_flag values.
+#define WANDERERS		(1<<21)
 
 #define WANDERER		(1<<1)
 #define ADVENTURER      (1<<2)
