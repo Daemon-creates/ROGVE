@@ -1,7 +1,7 @@
 /datum/job/roguetown/prisonerr
-	title = "Prisoner (Town)"
+	title = "Prisoner"
 	flag = PRISONERR
-	department_flag = PEASANTS
+	department_flag = SLOP
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4
