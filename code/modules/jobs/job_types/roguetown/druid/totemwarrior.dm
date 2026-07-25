@@ -68,15 +68,20 @@
 
 /datum/outfit/job/roguetown/totemwarrior/basic/pre_equip(mob/living/carbon/human/H)
 	..()
-	belt = /obj/item/storage/belt/rogue/leather/
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
+	mask = /obj/item/clothing/mask/rogue/sack
+	head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
+	backr = /obj/item/rogueweapon/shield/gilbranze/great
+	cloak = /obj/item/clothing/cloak/volfmantle
+	backl = /obj/item/rogueweapon/sword/sabre/ancient
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel
-	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/shield/wood
-	head = /obj/item/clothing/head/roguetown/dendormask
-	id = /obj/item/clothing/neck/roguetown/psicross/dendor //Ring slot amulet for wildform so it is not dropping on the ground.
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/bronze/light
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
+	id = /obj/item/clothing/neck/roguetown/psicross/dendor
+	gloves = /obj/item/clothing/gloves/roguetown/angle/gronnfur
+	beltr = /obj/item/flashlight/flare/torch/lantern/bronzelamptern
+	belt = /obj/item/storage/belt/rogue/leather
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shorts
+	shoes = /obj/item/clothing/shoes/roguetown/boots/furlinedanklets
 	backpack_contents = list(/obj/item/ritechalk = 1, /obj/item/storage/keyring/churchie = 1)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 6, TRUE)

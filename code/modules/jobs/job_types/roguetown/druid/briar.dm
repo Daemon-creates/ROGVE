@@ -69,14 +69,14 @@
 
 /datum/outfit/job/roguetown/briar/basic/pre_equip(mob/living/carbon/human/H)
 	..()
-	belt = /obj/item/storage/belt/rogue/leather/
+	head = /obj/item/clothing/head/roguetown/dendormask
 	backr = /obj/item/rogueweapon/woodstaff
-	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel
+	cloak = /obj/item/clothing/cloak/raincloak/furcloak/darkgreen
 	backl = /obj/item/storage/backpack/rogue/satchel
-	shirt = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
-	backpack_contents = list(/obj/item/ritechalk = 1, /obj/item/storage/keyring/churchie = 1)
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	belt = /obj/item/storage/belt/rogue/leather
+	beltl = /obj/item/rogueweapon/sickle
+	pants = /obj/item/clothing/under/roguetown/loincloth
 	H.ambushable = FALSE
 
 /datum/job/roguetown/briar/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

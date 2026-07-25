@@ -64,15 +64,12 @@
 
 /datum/outfit/job/roguetown/groveexile/basic/pre_equip(mob/living/carbon/human/H)
 	..()
-	belt = /obj/item/storage/belt/rogue/leather/rope
-	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	beltl = /obj/item/rogueweapon/huntingknife
 	backl = /obj/item/storage/backpack/rogue/satchel
-	armor = /obj/item/clothing/suit/roguetown/shirt/rags
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
+	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
+	armor = /obj/item/clothing/suit/roguetown/shirt/tribalrag
+	belt = /obj/item/storage/belt/rogue/leather/rope
+	beltl = /obj/item/rogueweapon/huntingknife
 	pants = /obj/item/clothing/under/roguetown/tights/vagrant
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	backpack_contents = list(/obj/item/flint = 1)
 	H.ambushable = FALSE
 

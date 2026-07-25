@@ -1,5 +1,5 @@
 //Second to the archdruid, performer of the rituals that keep the druid's circle healthy.
-/datum/job/roguetown/druidkeeper
+/datum/job/roguetown/sacrist
 	title = "Sacrist"
 	flag = DRUIDKEEPER
 	department_flag = DRUID
@@ -10,7 +10,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = ACCEPTED_RACES
 	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways
-	outfit = /datum/outfit/job/roguetown/druidkeeper
+	outfit = /datum/outfit/job/roguetown/sacrist
 	social_rank = SOCIAL_RANK_YEOMAN
 	tutorial = "You are second only to the archdruid, and it is your rituals that keep the circle healthy--the wards renewed, the wildform gifts undiminished, the grove's balance with Dendor unbroken. \
 	Should the archdruid fall or falter, it is you who must hold the grove together."
@@ -27,14 +27,14 @@
 
 	advclass_cat_rolls = list(CTAG_DRUIDKEEPER = 1)
 	job_subclasses = list(
-		/datum/advclass/druidkeeper
+		/datum/advclass/sacrist
 	)
 
-/datum/advclass/druidkeeper
+/datum/advclass/sacrist
 	name = "Keeper"
 	tutorial = "You are second only to the archdruid, and it is your rituals that keep the circle healthy--the wards renewed, the wildform gifts undiminished, the grove's balance with Dendor unbroken. \
 	Should the archdruid fall or falter, it is you who must hold the grove together."
-	outfit = /datum/outfit/job/roguetown/druidkeeper/basic
+	outfit = /datum/outfit/job/roguetown/sacrist/basic
 	category_tags = list(CTAG_DRUIDKEEPER)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -62,15 +62,15 @@
 		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,
 	)
 
-/datum/outfit/job/roguetown/druidkeeper
+/datum/outfit/job/roguetown/sacrist
 	name = "Keeper"
-	jobtype = /datum/job/roguetown/druidkeeper
+	jobtype = /datum/job/roguetown/sacrist
 	allowed_patrons = list(/datum/patron/divine/dendor)
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/druidkeeper/basic
+/datum/outfit/job/roguetown/sacrist/basic
 
-/datum/outfit/job/roguetown/druidkeeper/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sacrist/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	belt = /obj/item/storage/belt/rogue/leather/
 	backr = /obj/item/rogueweapon/woodstaff
@@ -87,11 +87,11 @@
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)
 	H.ambushable = FALSE
 
-/datum/outfit/job/roguetown/druidkeeper/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sacrist/basic/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H))
 
-/datum/job/roguetown/druidkeeper/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
+/datum/job/roguetown/sacrist/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()
 	if(!ishuman(L))
 		return

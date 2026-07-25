@@ -79,17 +79,15 @@
 /datum/outfit/job/roguetown/archdruid/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
-	belt = /obj/item/storage/belt/rogue/leather/
-	backr = /obj/item/rogueweapon/woodstaff
-	neck = /obj/item/storage/belt/rogue/pouch/coins/mid
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	beltl = /obj/item/rogueweapon/whip
-	backl = /obj/item/storage/backpack/rogue/satchel
-	head = /obj/item/clothing/head/roguetown/dendormask
-	id = /obj/item/clothing/neck/roguetown/psicross/dendor //Ring slot amulet for wildform so it is not dropping on the ground.
-	shirt = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
-	cloak = /obj/item/clothing/cloak/templar/dendor
-	backpack_contents = list(/obj/item/ritechalk = 2, /obj/item/storage/keyring/churchie = 1, /obj/item/seeds/treesap = 2)
+	mask = /obj/item/clothing/mask/rogue/sack
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/beastskull
+	backr = /obj/item/rogueweapon/woodstaff/riddle_of_steel/serpent
+	cloak = /obj/item/clothing/cloak/darkcloak/minotaur
+	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth
+	pants = /obj/item/clothing/under/roguetown/trou/leather/gronn
+	shoes = /obj/item/clothing/shoes/roguetown/armor/rumaclan
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/holy, 6, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 6, TRUE)

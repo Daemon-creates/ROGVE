@@ -76,17 +76,14 @@
 /datum/outfit/job/roguetown/druid/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
-	belt = /obj/item/storage/belt/rogue/leather/
-	backr = /obj/item/rogueweapon/woodstaff
-	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	beltl = /obj/item/rogueweapon/whip //The whip itself is not often associated to many jobs. Druids feel like a thematic choice to have a self-defense whip
-	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
 	head = /obj/item/clothing/head/roguetown/dendormask
-	id = /obj/item/clothing/neck/roguetown/psicross/dendor //Ring slot amulet for wildform so it is not dropping on the ground.
-	shirt = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
-	backpack_contents = list(/obj/item/ritechalk, /obj/item/storage/keyring/churchie, /obj/item/seeds/treesap)
+	backr = /obj/item/rogueweapon/woodstaff
+	cloak = /obj/item/clothing/cloak/raincloak/furcloak/darkgreen
+	backl = /obj/item/storage/backpack/rogue/satchel
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	belt = /obj/item/storage/belt/rogue/leather
+	beltl = /obj/item/rogueweapon/sickle
+	pants = /obj/item/clothing/under/roguetown/loincloth
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/holy, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)

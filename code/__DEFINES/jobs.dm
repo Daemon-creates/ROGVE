@@ -294,10 +294,10 @@
 
 #define JDO_PRIEST 10
 #define JDO_MARTYR 11
+#define JDO_SEXTON 11
 #define JDO_TEMPLAR 12
 #define JDO_MONK 13
 #define JDO_OBLATE 13.2
-#define JDO_SEXTON 13.3
 #define JDO_CHURCHLING 14
 #define JDO_KEEPER 14.1
 #define JDO_GRAVEMAN 15
