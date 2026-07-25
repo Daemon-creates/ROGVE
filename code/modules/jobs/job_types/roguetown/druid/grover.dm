@@ -62,16 +62,11 @@
 
 /datum/outfit/job/roguetown/grover/basic/pre_equip(mob/living/carbon/human/H)
 	..()
+	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
+	armor = /obj/item/clothing/suit/roguetown/armor/gambeson/fur
 	belt = /obj/item/storage/belt/rogue/leather/rope
-	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	beltr = /obj/item/flashlight/flare/torch
 	beltl = /obj/item/rogueweapon/sickle
-	backl = /obj/item/storage/backpack/rogue/satchel
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/random
-	pants = /obj/item/clothing/under/roguetown/tights/random
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
-	backpack_contents = list(/obj/item/rogueweapon/hoe = 1, /obj/item/flint = 1)
+	pants = /obj/item/clothing/under/roguetown/trou/leather/gronn
 	H.ambushable = FALSE
 
 /datum/job/roguetown/grover/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

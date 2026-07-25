@@ -79,6 +79,7 @@
 	head = /obj/item/clothing/head/roguetown/dendormask
 	backr = /obj/item/rogueweapon/woodstaff
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
+	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
 	backl = /obj/item/storage/backpack/rogue/satchel
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather
