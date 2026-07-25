@@ -1,6 +1,6 @@
 /datum/advclass/bandit_specialist/sawbones // doctor class. like the pilgrim, but more evil
 	name = "Sawbones"
-	tutorial = "You didn't expect this outcome when you became a surgeon. Now, you work to survive-- the same reason they keep you here. Why fight it? You're not the man on the table."
+	tutorial = "You didn't expect this outcome when you became a surgeon. Now, you work to survive-- the same reason they keep you here. Why fight it? You're not the man on the table. They look at you like a freak, but you know the value of your work."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/bandit_specialist/sawbones
