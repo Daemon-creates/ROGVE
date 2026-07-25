@@ -72,7 +72,7 @@
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/dendormask
 	backr = /obj/item/rogueweapon/woodstaff
-	cloak = /obj/item/clothing/cloak/raincloak/furcloak
+	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 	backl = /obj/item/storage/backpack/rogue/satchel
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather

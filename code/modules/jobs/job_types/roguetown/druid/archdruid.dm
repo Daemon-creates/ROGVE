@@ -93,6 +93,9 @@
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 6, TRUE)
 	H.ambushable = FALSE
 
+/obj/item/clothing/cloak/darkcloak/minotaur/grey
+	color = "#6c6c6c"
+
 /datum/outfit/job/roguetown/archdruid/basic/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H))
