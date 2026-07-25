@@ -1,7 +1,7 @@
 //Sworn protector of the grove.
 /datum/job/roguetown/totemwarrior
-	title = "Totem Warrior"
-	f_title = "Totem Warrior"
+	title = "Fian"
+	f_title = "Fiana"
 	flag = TOTEMWARRIOR
 	department_flag = DRUID
 	faction = "Station"

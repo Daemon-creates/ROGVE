@@ -1,5 +1,5 @@
 /datum/job/roguetown/bandit_leader
-	title = "Bandit Leader"
+	title = "Demagogue"
 	flag = BANDIT
 	department_flag = WANDERERS
 	faction = "Station"
