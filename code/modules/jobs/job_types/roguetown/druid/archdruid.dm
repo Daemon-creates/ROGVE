@@ -82,7 +82,7 @@
 	mask = /obj/item/clothing/mask/rogue/sack
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/beastskull
 	backr = /obj/item/rogueweapon/woodstaff/riddle_of_steel/serpent
-	cloak = /obj/item/clothing/cloak/darkcloak/minotaur
+	cloak = /obj/item/clothing/cloak/darkcloak/minotaur/grey
 	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth
@@ -95,6 +95,7 @@
 
 /obj/item/clothing/cloak/darkcloak/minotaur/grey
 	color = "#6c6c6c"
+	name = "wendigo cloak"
 
 /datum/outfit/job/roguetown/archdruid/basic/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
