@@ -77,6 +77,12 @@
 		else
 			to_chat(user, span_warning("I need to anchor this down with a wooden stake before I can work this hide."))
 			return
+	if(try_slap_craft_process(user, I, src, CAN_DRY, GENERIC_DRY_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_dried_fruit)), "drying"))
+		return
+	if(try_slap_craft_process(user, I, src, CAN_CURE, GENERIC_CURE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_cured)), "salt-curing"))
+		return
+	if(try_slap_craft_process(user, I, src, CAN_SMOKE, GENERIC_SMOKE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_smoked)), "smoking"))
+		return
 	if(istype(I, /obj/item/grown/log/tree/stake))
 		if(anchored)
 			anchored = FALSE

@@ -8,6 +8,8 @@
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	possible_item_intents = list(/datum/intent/food, /datum/intent/splash)
 	fat_yield = 20
+	fat_content = 70
+	flavor_profile = list(FLAVOR_AFFIX_RICH)
 
 /obj/item/reagent_containers/food/snacks/fat/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -18,7 +20,9 @@
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			if(do_after(user,long_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/meat/sausage(loc)
+				var/obj/item/reagent_containers/food/snacks/rogue/meat/sausage/new_sausage = new(loc)
+				// Cooking System Overhaul - Phase 10.
+				propagate_meat_animal_source(I, new_sausage)
 				qdel(I)
 				qdel(src)
 		else

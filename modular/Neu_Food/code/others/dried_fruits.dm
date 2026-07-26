@@ -31,3 +31,16 @@
 			M.reagents.remove_reagent(/datum/reagent/consumable/nutriment, M.reagents.total_volume)
 			M.reagents.trans_to(src, M.reagents.total_volume)
 		qdel(M)
+
+/obj/item/reagent_containers/food/snacks/rogue/raisins/generic
+	name = "dried fruit"
+	desc = "Fruit that has been dried for preservation."
+
+/proc/create_provenance_dried_fruit(obj/item/reagent_containers/food/snacks/source, atom/location)
+	var/obj/item/reagent_containers/food/snacks/rogue/raisins/generic/D = new(location)
+	D.apply_provenance_from(source, prefix = "dried", base_desc = D.desc)
+	if(source.filling_color)
+		D.color = source.filling_color
+	if(source.reagents)
+		source.reagents.trans_to(D, source.reagents.total_volume)
+	return D

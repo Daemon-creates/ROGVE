@@ -14,6 +14,32 @@
 	cooked_smell = /datum/pollutant/food/fried_meat
 	var/fresh_meat = FALSE
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/meat_rotten
+	food_process_tags = CAN_CURE | CAN_SMOKE | CAN_SLOW_ROAST
+	fat_content = 30
+	var/animal_source
+	var/animal_name_format
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/proc/set_animal_source(source_name)
+	if(!source_name || animal_source)
+		return
+	animal_source = source_name
+	if(animal_name_format)
+		name = replacetext(animal_name_format, "%ANIMAL%", animal_source)
+
+/// See get_doneness_base_name() in code/modules/food_and_drinks/food/snacks.dm - folds animal_source into the un-prefixed base name doneness prefixes get applied to, instead of always falling back to the type's fixed initial(name).
+/obj/item/reagent_containers/food/snacks/rogue/meat/get_doneness_base_name()
+	if(animal_source && animal_name_format)
+		return replacetext(animal_name_format, "%ANIMAL%", animal_source)
+	return ..()
+/proc/propagate_meat_animal_source(obj/item/source, obj/item/target)
+	if(!istype(source, /obj/item/reagent_containers/food/snacks/rogue/meat))
+		return
+	if(!istype(target, /obj/item/reagent_containers/food/snacks/rogue/meat))
+		return
+	var/obj/item/reagent_containers/food/snacks/rogue/meat/source_meat = source
+	var/obj/item/reagent_containers/food/snacks/rogue/meat/target_meat = target
+	if(source_meat.animal_source)
+		target_meat.set_animal_source(source_meat.animal_source)
 
 /obj/item/reagent_containers/food/snacks/rogue/meat_rotten
 	eat_effect = /datum/status_effect/debuff/rotfood
@@ -56,6 +82,7 @@
 	slices_num = 2
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	slice_bclass = BCLASS_CHOP
+	animal_name_format = "raw %ANIMAL% meat"
 
 
 /* ............. Pork (Fatty Sprite) ................*/
@@ -116,6 +143,9 @@
 	slice_sound = TRUE
 	ingredient_size = 4
 	cooked_smell = /datum/pollutant/food/cooked_chicken
+	// Cooking System Overhaul - Phase 10: chicken and drider both butcher
+	// into this same generic whole-bird type.
+	animal_name_format = "plucked %ANIMAL%"
 
 /* ............. Chicken Cutlet (Drumstick) ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
@@ -127,6 +157,8 @@
 	slice_bclass = BCLASS_CHOP
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried
+	// Cooking System Overhaul - Phase 10.
+	animal_name_format = "%ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/attackby(obj/item/I, mob/living/user)
 	update_cooktime(user)
@@ -239,7 +271,9 @@
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			if(do_after(user,long_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/meat/sausage(loc)
+				var/obj/item/reagent_containers/food/snacks/rogue/meat/sausage/new_sausage = new(loc)
+				propagate_meat_animal_source(src, new_sausage)
+				propagate_meat_animal_source(I, new_sausage)
 				qdel(I)
 				qdel(src)
 		else
@@ -250,7 +284,8 @@
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			if(do_after(user,long_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/meat/sausage(loc)
+				var/obj/item/reagent_containers/food/snacks/rogue/meat/sausage/new_sausage = new(loc)
+				propagate_meat_animal_source(src, new_sausage)
 				qdel(I)
 				qdel(src)
 		else
@@ -271,6 +306,8 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	name = "minced meat"
+	// Cooking System Overhaul - Phase 10.
+	animal_name_format = "minced %ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
 	name = "minced fish"
@@ -284,6 +321,8 @@
 	name = "minced poultry"
 	icon_state = "meatmince"
 	cooked_smell = /datum/pollutant/food/cooked_chicken
+	// Cooking System Overhaul - Phase 10.
+	animal_name_format = "minced %ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage
 	name = "raw sausage"
@@ -292,6 +331,8 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
 	cooked_smell = /datum/pollutant/food/fried_sausage
+	// Cooking System Overhaul - Phase 10 ("same with sausage").
+	animal_name_format = "raw %ANIMAL% sausage"
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish

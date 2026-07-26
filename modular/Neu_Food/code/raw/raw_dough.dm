@@ -57,7 +57,10 @@
 			to_chat(user, span_notice("Kneading the dough and adding raisins..."))
 			if(do_after(user,short_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/rbread_half(loc)
+				var/obj/item/reagent_containers/food/snacks/rogue/rbread_half/half = new(loc)
+
+				if(I.provenance)
+					half.record_provenance_from(I)
 				qdel(I)
 				qdel(src)
 		else
@@ -82,8 +85,29 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to roll it out!"))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/butterslice) || istype(I, /obj/item/reagent_containers/food/snacks/rogue/raisins) || istype(I, /obj/item/reagent_containers/food/snacks/rogue/butterdough))
+
+		return
 	else
-		return ..()
+
+		var/obj/item/reagent_containers/food/snacks/mixin = I
+		if(!istype(mixin))
+			return ..()
+		if(isturf(loc) && found_table)
+			playsound(get_turf(user), 'modular/Neu_Food/sound/kneading.ogg', 100, TRUE, -1)
+			to_chat(user, span_notice("Kneading [mixin] into the dough..."))
+			// Cooking System Overhaul - Section 5: authored purely in game
+			// minutes, scaled by cooking skill like every other process.
+			var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
+			var/mixin_time = game_minutes2deciseconds(GENERIC_MIXIN_GAME_MINUTES) / get_cooktime_divisor(cs)
+			if(do_after(user, mixin_time, target = src))
+				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+				add_provenance_source(mixin, suffix = "dough", base_desc = initial(desc))
+				if(mixin.reagents)
+					mixin.reagents.trans_to(src, mixin.reagents.total_volume)
+				qdel(mixin)
+		else
+			to_chat(user, span_warning("You need to put [src] on a table to work it."))
 
 /*	.................   Smalldough   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/doughslice

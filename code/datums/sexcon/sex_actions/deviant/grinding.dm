@@ -1,64 +1,26 @@
-/datum/sex_action/grind_body
-	name = "Grind against them"
-	check_same_tile = FALSE
-	subtle_supported = TRUE
+#define BASE_GRIND_TIME 1 SECONDS
+/obj/item/millstone // Previous structure path means it cannot be crafted on tables
+	name = "millstone"
+	desc = "A millstone used to grind grain into flour."
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "millstone"
+	density = FALSE
+	anchored = FALSE
+	blade_dulling = DULLING_BASH
+	max_integrity = 400
+	var/list/obj/item/to_grind = list()
 
-/datum/sex_action/grind_body/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	if(user == target)
-		return FALSE
-	return TRUE
+/obj/item/millstone/attackby(obj/item/W, mob/living/user, params)
+	var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
+	if(W.mill_result)
+		var/scaled_grind_time = BASE_GRIND_TIME / get_cooktime_divisor(cs)
+		if(do_after(user, scaled_grind_time, target = src))
+			new W.mill_result(get_turf(loc))
+			qdel(W)
+		return
 
-/datum/sex_action/grind_body/can_perform(mob/living/user, mob/living/target)
-	if(user == target)
-		return FALSE
-	if(!user.sexcon.Adjacent_Or_Closet(target))
-		return FALSE
-	if(!target.get_bodypart(check_zone(user.zone_selected)))
-		return FALSE
-	return TRUE
+	if(try_slap_craft_process(user, W, src, CAN_GRIND, GENERIC_GRIND_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_flour)), "grinding"))
+		return
+	..()
 
-/datum/sex_action/grind_body/on_start(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	user.visible_message(span_warning("[user] pulls themselves onto [target]..."), vision_distance = (user.sexcon.do_subtle_action ? 1 : DEFAULT_MESSAGE_RANGE))
-	user.sexcon.show_progress = 0
-
-/datum/sex_action/grind_body/on_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	var/do_subtle = user.sexcon.do_subtle_action
-	var/pleasure_target
-	var/zone_text
-	switch(user.zone_selected)
-		if(BODY_ZONE_PRECISE_GROIN)
-			zone_text = user.dir == target.dir ? "ass" : "crotch"
-			pleasure_target = 1
-		if(BODY_ZONE_CHEST)
-			zone_text = target.getorganslot(ORGAN_SLOT_BREASTS) ? "tits" : "chest"
-			pleasure_target = 1
-		else
-			zone_text = LOWER_TEXT(parse_zone(user.zone_selected))
-			pleasure_target = 0
-	user.sexcon.show_progress = !do_subtle
-	user.sexcon.suppress_moan = target.sexcon.suppress_moan = do_subtle
-
-	user.visible_message(user.sexcon.spanify_force("[user] [user.sexcon.get_generic_force_adjective(is_stealth = do_subtle)] grinds over [target]'s [zone_text]..."), vision_distance = (do_subtle ? 1 : DEFAULT_MESSAGE_RANGE))
-	if(!do_subtle)
-		if(user.sexcon.force > SEX_FORCE_HIGH)
-			user.sexcon.outercourse_noise(target)
-		else
-			user.sexcon.make_sucking_noise()
-		user.sexcon.do_thrust_animate(target)
-
-	user.sexcon.perform_sex_action(user, 1, 0.5, TRUE)
-	user.sexcon.handle_passive_ejaculation()
-
-	if(pleasure_target)
-		user.sexcon.perform_sex_action(target, 1, 0.5, TRUE)
-	target.sexcon.handle_passive_ejaculation()
-
-	user.sexcon.suppress_moan = target.sexcon.suppress_moan = FALSE
-
-/datum/sex_action/grind_body/on_finish(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	user.visible_message(span_warning("[user] stops grinding against [target] ..."), vision_distance = (user.sexcon.do_subtle_action ? 1 : DEFAULT_MESSAGE_RANGE))
-
-/datum/sex_action/grind_body/is_finished(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	if(target.sexcon.finished_check())
-		return TRUE
-	return FALSE
+#undef BASE_GRIND_TIME

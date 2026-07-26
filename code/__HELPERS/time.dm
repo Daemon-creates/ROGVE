@@ -219,3 +219,6 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 	//if the time is less than station time, add 24 hours (MIDNIGHT_ROLLOVER)
 	var/time_diff = timeA > timeB ? (timeB + 24 HOURS) - timeA : timeB - timeA
 	return time_diff / SSticker.station_time_rate_multiplier // normalise with the time rate multiplier
+
+/proc/game_minutes2deciseconds(n)
+	return (n MINUTES) / SSticker.station_time_rate_multiplier

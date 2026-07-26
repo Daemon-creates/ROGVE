@@ -1,9 +1,6 @@
-// Simple cooked meat from any animals.
-// Only includes simple cooked meat instead of the meal.
-// Try to order in the same order as raw meat file ok
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/fried
 	eat_effect = null
-	slices_num = 0
+	slices_num = 1
 	name = "frysteak"
 	desc = "A slab of beastflesh, fried to a perfect medium-rare"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
@@ -14,6 +11,7 @@
 	tastes = list("warm steak" = 1)
 	fried_type = null
 	cooked_type = null
+	animal_name_format = "fried %ANIMAL% steak"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/fried/attackby(obj/item/I, mob/living/user, params)
 	var/obj/item/reagent_containers/peppermill/mill = I
@@ -157,6 +155,8 @@
 	cooked_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEAL_MEAGRE)
 	rotprocess = SHELFLIFE_DECENT
+	// Cooking System Overhaul - Phase 10 ("same with ... poultry").
+	animal_name_format = "roast %ANIMAL%"
 	
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/attackby(obj/item/I, mob/user, params)
@@ -211,7 +211,10 @@
 /*	.............   Frybird   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried
 	eat_effect = null
-	slices_num = 0
+	// Cooking System Overhaul: mince-able at any doneness, same as the
+	// generic steak fix above - inherits slice_path (mince/poultry) from
+	// /meat/poultry/cutlet instead of always disabling slicing once fried.
+	slices_num = 1
 	name = "frybird"
 	desc = "Poultry scorched to a perfect delicious crisp."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
@@ -221,6 +224,8 @@
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_DECENT
+	// Cooking System Overhaul - Phase 10.
+	animal_name_format = "fried %ANIMAL%"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -286,7 +291,9 @@
 /* .............   Fried Cabbit   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
 	eat_effect = null
-	slices_num = 0
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/rabbit from /meat/rabbit).
+	slices_num = 1
 	name = "fried cabbit"
 	desc = "A slab of cabbit, fried to a perfect crispy texture."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
@@ -315,7 +322,9 @@
 /* .............   Fried Volf   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/wolf/fried
 	eat_effect = null
-	slices_num = 0
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/beef from /meat/steak/wolf).
+	slices_num = 1
 	name = "fried volf"
 	desc = "A slab of volf, fried to a perfect medium rare. A bit gamey and chewy, but tasty."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
@@ -343,7 +352,9 @@
 /* .............   Seared Gnoll   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/gnoll/seared
 	eat_effect = null
-	slices_num = 0
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/beef from /meat/steak/gnoll).
+	slices_num = 1
 	name = "seared gnoll"
 	desc = "A disgusting sinewy mess of gnoll meat. Seems the muscle has only toughened after being seared."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
@@ -358,7 +369,9 @@
 // This is seafood but is one of the "simple cooked meat" so I put it here.
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish/fried
 	eat_effect = null
-	slices_num = 0
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/fish from /meat/fish).
+	slices_num = 1
 	name = "fryfilet"
 	desc = "A slab of flaky fish, fried until falling apart."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
@@ -398,7 +411,9 @@
 /* .............   Fried Shellfish    ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish/fried
 	eat_effect = null
-	slices_num = 0
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/fish from /meat/shellfish).
+	slices_num = 1
 	name = "fried shellfish"
 	desc = "Fried shellfish meat. A bit salty, but delicious."
 	faretype = FARE_NEUTRAL
@@ -420,6 +435,8 @@
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_EXTREME
+	// Cooking System Overhaul - Phase 10 ("same with sausage").
+	animal_name_format = "%ANIMAL% sausage"
 
 /* .............   Fried Cabbit w/ Garlick  ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried/garlick

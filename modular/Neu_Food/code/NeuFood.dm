@@ -135,16 +135,16 @@
 	if(isturf(loc)&& (!found_table))
 		to_chat(user, span_notice("Need a table..."))
 		return ..()
-	if(!R.reagents.has_reagent(/datum/reagent/water, 10))
-		to_chat(user, span_notice("Needs more water to work it."))
+	if(!R.reagents || R.reagents.total_volume < 10)
+		to_chat(user, span_notice("Needs more liquid to work it."))
 		return TRUE
-	to_chat(user, span_notice("Adding water, now its time to knead it..."))
+	to_chat(user, span_notice("Adding [R.reagents.get_master_reagent_name()], now its time to knead it..."))
 	playsound(get_turf(user), 'modular/Neu_Food/sound/splishy.ogg', 100, TRUE, -1)
 	if(do_after(user, short_cooktime, target = src))
 		add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
 		name = "wet flour"
 		desc = "Destined for greatness, at your hands."
-		R.reagents.remove_reagent(/datum/reagent/water, 10)
+		R.reagents.remove_all(10)
 		water_added = TRUE
 		color = "#d9d0cb"
 	return TRUE
@@ -157,6 +157,21 @@
 			new /obj/item/reagent_containers/food/snacks/rogue/dough_base(loc)
 			qdel(src)
 	else ..()
+
+
+/obj/item/reagent_containers/powder/flour/generic
+	name = "flour"
+	desc = "Ground plant material, milled fine enough to bake with."
+
+/**
+ * Creates a generic flour item at `location`, deriving its name,
+ * description and provenance ledger from `source`. Does not delete
+ * `source` - callers are responsible for consuming the original ingredient.
+ */
+/proc/create_provenance_flour(obj/item/source, atom/location)
+	var/obj/item/reagent_containers/powder/flour/generic/F = new(location)
+	F.apply_provenance_from(source, suffix = "flour", base_desc = F.desc)
+	return F
 
 
 // -------------- SALT -----------------

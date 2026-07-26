@@ -64,6 +64,68 @@
 	else
 		icon_state = "loaf_slice"
 
+
+/proc/get_bread_doneness_prefix(stage)
+	switch(stage)
+		if(DONENESS_BLUE_RARE)
+			return "doughy "
+		if(DONENESS_RARE)
+			return "pale "
+		if(DONENESS_MEDIUM_RARE)
+			return "golden "
+		if(DONENESS_MEDIUM, DONENESS_MEDIUM_WELL)
+			return "well-baked "
+		if(DONENESS_WELL_DONE)
+			return "dark "
+		if(DONENESS_BURNT)
+			return "burnt "
+	return ""
+
+/// Bread-flavored examine text for the doneness ladder, see get_bread_doneness_prefix() above.
+/proc/get_bread_doneness_examine_text(stage)
+	switch(stage)
+		if(DONENESS_RAW)
+			return "This is still raw, unbaked dough."
+		if(DONENESS_BLUE_RARE)
+			return "This looks doughy, barely set by the oven's heat."
+		if(DONENESS_RARE)
+			return "This looks pale, only lightly baked."
+		if(DONENESS_MEDIUM_RARE)
+			return "This has a lovely golden crust."
+		if(DONENESS_MEDIUM, DONENESS_MEDIUM_WELL)
+			return "This is well-baked all the way through."
+		if(DONENESS_WELL_DONE)
+			return "This has baked dark, with a thick, heavy crust."
+		if(DONENESS_BURNT)
+			return "This is burnt to a crisp."
+	return null
+
+/// Bread-flavored taste descriptors for the doneness ladder, folded into the loaf's nutriment taste data by apply_doneness_taste() - see get_bread_doneness_prefix() above.
+/proc/get_bread_doneness_taste_descriptor(stage)
+	switch(stage)
+		if(DONENESS_BLUE_RARE)
+			return "raw dough"
+		if(DONENESS_RARE)
+			return "pale crust"
+		if(DONENESS_MEDIUM_RARE)
+			return "golden crust"
+		if(DONENESS_MEDIUM, DONENESS_MEDIUM_WELL)
+			return "well-baked crumb"
+		if(DONENESS_WELL_DONE)
+			return "dark crust"
+		if(DONENESS_BURNT)
+			return "char"
+	return null
+
+/obj/item/reagent_containers/food/snacks/rogue/bread/get_doneness_prefix(stage)
+	return get_bread_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/bread/get_doneness_examine_text(stage)
+	return get_bread_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/bread/get_doneness_taste_descriptor(stage)
+	return get_bread_doneness_taste_descriptor(stage)
+
 /*	.................   Breadslice & Toast   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/breadslice
 	name = "sliced bread"
@@ -76,6 +138,16 @@
 	bitesize = 2
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
+
+/obj/item/reagent_containers/food/snacks/rogue/breadslice/get_doneness_prefix(stage)
+	return get_bread_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/breadslice/get_doneness_examine_text(stage)
+	return get_bread_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/breadslice/get_doneness_taste_descriptor(stage)
+	return get_bread_doneness_taste_descriptor(stage)
+
 
 /obj/item/reagent_containers/food/snacks/rogue/breadslice/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
@@ -370,7 +442,14 @@
 			to_chat(user, span_notice("Adding the last of the raisins, puffing up the dough for baking."))
 			if(do_after(user,short_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked(loc)
+				var/obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked/loaf = new(loc)
+				// Cooking System Overhaul - Section 3/4: keep threading the
+				// ledger forward (this dough's own provenance from the
+				// first batch of dried fruit, plus this second batch).
+				if(src.provenance)
+					loaf.inherit_provenance_ledger(src)
+				if(I.provenance)
+					loaf.record_provenance_from(I)
 				qdel(I)
 				qdel(src)
 		else
@@ -394,6 +473,13 @@
 	desc = "A popular dessert amongst the peasantry, this loaf of sweetbread's speckled with fruity surprises. In recent years, it has more palettes amongst the papacy: t'was Rockhill's abbey that christened a variant, glazed with a sugary veneer."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
 	icon_state = "raisinbread6"
+	// Cooking System Overhaul - Section 6/9 ("raisin bread, generalized").
+	// If provenance was recorded on the way here (e.g. the dried fruit
+	// used was CAN_DRY-generic rather than the plain hand-authored
+	// "raisins" item), the loaf's actual name/desc is rebuilt from the
+	// ledger (e.g. "dried plum loaf") instead of always reading "raisin
+	// loaf" regardless of what dried fruit went in.
+	provenance_name_suffix = "loaf"
 	bitesize = 6
 	slices_num = 6
 	eating_slice = TRUE

@@ -545,6 +545,10 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 					var/obj/item/reagent_containers/food/snacks/F = I
 					F.become_rotten()
 
+			if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/meat))
+				var/obj/item/reagent_containers/food/snacks/rogue/meat/M = I
+				M.set_animal_source(initial(name))
+
 		if(user.mind)
 			user.mind.add_sleep_experience(/datum/skill/labor/butchering, user.STAINT * 0.5)
 		playsound(src, 'sound/foley/gross.ogg', 100, FALSE)

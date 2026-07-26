@@ -89,6 +89,7 @@
 	grind_results = list(/datum/reagent/floure = 10)
 	mill_result = /obj/item/reagent_containers/powder/flour
 	dropshrink = 0.9
+	food_process_tags = CAN_GRIND
 
 /obj/item/reagent_containers/food/snacks/grown/oat
 	seed = /obj/item/seeds/wheat/oat
@@ -104,6 +105,7 @@
 	grind_results = list(/datum/reagent/floure = 10)
 	mill_result = /obj/item/reagent_containers/powder/flour
 	dropshrink = 0.9
+	food_process_tags = CAN_GRIND
 
 /obj/item/reagent_containers/food/snacks/grown/rice
 	seed = /obj/item/seeds/rice
@@ -119,6 +121,7 @@
 	grind_results = list(/datum/reagent/floure = 10)
 	mill_result = /obj/item/reagent_containers/powder/flour
 	dropshrink = 0.9
+	food_process_tags = CAN_GRIND
 
 /obj/item/reagent_containers/food/snacks/grown/apple
 	seed = /obj/item/seeds/apple
@@ -187,6 +190,10 @@
 	faretype = FARE_POOR
 	rotprocess = SHELFLIFE_DECENT
 	splat_type = /obj/effect/decal/cleanable/food/plant_smudge
+	food_process_tags = CAN_DRY | CAN_CANDY | CAN_PRESERVE_SPREAD | CAN_PICKLE
+	moisture_content = 65
+	sugar_content = 45
+	flavor_profile = list(FLAVOR_AFFIX_BRIGHTENING)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/pear
 	name = "pear"
@@ -272,6 +279,10 @@
 	dropshrink = 0.75
 	var/color_index = "good"
 	rotprocess = SHELFLIFE_SHORT
+	food_process_tags = CAN_DRY | CAN_CANDY | CAN_PRESERVE_SPREAD
+	moisture_content = 70
+	sugar_content = 50
+	flavor_profile = list(FLAVOR_AFFIX_BRIGHTENING)
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue/Initialize(mapload)
 	if(GLOB.berrycolors[color_index])
@@ -362,6 +373,7 @@
 	chopping_sound = TRUE
 	dropshrink = 0.9
 	rotprocess = SHELFLIFE_EXTREME
+	food_process_tags = CAN_PICKLE
 
 /*	..................   Sunflower   ................... */
 /obj/item/reagent_containers/food/snacks/grown/sunflower

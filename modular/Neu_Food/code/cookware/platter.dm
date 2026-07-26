@@ -12,22 +12,16 @@
 	grid_height = 32
 	sellprice = 0
 	obj_flags = UNIQUE_RENAME
+	var/max_meal_items = 4
 
 
 /obj/item/cooking/platter/examine()
 	. = ..()
 	. += span_info("Can be renamed with a feather. Name will be overridden by plating or finishing food.")
+	if(length(contents))
+		. += span_notice("Plated here: [get_meal_contents_summary()].")
 
-/*
-NEW SYSTEM
-What it does:
-	- The platter stays intact, adds object on top of it.
-	- Examining the platter tells you what is on the platter
-	- Adds food overlay to the platre
-	- Can remove item with right click
-	- Using it will eat the food on it
-	- Use initial[name] to revert platter back to being its original name once the food is removed
-*/
+
 /*	..................   Food platter   ................... */
 /obj/item/cooking/platter/attackby(obj/item/I, mob/user, params)
 
@@ -38,7 +32,13 @@ What it does:
 	var/found_table = locate(/obj/structure/table) in (loc)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/))
 		if(isturf(loc)&& (found_table))
-			if (contents.len == 0)
+			// Cooking System Overhaul - "modular meals": several separate
+			// dishes can share one platter (any combination the player
+			// wants), instead of the platter only ever holding one dish
+			// at a time. The combined name/description is generated from
+			// whatever's actually plated (see update_icon() below), not
+			// picked from a fixed list of "meal" combos.
+			if (contents.len < max_meal_items)
 				playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 				to_chat(user, span_info("I add \the [I.name] to \the [name]."))
 				I.forceMove(src)
@@ -47,7 +47,7 @@ What it does:
 					S.faretype++ //Things are tastier on plates.
 				update_icon()
 			else
-				to_chat(user, span_info("Something is already on this [initial(name)]! Remove it first."))
+				to_chat(user, span_info("\The [initial(name)] is already full! Remove something first."))
 		else
 			return ..()
 
@@ -60,21 +60,34 @@ What it does:
 		update_icon()
 
 
+/obj/item/cooking/platter/proc/get_meal_contents_summary()
+	var/list/plated_names = list()
+	for(var/obj/item/plated_item in contents)
+		plated_names += plated_item.name
+	return english_list(plated_names)
+
 /obj/item/cooking/platter/update_icon()
 	if(contents.len > 0)
-		var/matrix/M = new
-		M.Scale(0.8,0.8)
-		contents[1].transform = M
-		contents[1].pixel_y = 3
+		var/list/plated_names = list()
+		var/item_index = 0
+		vis_contents = list()
+		for(var/obj/item/O in contents)
+			item_index++
+			var/matrix/M = new
+			M.Scale(0.8,0.8)
+			O.transform = M
+			O.pixel_y = 3
+			O.pixel_x = (item_index - 1) * 3 - (3 * (contents.len - 1) / 2)
 
-		contents[1].vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE
-		vis_contents += contents[1]
-		name = "platter of [contents[1].name]"
-		desc = contents[1].desc
-		//Need something better than this in future like a buff
-		if(istype(contents[1],  /obj/item/reagent_containers/food/snacks/))
-			var/obj/item/reagent_containers/food/snacks/S = contents[1]
-			S.bonus_reagents = list(/datum/reagent/consumable/nutriment = 2)
+			O.vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE
+			vis_contents += O
+			plated_names += O.name
+			//Need something better than this in future like a buff
+			if(istype(O,  /obj/item/reagent_containers/food/snacks/))
+				var/obj/item/reagent_containers/food/snacks/S = O
+				S.bonus_reagents = list(/datum/reagent/consumable/nutriment = 2)
+		name = "platter of [english_list(plated_names)]"
+		desc = (contents.len > 1) ? "A modular meal: [english_list(plated_names)], sharing one platter." : contents[1].desc
 	else
 		vis_contents = 0
 		name = initial(name)

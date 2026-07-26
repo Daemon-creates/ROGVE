@@ -56,6 +56,9 @@
 	slice_sound = TRUE
 	eating_slice = TRUE
 
+	fat_content = 80
+	flavor_profile = list(FLAVOR_AFFIX_RICH)
+
 /obj/item/reagent_containers/food/snacks/butter/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg))
@@ -195,6 +198,7 @@
 	rotprocess = SHELFLIFE_DECENT
 	become_rot_type = null
 	slice_path = null
+	food_process_tags = CAN_FERMENT
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddar
 	name = "wheel of cheese"

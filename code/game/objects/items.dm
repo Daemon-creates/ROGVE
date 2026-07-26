@@ -137,6 +137,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/juice_results //A reagent list containing blah blah... but when JUICED in a grinder!
 	var/mill_result = null // What it grinds into on a millstone or similar.
 
+	// Cooking System Overhaul - Phase 0 vars.
+	/// Bitflags describing what generic cooking processes (grind, dry, candy, cure, smoke, ferment, etc.) this item supports. See CAN_* defines in code/__DEFINES/food.dm
+	var/food_process_tags = NONE
+	/// Hidden flavor affixes carried by this ingredient (e.g. "brightening", "earthy", "sweet_counter"). Never shown as raw numbers, only through flavor text/name prefixes.
+	var/list/flavor_profile
+	/// 0-100ish relative moisture content, used by drying/preserve processes.
+	var/moisture_content = 0
+	/// 0-100ish relative sugar content, used by candying/preserve processes.
+	var/sugar_content = 0
+	/// 0-100ish relative fat content, used by curing/smoking processes.
+	var/fat_content = 0
+	/// Provenance ledger recording what this item was derived from (source ingredient(s), their tags/properties, and inherited affixes). Populated by generic processing (grinding, drying, baking, etc.)
+	var/datum/food_provenance/provenance
+
 	var/canMouseDown = FALSE
 	var/can_parry = FALSE
 	var/datum/skill/associated_skill
@@ -412,6 +426,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			embedded_mob.simple_remove_embedded_object(src)
 	if(artrecipe)
 		QDEL_NULL(artrecipe)
+	if(provenance)
+		QDEL_NULL(provenance)
 	if(istype(loc, /obj/machinery/artificer_table))
 		var/obj/machinery/artificer_table/A = loc
 		A.material = null
@@ -1940,4 +1956,3 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(desc != initial(desc))
 		return TRUE
 	return FALSE
-

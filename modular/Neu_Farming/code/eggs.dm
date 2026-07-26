@@ -11,6 +11,7 @@
 	foodtype = MEAT
 	grind_results = list()
 	rotprocess = SHELFLIFE_SHORT
+	food_process_tags = CAN_PICKLE
 
 	var/fertile = FALSE
 

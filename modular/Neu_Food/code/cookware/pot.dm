@@ -39,6 +39,15 @@
 		playsound(user, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 70, FALSE)
 		if(do_after(user,2 SECONDS, target = src))
 			reagents.trans_to(I, reagents.total_volume)
+		return TRUE
+	if(try_slap_craft_process(user, I, src, CAN_CANDY, GENERIC_CANDY_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_candied)), "candying"))
+		return TRUE
+	if(try_slap_craft_process(user, I, src, CAN_PRESERVE_SPREAD, GENERIC_PRESERVE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_preserve)), "slow-cooking"))
+		return TRUE
+	if(try_slap_craft_process(user, I, src, CAN_FERMENT, GENERIC_FERMENT_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_fermented)), "fermenting"))
+		return TRUE
+	if(try_slap_craft_process(user, I, src, CAN_PICKLE, GENERIC_PICKLE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_pickled)), "pickling"))
+		return TRUE
 	return TRUE
 
 /obj/item/reagent_containers/glass/bucket/pot/decrepit
