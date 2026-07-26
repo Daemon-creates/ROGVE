@@ -12,8 +12,8 @@
 	allowed_patrons = ALL_DIVINE_PATRONS
 	outfit = /datum/outfit/job/roguetown/groveexile
 	social_rank = SOCIAL_RANK_PEASANT
-	tutorial = "Whatever you did, wherever you fled from, the grove took you in when no one else would. You owe the archdruid your life, and you're not about to squander that debt-- \
-	but the grove is watching you all the same, and old habits die hard."
+	tutorial = "Murder, Thievery, or the despicable crime of having nowhere to go-- you had nothing to lose. \
+	the grove is your last chance, so you'd better adapt quick. The chanting is quite... freaky."
 
 	display_order = JDO_GROVEEXILE
 	give_bank_account = TRUE
@@ -31,8 +31,8 @@
 
 /datum/advclass/groveexile
 	name = "Exile"
-	tutorial = "Whatever you did, wherever you fled from, the grove took you in when no one else would. You owe the archdruid your life, and you're not about to squander that debt-- \
-	but the grove is watching you all the same, and old habits die hard."
+	tutorial = "Murder, Thievery, or the despicable crime of having nowhere to go-- you had nothing to lose. \
+	the grove is your last chance, so you'd better adapt quick. The chanting is quite... freaky."
 	outfit = /datum/outfit/job/roguetown/groveexile/basic
 	category_tags = list(CTAG_GROVEEXILE)
 	subclass_stats = list(

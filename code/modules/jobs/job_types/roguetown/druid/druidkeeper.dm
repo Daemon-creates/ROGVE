@@ -12,9 +12,10 @@
 	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways
 	outfit = /datum/outfit/job/roguetown/sacrist
 	social_rank = SOCIAL_RANK_YEOMAN
-	tutorial = "You are second only to the archdruid, and it is your rituals that keep the circle healthy--the wards renewed, the wildform gifts undiminished, the grove's balance with Dendor unbroken. \
-	Should the archdruid fall or falter, it is you who must hold the grove together."
-
+	tutorial = "some days, you help the Archdruid stand up in the morning as he recites the ancient wisdom. \
+	Most days, you give orders and directions to the Grovers and Fians. You answer only to the Archdruid, \
+	and will eventually replace him when he returns to the soil. Younger, more able-bodied, you can handle the \
+	burden of leadership while there is still a long way to go."
 	display_order = JDO_DRUIDKEEPER
 	give_bank_account = TRUE
 	min_pq = 5
@@ -32,8 +33,10 @@
 
 /datum/advclass/sacrist
 	name = "Keeper"
-	tutorial = "You are second only to the archdruid, and it is your rituals that keep the circle healthy--the wards renewed, the wildform gifts undiminished, the grove's balance with Dendor unbroken. \
-	Should the archdruid fall or falter, it is you who must hold the grove together."
+	tutorial = "some days, you help the Archdruid stand up in the morning as he recites the ancient wisdom. \
+	Most days, you give orders and directions to the Grovers and Fians. You answer only to the Archdruid, \
+	and will eventually replace him when he returns to the soil. Younger, more able-bodied, you can handle the \
+	burden of leadership while there is still a long way to go."
 	outfit = /datum/outfit/job/roguetown/sacrist/basic
 	category_tags = list(CTAG_DRUIDKEEPER)
 	subclass_languages = list(/datum/language/beast)
