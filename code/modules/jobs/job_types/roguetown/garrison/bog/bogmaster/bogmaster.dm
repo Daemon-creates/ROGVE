@@ -11,9 +11,9 @@
 	advclass_cat_rolls = list(CTAG_ROOKIE = 20)
 	job_traits = list()
 
-	tutorial = "line 1 \
-				line 2 \
-				line 3"
+	tutorial = "You've survived for quite some time, but your days are numbered. You know what lies beyond-- death and darkness for miles. \
+	Think about what it takes to keep your men alive. You were once part of the Duke's retinue, now you're organizing parolees and fresh recruits. \
+	This is your gate. You will not compromise, you will not falter. Just one more week."
 	
 	outfit = /datum/outfit/job/roguetown/bogmaster
 	display_order = JDO_BOGMASTER

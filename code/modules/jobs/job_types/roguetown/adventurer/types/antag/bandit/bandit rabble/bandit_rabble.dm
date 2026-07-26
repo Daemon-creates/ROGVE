@@ -8,7 +8,7 @@
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
 	tutorial = "You are a footpad, a cog in the machine that pumps misery into the hands of the townsfolk. You are scum, \
-	filth, someone that is too far gone... or at least, that's they called you. Now, these blokes took you in. \
+	filth, someone that is too far gone... that's what they called you. Now, these blokes took you in. \
 	Called you their own. Told you they have a job for you... you better do it, or else."
 
 	outfit = /datum/outfit/job/roguetown/bandit_rabble
