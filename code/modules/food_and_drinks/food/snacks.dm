@@ -60,6 +60,7 @@ All foods are distributed among various categories. Use common sense.
 	var/fried_type = null	//instead of becoming
 	var/deep_fried_type = null
 	var/filling_color = "#FFFFFF" //color to use when added to custom food.
+	var/provenance_name_suffix = null
 	var/custom_food_type = null  //for food customizing. path of the custom food to create
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/list/bonus_reagents //the amount of reagents (usually nutriment and vitamin) added to crafted/cooked snacks, on top of the ingredients reagents.
@@ -74,8 +75,23 @@ All foods are distributed among various categories. Use common sense.
 
 	var/cooked_color = "#91665c"
 	var/burned_color = "#302d2d"
-	/// Set on the resulting item once it has actually gone through a successful cook (cooked_type/fried_type), so its burn progression blends from cooked_color instead of its raw color.
-	var/finished_cooking = FALSE
+	var/doneness_stage = DONENESS_RAW
+	/// Nutrition multiplier already baked into current reagents for the current doneness_stage, tracked so it can be adjusted (not re-applied) as doneness advances.
+	var/doneness_nutrition_multiplier = 1
+	/// Color captured the first time doneness advances, used as the blend origin for get_doneness_color() so repeated stage advances don't compound the blend.
+	var/doneness_base_color
+	/// filling_color captured the first time doneness advances, used as the blend origin for get_doneness_filling_color() the same way doneness_base_color is used for get_doneness_color().
+	var/doneness_base_filling_color
+	/// Which doneness-stage taste descriptor (if any, see get_doneness_taste_descriptor()) is currently folded into this item's nutriment reagent data, so a later stage can cleanly replace it in apply_doneness_taste() instead of every stage's flavor stacking on top of each other.
+	var/applied_doneness_taste
+	/// Icon file to show while doneness_stage is still under get_doneness_finished_stage() (still-cooking look, e.g. the raw cut's sprite), swapped back to this item's own initial(icon)/initial(icon_state) once doneness_stage reaches that stage (the "finished" look). Null (the default) means this item keeps its normal icon/icon_state at every stage - opt-in only, see meat's fried/cooked types in cooked_meat.dm.
+	var/unfinished_icon
+	/// See unfinished_icon above. Must be set (non-null) for the unfinished-look swap to happen at all.
+	var/unfinished_icon_state
+	/// Set TRUE while this item's eat_effect has been forcibly overridden to the uncookedfood debuff because it's below get_doneness_minimum_safe_stage() (see apply_doneness_stage()), so the original eat_effect can be restored once it's cooked past that stage instead of being permanently lost.
+	var/doneness_undercooked_forced = FALSE
+	/// eat_effect this item had before get_doneness_minimum_safe_stage() forced it to the uncookedfood debuff - see doneness_undercooked_forced above.
+	var/doneness_prior_eat_effect
 
 	var/ingredient_size = 1
 	var/eat_effect
@@ -118,6 +134,12 @@ All foods are distributed among various categories. Use common sense.
 		SSticker.OnRoundstart(CALLBACK(src, PROC_REF(begin_rotting)))
 	if(cooked_type || fried_type)
 		cooktime = 30 SECONDS
+	else if(food_process_tags & CAN_SLOW_ROAST)
+		cooktime = game_minutes2deciseconds(GENERIC_SLOW_ROAST_GAME_MINUTES)
+	else if(food_process_tags & CAN_SEAR)
+		cooktime = game_minutes2deciseconds(GENERIC_SEAR_GAME_MINUTES)
+	else if(food_process_tags & CAN_BAKE)
+		cooktime = game_minutes2deciseconds(GENERIC_BAKE_GAME_MINUTES)
 	..()
 
 /obj/item/reagent_containers/food/snacks/proc/begin_rotting()
@@ -187,46 +209,62 @@ All foods are distributed among various categories. Use common sense.
 		return
 	if(cooktime)
 		var/added_input = input
-		// Pick flat burninput instead of skill-scaled input so high cooking skill doesn't make food burn faster
-		if(!cooked_type && !fried_type)
+		if(!cooked_type && !fried_type && !(food_process_tags & (CAN_SLOW_ROAST|CAN_SEAR|CAN_BAKE)))
 			added_input = burninput
 		if(cooking < cooktime)
 			cooking = cooking + added_input
-			// Gradually blend towards the cooked color as it goes through every doneness stage, only swapping
-			// to the actual cooked sprite once the final (fully cooked) stage is reached below.
-			color = BlendRGB(initial(color), cooked_color, min(cooking / cooktime, 1))
 			if(cooking >= cooktime)
 				return heating_act(A)
 			warming = 5 MINUTES
 			return
-	return burning(burninput)
+	burning(burninput)
 
 /obj/item/reagent_containers/food/snacks/heating_act(atom/A)
 	if(istype(A,/obj/machinery/light/rogue/oven))
-		var/obj/item/reagent_containers/food/snacks/result
+		var/obj/item/result
+		var/produced_generic_bake = FALSE
 		if(cooked_type)
 			result = new cooked_type(A)
-			// result is a distinct instance of cooked_type, so it doesn't inherit src's blended color - start it fresh at its own cooked_color.
-			result.color = result.cooked_color
-			result.finished_cooking = TRUE
 			if(cooked_smell)
 				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+		else if(food_process_tags & CAN_BAKE)
+			result = create_provenance_baked(src, A)
+			if(cooked_smell)
+				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+			produced_generic_bake = TRUE
 		else
 			result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
+		propagate_meat_animal_source(src, result)
 		initialize_cooked_food(result, 1)
+		if(istype(result, /obj/item/reagent_containers/food/snacks) && (cooked_type || produced_generic_bake))
+			var/obj/item/reagent_containers/food/snacks/cooked_result = result
+			cooked_result.apply_doneness_stage(DONENESS_BLUE_RARE)
 		return result
 	if(istype(A,/obj/machinery/light/rogue/hearth) || istype(A,/obj/machinery/light/rogue/firebowl) || istype(A,/obj/machinery/light/rogue/campfire) || istype(A,/obj/machinery/light/rogue/hearth/mobilestove))
-		var/obj/item/reagent_containers/food/snacks/result
+		var/obj/item/result
+		var/produced_generic_roast = FALSE
+		var/produced_generic_sear = FALSE
 		if(fried_type)
 			result = new fried_type(A)
-			// result is a distinct instance of fried_type, so it doesn't inherit src's blended color - start it fresh at its own cooked_color.
-			result.color = result.cooked_color
-			result.finished_cooking = TRUE
 			if(cooked_smell)
 				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+		else if(food_process_tags & CAN_SLOW_ROAST)
+			result = create_provenance_roasted(src, A)
+			if(cooked_smell)
+				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+			produced_generic_roast = TRUE
+		else if(food_process_tags & CAN_SEAR)
+			result = create_provenance_seared(src, A)
+			if(cooked_smell)
+				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+			produced_generic_sear = TRUE
 		else
 			result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
+		propagate_meat_animal_source(src, result)
 		initialize_cooked_food(result, 1)
+		if(istype(result, /obj/item/reagent_containers/food/snacks) && (fried_type || produced_generic_roast || produced_generic_sear))
+			var/obj/item/reagent_containers/food/snacks/cooked_result = result
+			cooked_result.apply_doneness_stage(DONENESS_BLUE_RARE)
 		return result
 	var/obj/item/result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
 	initialize_cooked_food(result, 1)
@@ -239,23 +277,183 @@ All foods are distributed among various categories. Use common sense.
 	if(!input)
 		return
 	warming = 5 MINUTES
-	if(!burntime)
+	if(burntime)
+		burning = burning + input
+		var/fraction = burning / burntime
+		var/target_stage
+		if(fraction >= 1)
+			// At/past the old "burned" threshold - jump straight to BURNT,
+			// one stage past WELL_DONE (reached just below fraction 1).
+			target_stage = DONENESS_BURNT
+		else
+			var/steps_passed = min(round(fraction * 5), 4)
+			target_stage = DONENESS_RARE + steps_passed
+		apply_doneness_stage(target_stage)
+		if(burning > (burntime * 2))
+			burn()
+/obj/item/reagent_containers/food/snacks/proc/apply_doneness_stage(new_stage, rescale_nutrition = TRUE)
+	if(new_stage <= doneness_stage)
 		return
-	burning = burning + input
-	// Blend from the cooked color (if it was actually cooked) or its raw color (if it skipped straight to burning)
-	// towards the burned color, going through every doneness stage instead of jumping straight to burned.
-	var/burn_base_color = finished_cooking ? cooked_color : initial(color)
-	color = BlendRGB(burn_base_color, burned_color, min(burning / burntime, 1))
-	if(burning >= burntime)
-		return become_burned_mess()
+	if(isnull(doneness_base_color))
+		doneness_base_color = isnull(color) ? "#ffffff" : color
+	if(isnull(doneness_base_filling_color))
+		doneness_base_filling_color = isnull(filling_color) ? "#ffffff" : filling_color
+	doneness_stage = new_stage
+	var/doneness_prefix = get_doneness_prefix(doneness_stage)
+	name = "[doneness_prefix][get_doneness_base_name()]"
+	color = get_doneness_color(doneness_stage)
+	filling_color = get_doneness_filling_color(doneness_stage)
+	if(unfinished_icon_state)
+		if(doneness_stage >= get_doneness_finished_stage())
+			// Reached the "finished"/fully-cooked look - swap back to this item's own sprite.
+			icon = initial(icon)
+			icon_state = initial(icon_state)
+		else
+			// Still cooking - keep showing the still-cooking sprite.
+			if(unfinished_icon)
+				icon = unfinished_icon
+			icon_state = unfinished_icon_state
+	if(rescale_nutrition)
+		apply_doneness_nutrition_multiplier(get_doneness_nutrition_multiplier(doneness_stage))
+	apply_doneness_taste(doneness_stage)
+	var/minimum_safe_stage = get_doneness_minimum_safe_stage()
+	if(minimum_safe_stage > DONENESS_RAW && doneness_stage < minimum_safe_stage)
+		if(!doneness_undercooked_forced)
+			doneness_undercooked_forced = TRUE
+			doneness_prior_eat_effect = eat_effect
+		eat_effect = /datum/status_effect/debuff/uncookedfood
+	else if(doneness_undercooked_forced)
+		eat_effect = doneness_prior_eat_effect
+		doneness_undercooked_forced = FALSE
+	if(doneness_stage >= DONENESS_BURNT)
+		slice_path = null
+		eat_effect = /datum/status_effect/debuff/burnedfood
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_base_name()
+	return initial(name)
 
-/// Called once the final ("burnt") doneness stage is reached - turns the food into an inedible burned mess.
-/obj/item/reagent_containers/food/snacks/proc/become_burned_mess()
-	var/atom/original_loc = loc
-	var/obj/item/reagent_containers/food/snacks/badrecipe/burned_mess = new(original_loc)
-	initialize_cooked_food(burned_mess, 1)
-	qdel(src)
-	return burned_mess
+/// Doneness stage at/after which this item's icon swaps from unfinished_icon_state back to its own "finished" sprite (see apply_doneness_stage()). Default DONENESS_MEDIUM preserves existing behavior for every item that hasn't opted in. Override alongside get_doneness_minimum_safe_stage() for foodtypes (poultry) that aren't visually/actually "finished" until further along the ladder.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_finished_stage()
+	return DONENESS_MEDIUM
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_minimum_safe_stage()
+	return DONENESS_RAW
+
+/// Name prefix applied at a given doneness stage, empty string for stages that shouldn't rename the item.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_prefix(stage)
+	switch(stage)
+		if(DONENESS_BLUE_RARE)
+			return "blue-rare "
+		if(DONENESS_RARE)
+			return "rare "
+		if(DONENESS_MEDIUM_RARE)
+			return "medium-rare "
+		if(DONENESS_MEDIUM)
+			return "medium "
+		if(DONENESS_MEDIUM_WELL)
+			return "medium-well "
+		if(DONENESS_WELL_DONE)
+			return "well-done "
+		if(DONENESS_BURNT)
+			return "burnt "
+	return ""
+/obj/item/reagent_containers/food/snacks/proc/blend_doneness_color(base_color, stage)
+	if(stage >= DONENESS_BURNT)
+		return burned_color
+	if(stage <= DONENESS_BLUE_RARE)
+		return base_color
+	if(stage <= DONENESS_MEDIUM)
+		var/blend = (stage - DONENESS_BLUE_RARE) / (DONENESS_MEDIUM - DONENESS_BLUE_RARE)
+		return BlendRGB(base_color, cooked_color, blend)
+	var/blend = (stage - DONENESS_MEDIUM) / (DONENESS_BURNT - DONENESS_MEDIUM)
+	return BlendRGB(cooked_color, burned_color, blend)
+
+/// See blend_doneness_color() above.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_color(stage)
+	return blend_doneness_color(doneness_base_color, stage)
+
+/// See blend_doneness_color() above.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_filling_color(stage)
+	return blend_doneness_color(doneness_base_filling_color, stage)
+
+/// Nutrition/reagent multiplier for a given doneness stage - peaks around medium, tapers off when under/overcooked.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_nutrition_multiplier(stage)
+	switch(stage)
+		if(DONENESS_BLUE_RARE)
+			return 0.9
+		if(DONENESS_RARE)
+			return 1
+		if(DONENESS_MEDIUM_RARE)
+			return 1.05
+		if(DONENESS_MEDIUM)
+			return 1.1
+		if(DONENESS_MEDIUM_WELL)
+			return 1
+		if(DONENESS_WELL_DONE)
+			return 0.85
+		if(DONENESS_BURNT)
+			return 0.5
+	return 1
+
+/// Rescales the nutriment reagents (and their vitamin subtype, /datum/reagent/consumable/nutriment/vitamin) already present to reflect a new doneness nutrition multiplier, relative to the multiplier already applied.
+/obj/item/reagent_containers/food/snacks/proc/apply_doneness_nutrition_multiplier(target_multiplier)
+	if(!reagents || !doneness_nutrition_multiplier || target_multiplier == doneness_nutrition_multiplier)
+		return
+	var/relative_scale = target_multiplier / doneness_nutrition_multiplier
+	for(var/datum/reagent/consumable/nutriment/nutriment_reagent in reagents.reagent_list)
+		nutriment_reagent.volume *= relative_scale
+	reagents.update_total()
+	doneness_nutrition_multiplier = target_multiplier
+
+/// Player-facing in-fiction descriptor for the current doneness stage, used by examine().
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_examine_text(stage)
+	switch(stage)
+		if(DONENESS_RAW)
+			return "This looks completely raw."
+		if(DONENESS_BLUE_RARE)
+			return "This looks blue-rare, barely seared on the outside."
+		if(DONENESS_RARE)
+			return "This looks rare."
+		if(DONENESS_MEDIUM_RARE)
+			return "This looks medium-rare."
+		if(DONENESS_MEDIUM)
+			return "This looks medium, cooked through nicely."
+		if(DONENESS_MEDIUM_WELL)
+			return "This looks medium-well."
+		if(DONENESS_WELL_DONE)
+			return "This is well done."
+		if(DONENESS_BURNT)
+			return "This is burnt to a crisp."
+	return null
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_taste_descriptor(stage)
+	switch(stage)
+		if(DONENESS_BLUE_RARE)
+			return "bloody meat"
+		if(DONENESS_RARE)
+			return "seared meat"
+		if(DONENESS_MEDIUM_RARE)
+			return "juicy meat"
+		if(DONENESS_MEDIUM)
+			return "hearty meat"
+		if(DONENESS_MEDIUM_WELL)
+			return "firm meat"
+		if(DONENESS_WELL_DONE)
+			return "roasted meat"
+		if(DONENESS_BURNT)
+			return "char"
+	return null
+/obj/item/reagent_containers/food/snacks/proc/apply_doneness_taste(stage)
+	if(!reagents)
+		return
+	var/new_taste = get_doneness_taste_descriptor(stage)
+	if(new_taste == applied_doneness_taste)
+		return
+	for(var/datum/reagent/consumable/nutriment/nutriment_reagent in reagents.reagent_list)
+		if(!istype(nutriment_reagent.data, /list))
+			nutriment_reagent.data = list()
+		if(applied_doneness_taste)
+			nutriment_reagent.data -= applied_doneness_taste
+		if(new_taste)
+			nutriment_reagent.data[new_taste] = 1
+	applied_doneness_taste = new_taste
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	create_reagents(volume)
@@ -575,6 +773,10 @@ All foods are distributed among various categories. Use common sense.
 	else
 		. += span_smallnotice("Eating this without a table would be disgraceful for a noble.")
 	. += span_smallnotice("It looks like [get_nutrition_to_text()]")
+	if(doneness_stage > DONENESS_RAW || burntime)
+		var/doneness_text = get_doneness_examine_text(doneness_stage)
+		if(doneness_text)
+			. += span_smallnotice(doneness_text)
 	switch(eat_effect)
 		if(/datum/status_effect/debuff/uncookedfood)
 			. += span_smallred("It is raw!")
@@ -708,6 +910,10 @@ All foods are distributed among various categories. Use common sense.
 	reagents.trans_to(slice,reagents_per_slice)
 	slice.filling_color = filling_color
 	slice.name = slice_name ? slice_name : slice.name
+	propagate_meat_animal_source(src, slice)
+	if(doneness_stage > DONENESS_RAW)
+		slice.doneness_nutrition_multiplier = doneness_nutrition_multiplier
+		slice.apply_doneness_stage(doneness_stage, rescale_nutrition = FALSE)
 	slice.update_snack_overlays(src)
 //	if(name != initial(name))
 //		slice.name = "slice of [name]"
@@ -748,6 +954,14 @@ All foods are distributed among various categories. Use common sense.
 			else
 				S.reagents.add_reagent(r_id, amount)
 	S.filling_color = filling_color
+	if(provenance)
+		S.provenance = provenance
+		provenance = null
+		if(S.provenance_name_suffix)
+			var/derived_name = S.provenance.build_name(suffix = S.provenance_name_suffix)
+			if(derived_name)
+				S.name = derived_name
+			S.desc = S.provenance.build_desc(S.desc)
 	S.update_snack_overlays(src)
 
 /obj/item/reagent_containers/food/snacks/Destroy()
