@@ -19,6 +19,7 @@
 	var/animal_source
 	var/animal_name_format
 	var/base_food_name
+
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/set_animal_source(source_name)
 	if(!source_name || animal_source)
 		return
@@ -26,6 +27,7 @@
 	if(animal_name_format)
 		name = replacetext(animal_name_format, "%ANIMAL%", animal_source)
 	add_animal_taste_tag(source_name)
+
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/add_animal_taste_tag(source_name)
 	if(!reagents || !source_name)
 		return
@@ -34,6 +36,7 @@
 			nutriment_reagent.data = list()
 		if(!(source_name in nutriment_reagent.data))
 			nutriment_reagent.data[source_name] = 1
+
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/merge_animal_source(source_name)
 	if(!source_name)
 		return
@@ -49,6 +52,7 @@
 		name = replacetext(animal_name_format, "%ANIMAL%", animal_source)
 	add_animal_taste_tag(source_name)
 
+/// See get_doneness_base_name() in code/modules/food_and_drinks/food/snacks.dm - folds animal_source into the un-prefixed base name doneness prefixes get applied to, instead of always falling back to the type's fixed initial(name). See base_food_name above for cuts with no animal_source.
 /obj/item/reagent_containers/food/snacks/rogue/meat/get_doneness_base_name()
 	if(animal_source && animal_name_format)
 		return replacetext(animal_name_format, "%ANIMAL%", animal_source)
@@ -168,15 +172,11 @@
 	slice_sound = TRUE
 	ingredient_size = 4
 	cooked_smell = /datum/pollutant/food/cooked_chicken
+	// Cooking System Overhaul - Phase 10: chicken and drider both butcher
+	// into this same generic whole-bird type.
 	animal_name_format = "plucked %ANIMAL%"
 
-/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_minimum_safe_stage()
-	return DONENESS_MEDIUM_WELL
-
-/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_finished_stage()
-	return DONENESS_MEDIUM_WELL
-
-/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_prefix(stage)
+/proc/get_poultry_doneness_prefix(stage)
 	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
 		return "undercooked "
 	switch(stage)
@@ -186,7 +186,8 @@
 			return "burnt "
 	return "" // properly cooked (medium-well) poultry is just "chicken"/"bird" - no fine-dining prefix like beef gets
 
-/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_examine_text(stage)
+/// See get_poultry_doneness_prefix() above.
+/proc/get_poultry_doneness_examine_text(stage)
 	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
 		return "This still looks undercooked - poultry needs to be cooked all the way through before it's safe to eat."
 	switch(stage)
@@ -200,7 +201,8 @@
 			return "This is burnt to a crisp."
 	return null
 
-/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_taste_descriptor(stage)
+/// See get_poultry_doneness_prefix() above.
+/proc/get_poultry_doneness_taste_descriptor(stage)
 	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
 		return "undercooked poultry"
 	switch(stage)
@@ -212,6 +214,21 @@
 			return "char"
 	return null
 
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_minimum_safe_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_finished_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_prefix(stage)
+	return get_poultry_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_examine_text(stage)
+	return get_poultry_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_taste_descriptor(stage)
+	return get_poultry_doneness_taste_descriptor(stage)
+
 /* ............. Chicken Cutlet (Drumstick) ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
 	name = "bird meat"
@@ -222,6 +239,7 @@
 	slice_bclass = BCLASS_CHOP
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried
+	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "%ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/attackby(obj/item/I, mob/living/user)
@@ -371,6 +389,7 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	name = "minced meat"
+	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "minced %ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
@@ -385,6 +404,7 @@
 	name = "minced poultry"
 	icon_state = "meatmince"
 	cooked_smell = /datum/pollutant/food/cooked_chicken
+	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "minced %ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage
@@ -394,6 +414,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
 	cooked_smell = /datum/pollutant/food/fried_sausage
+	// Cooking System Overhaul - Phase 10 ("same with sausage").
 	animal_name_format = "raw %ANIMAL% sausage"
 
 /* ............. fish chop ................*/

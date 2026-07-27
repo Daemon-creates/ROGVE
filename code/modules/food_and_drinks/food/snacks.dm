@@ -75,6 +75,7 @@ All foods are distributed among various categories. Use common sense.
 
 	var/cooked_color = "#91665c"
 	var/burned_color = "#302d2d"
+
 	var/doneness_stage = DONENESS_RAW
 	/// Nutrition multiplier already baked into current reagents for the current doneness_stage, tracked so it can be adjusted (not re-applied) as doneness advances.
 	var/doneness_nutrition_multiplier = 1
@@ -291,6 +292,7 @@ All foods are distributed among various categories. Use common sense.
 		apply_doneness_stage(target_stage)
 		if(burning > (burntime * 2))
 			burn()
+
 /obj/item/reagent_containers/food/snacks/proc/apply_doneness_stage(new_stage, rescale_nutrition = TRUE)
 	if(new_stage <= doneness_stage)
 		return
@@ -328,12 +330,14 @@ All foods are distributed among various categories. Use common sense.
 	if(doneness_stage >= DONENESS_BURNT)
 		slice_path = null
 		eat_effect = /datum/status_effect/debuff/burnedfood
+
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_base_name()
 	return initial(name)
 
 /// Doneness stage at/after which this item's icon swaps from unfinished_icon_state back to its own "finished" sprite (see apply_doneness_stage()). Default DONENESS_MEDIUM preserves existing behavior for every item that hasn't opted in. Override alongside get_doneness_minimum_safe_stage() for foodtypes (poultry) that aren't visually/actually "finished" until further along the ladder.
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_finished_stage()
 	return DONENESS_MEDIUM
+
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_minimum_safe_stage()
 	return DONENESS_RAW
 
@@ -355,6 +359,16 @@ All foods are distributed among various categories. Use common sense.
 		if(DONENESS_BURNT)
 			return "burnt "
 	return ""
+
+/**
+ * Blends `base_color` towards cooked_color one step at a time across
+ * blue-rare/rare/medium-rare, landing exactly on cooked_color at
+ * DONENESS_MEDIUM (matching the sprite swap in apply_doneness_stage()),
+ * then blends cooked_color towards burned_color one step at a time across
+ * medium-well/well-done, landing exactly on burned_color at DONENESS_BURNT.
+ * Shared by get_doneness_color() (item color) and
+ * get_doneness_filling_color() (filling_color) so both blend identically.
+ */
 /obj/item/reagent_containers/food/snacks/proc/blend_doneness_color(base_color, stage)
 	if(stage >= DONENESS_BURNT)
 		return burned_color
@@ -423,6 +437,7 @@ All foods are distributed among various categories. Use common sense.
 		if(DONENESS_BURNT)
 			return "This is burnt to a crisp."
 	return null
+
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_taste_descriptor(stage)
 	switch(stage)
 		if(DONENESS_BLUE_RARE)
@@ -440,6 +455,8 @@ All foods are distributed among various categories. Use common sense.
 		if(DONENESS_BURNT)
 			return "char"
 	return null
+
+
 /obj/item/reagent_containers/food/snacks/proc/apply_doneness_taste(stage)
 	if(!reagents)
 		return
@@ -911,6 +928,7 @@ All foods are distributed among various categories. Use common sense.
 	slice.filling_color = filling_color
 	slice.name = slice_name ? slice_name : slice.name
 	propagate_meat_animal_source(src, slice)
+
 	if(doneness_stage > DONENESS_RAW)
 		slice.doneness_nutrition_multiplier = doneness_nutrition_multiplier
 		slice.apply_doneness_stage(doneness_stage, rescale_nutrition = FALSE)
@@ -954,6 +972,7 @@ All foods are distributed among various categories. Use common sense.
 			else
 				S.reagents.add_reagent(r_id, amount)
 	S.filling_color = filling_color
+
 	if(provenance)
 		S.provenance = provenance
 		provenance = null
@@ -962,6 +981,9 @@ All foods are distributed among various categories. Use common sense.
 			if(derived_name)
 				S.name = derived_name
 			S.desc = S.provenance.build_desc(S.desc)
+	if(!S.cooked_type && !S.fried_type)
+		S.food_process_tags &= ~(CAN_SLOW_ROAST|CAN_SEAR|CAN_BAKE)
+		S.cooktime = 0
 	S.update_snack_overlays(src)
 
 /obj/item/reagent_containers/food/snacks/Destroy()

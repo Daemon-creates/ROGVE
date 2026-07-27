@@ -49,3 +49,18 @@
 	cooked_type = null
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	rotprocess = SHELFLIFE_DECENT
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/chickentender/get_doneness_minimum_safe_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/chickentender/get_doneness_finished_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/chickentender/get_doneness_prefix(stage)
+	return get_poultry_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/chickentender/get_doneness_examine_text(stage)
+	return get_poultry_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/chickentender/get_doneness_taste_descriptor(stage)
+	return get_poultry_doneness_taste_descriptor(stage)
