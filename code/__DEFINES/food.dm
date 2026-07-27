@@ -53,18 +53,33 @@
 #define FLAVOR_AFFIX_RICH			"rich"
 #define FLAVOR_AFFIX_SHARP			"sharp"
 #define FLAVOR_AFFIX_SWEET_COUNTER	"sweet_counter"
-#define GENERIC_GRIND_GAME_MINUTES	10
+
+
+#define DRYING_RACK_MAX_ITEMS	6
+
+#define GENERIC_GRIND_GAME_MINUTES	2
+#define GENERIC_SEAR_GAME_MINUTES	20 // 20 in-game minutes
+#define GENERIC_BAKE_GAME_MINUTES	60 // 1 in-game hour
+#define GENERIC_BOIL_GAME_MINUTES	40 // 40 in-game minutes
+#define GENERIC_STEAM_GAME_MINUTES	25 // 25 in-game minutes
+#define GENERIC_SLOW_ROAST_GAME_MINUTES	180
+
 #define GENERIC_DRY_GAME_MINUTES	30
-#define GENERIC_CANDY_GAME_MINUTES		240 // 4 in-game hours
+#define GENERIC_SMOKE_GAME_MINUTES		720 // 12 in-game hours
+#define GENERIC_CURE_GAME_MINUTES		1440 // 1 in-game day
+
+#define GENERIC_CANDY_GAME_MINUTES		120 // 2 in-game hours
 #define GENERIC_PRESERVE_GAME_MINUTES	360 // 6 in-game hours
 #define GENERIC_FERMENT_GAME_MINUTES	1440 // 1 in-game day
-#define GENERIC_CURE_GAME_MINUTES		4320 // 3 in-game days
-#define GENERIC_SMOKE_GAME_MINUTES		720 // 12 in-game hours
 #define GENERIC_MIXIN_GAME_MINUTES		2 // 2 in-game minutes
-#define GENERIC_PICKLE_GAME_MINUTES	2880 // 2 in-game days
-#define GENERIC_SLOW_ROAST_GAME_MINUTES	180 // 3 in-game hours
+#define GENERIC_PICKLE_GAME_MINUTES	1440 // 1 in-game day
 
-// ------------------------------------------------------------------------
+#define DOUGH_UNRISEN			0
+#define DOUGH_RISEN_ONCE		1
+#define DOUGH_KNEADED_AGAIN	2
+#define DOUGH_RISEN_TWICE		3
+#define DOUGH_RISE_GAME_MINUTES	60 // 1 in-game hour per proof
+
 #define DONENESS_RAW			0
 #define DONENESS_BLUE_RARE		1
 #define DONENESS_RARE			2

@@ -11,13 +11,24 @@
 /obj/item/reagent_containers/food/snacks/rogue/dough_base/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
 	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/powder/flour))
+	// Raw dough overhaul (Section 3 Step "add another powder"): any powder
+	// finishes the dough, not just flour specifically.
+	if(istype(I, /obj/item/reagent_containers/powder))
+		var/obj/item/reagent_containers/powder/P = I
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'modular/Neu_Food/sound/kneading.ogg', 100, TRUE, -1)
 			to_chat(user, span_notice("Kneading in more powder..."))
 			if(do_after(user,short_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/dough(loc)
+				var/obj/item/reagent_containers/food/snacks/rogue/dough/D = new(loc)
+				// Blend forward the dough's existing color (white + reagent
+				// + first powder, from the wetting step) with this second
+				// powder's own color.
+				D.color = BlendRGB(color || "#FFFFFF", P.color || "#FFFFFF", 0.5)
+				D.inherit_provenance_ledger(src)
+				D.record_provenance_from(P)
+				if(P.reagents)
+					P.reagents.trans_to(D, P.reagents.total_volume)
 				qdel(I)
 				qdel(src)
 		else
@@ -36,6 +47,68 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/bread
 	w_class = WEIGHT_CLASS_NORMAL
 	slice_sound = TRUE
+	/// Raw dough overhaul: how far along the rise/knead/rise cycle this
+	/// dough is. See the DOUGH_* defines in code/__DEFINES/food.dm.
+	var/rise_stage = DOUGH_UNRISEN
+	/// How much of a quality bonus rising has earned this dough so far.
+	/// Carried into the baked loaf's nutrition, see heating_act() below.
+	var/dough_quality = 0
+	var/rise_timer_id
+
+/obj/item/reagent_containers/food/snacks/rogue/dough/Initialize(mapload)
+	. = ..()
+	start_rise_timer()
+
+/obj/item/reagent_containers/food/snacks/rogue/dough/Destroy()
+	deltimer(rise_timer_id)
+	return ..()
+
+/**
+ * Raw dough overhaul: dough left alone (on a table, in a bowl, in a pack)
+ * rises on its own over time, exactly like drying/curing on the rack -
+ * nobody has to stand there kneading it for the whole rise. Once risen it
+ * waits for the player to knead it again before it can rise a second time.
+ */
+/obj/item/reagent_containers/food/snacks/rogue/dough/proc/start_rise_timer()
+	deltimer(rise_timer_id)
+	rise_timer_id = addtimer(CALLBACK(src, PROC_REF(finish_rise)), game_minutes2deciseconds(DOUGH_RISE_GAME_MINUTES), TIMER_STOPPABLE)
+
+/obj/item/reagent_containers/food/snacks/rogue/dough/proc/finish_rise()
+	if(QDELETED(src))
+		return
+	if(rise_stage != DOUGH_UNRISEN && rise_stage != DOUGH_KNEADED_AGAIN)
+		return
+	dough_quality = min(dough_quality + 1, 2)
+	if(rise_stage == DOUGH_UNRISEN)
+		rise_stage = DOUGH_RISEN_ONCE
+		name = "risen dough"
+		desc = "The dough has puffed up nicely, resting before it's worked again."
+	else
+		rise_stage = DOUGH_RISEN_TWICE
+		name = "twice-risen dough"
+		desc = "The dough has doubled over again, fully proofed and ready to bake."
+
+/// Raw dough overhaul: punching the risen dough down and kneading it again lets it rise a second time, for a further quality bonus.
+/obj/item/reagent_containers/food/snacks/rogue/dough/attack_hand(mob/living/user)
+	if(rise_stage == DOUGH_RISEN_ONCE)
+		playsound(get_turf(user), 'modular/Neu_Food/sound/kneading.ogg', 100, TRUE, -1)
+		to_chat(user, span_notice("Kneading the risen dough back down..."))
+		if(do_after(user, short_cooktime, target = src))
+			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+			rise_stage = DOUGH_KNEADED_AGAIN
+			name = "kneaded dough"
+			desc = "Punched down and ready to rise once more."
+			start_rise_timer()
+		return
+	return ..()
+
+/obj/item/reagent_containers/food/snacks/rogue/dough/heating_act(atom/A)
+	. = ..()
+	if(istype(., /obj/item/reagent_containers/food/snacks/rogue/bread) && dough_quality)
+		var/obj/item/reagent_containers/food/snacks/rogue/bread/B = .
+		B.dough_quality = dough_quality
+		if(B.reagents)
+			B.reagents.add_reagent(/datum/reagent/consumable/nutriment, dough_quality * 2)
 
 /obj/item/reagent_containers/food/snacks/rogue/dough/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -58,7 +131,6 @@
 			if(do_after(user,short_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
 				var/obj/item/reagent_containers/food/snacks/rogue/rbread_half/half = new(loc)
-
 				if(I.provenance)
 					half.record_provenance_from(I)
 				qdel(I)
@@ -96,8 +168,7 @@
 		if(isturf(loc) && found_table)
 			playsound(get_turf(user), 'modular/Neu_Food/sound/kneading.ogg', 100, TRUE, -1)
 			to_chat(user, span_notice("Kneading [mixin] into the dough..."))
-			// Cooking System Overhaul - Section 5: authored purely in game
-			// minutes, scaled by cooking skill like every other process.
+
 			var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
 			var/mixin_time = game_minutes2deciseconds(GENERIC_MIXIN_GAME_MINUTES) / get_cooktime_divisor(cs)
 			if(do_after(user, mixin_time, target = src))
@@ -332,9 +403,10 @@
 			name = "half-filled strudel"
 			desc = "A strudel form mostly filled with apples. Still missing it's other part."
 			process_step = 2
+			record_provenance_from(I)
 			qdel(I)
 			return
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/nut))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/nut))
 		if(process_step != 2)
 			return
 		to_chat(user, span_notice("Finishing the filling with rocknut.."))
@@ -343,6 +415,30 @@
 			desc = "A strudel filled to the brim with apples and nuts. Now to only bake it."
 			cooked_type = /obj/item/reagent_containers/food/snacks/rogue/strudel
 			process_step = 3
+			record_provenance_from(I)
 			qdel(I)
 			return
-	return ..()
+	else if(istype(I, /obj/item/reagent_containers/food/snacks))
+		if(process_step == 1)
+			to_chat(user, span_notice("Filling the dough with [I].."))
+			if(do_after(user, short_cooktime, target = src))
+				playsound(get_turf(user), 'modular/Neu_Food/sound/eggbreak.ogg', 100, TRUE, -1)
+				name = "half-filled strudel"
+				desc = "A strudel form mostly filled with ingredients. Still missing it's other part."
+				process_step = 2
+				record_provenance_from(I)
+				qdel(I)
+				return
+		else if(process_step == 2)
+			to_chat(user, span_notice("Finishing the filling with [I].."))
+			if(do_after(user, short_cooktime, target = src))
+				name = "filled strudel"
+				desc = "A strudel filled to the brim with mixed ingredients. Now to only bake it."
+				cooked_type = /obj/item/reagent_containers/food/snacks/rogue/strudel/generic
+				process_step = 3
+				record_provenance_from(I)
+				qdel(I)
+				return
+		return
+	else
+		return ..()

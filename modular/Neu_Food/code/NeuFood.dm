@@ -110,23 +110,10 @@
  *								*
  * * * * * * * * * * * * * * * 	*/
 
-// -------------- Flour -----------------
-/obj/item/reagent_containers/powder/flour
-	name = "flour"
-	desc = "With this ambition, we build an empire."
-	gender = PLURAL
-	icon_state = "flour"
-	list_reagents = list(/datum/reagent/floure = 1)
-	volume = 1
-	sellprice = 0
+/obj/item/reagent_containers/powder
 	var/water_added
 
-/obj/item/reagent_containers/powder/flour/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
-	new /obj/effect/decal/cleanable/food/flour(get_turf(src))
-	..()
-	qdel(src)
-
-/obj/item/reagent_containers/powder/flour/attackby(obj/item/I, mob/living/user, params)
+/obj/item/reagent_containers/powder/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
 	var/obj/item/reagent_containers/R = I
 	update_cooktime(user)
@@ -138,36 +125,54 @@
 	if(!R.reagents || R.reagents.total_volume < 10)
 		to_chat(user, span_notice("Needs more liquid to work it."))
 		return TRUE
+	var/datum/reagent/master_reagent = R.reagents.get_master_reagent()
 	to_chat(user, span_notice("Adding [R.reagents.get_master_reagent_name()], now its time to knead it..."))
 	playsound(get_turf(user), 'modular/Neu_Food/sound/splishy.ogg', 100, TRUE, -1)
 	if(do_after(user, short_cooktime, target = src))
 		add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-		name = "wet flour"
+		var/reagent_color = master_reagent?.color || "#d9d0cb"
+		color = BlendRGB("#FFFFFF", BlendRGB(color || "#FFFFFF", reagent_color, 0.5), 0.5)
+		name = "wet [name]"
 		desc = "Destined for greatness, at your hands."
+		record_provenance_from(R)
 		R.reagents.remove_all(10)
 		water_added = TRUE
-		color = "#d9d0cb"
 	return TRUE
 
-/obj/item/reagent_containers/powder/flour/attack_hand(mob/living/user)
+/obj/item/reagent_containers/powder/attack_hand(mob/living/user)
 	if(water_added)
 		playsound(get_turf(user), 'modular/Neu_Food/sound/kneading_alt.ogg', 90, TRUE, -1)
 		if(do_after(user, short_cooktime, target = src))
 			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-			new /obj/item/reagent_containers/food/snacks/rogue/dough_base(loc)
+			var/obj/item/reagent_containers/food/snacks/rogue/dough_base/D = new(loc)
+			D.color = color
+			D.inherit_provenance_ledger(src)
+			D.record_provenance_from(src)
+			if(reagents)
+				reagents.trans_to(D, reagents.total_volume)
 			qdel(src)
-	else ..()
+	else
+		return ..()
 
+// -------------- Flour -----------------
+/obj/item/reagent_containers/powder/flour
+	name = "flour"
+	desc = "With this ambition, we build an empire."
+	gender = PLURAL
+	icon_state = "flour"
+	list_reagents = list(/datum/reagent/floure = 1)
+	volume = 1
+	sellprice = 0
+
+/obj/item/reagent_containers/powder/flour/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
+	new /obj/effect/decal/cleanable/food/flour(get_turf(src))
+	..()
+	qdel(src)
 
 /obj/item/reagent_containers/powder/flour/generic
 	name = "flour"
 	desc = "Ground plant material, milled fine enough to bake with."
 
-/**
- * Creates a generic flour item at `location`, deriving its name,
- * description and provenance ledger from `source`. Does not delete
- * `source` - callers are responsible for consuming the original ingredient.
- */
 /proc/create_provenance_flour(obj/item/source, atom/location)
 	var/obj/item/reagent_containers/powder/flour/generic/F = new(location)
 	F.apply_provenance_from(source, suffix = "flour", base_desc = F.desc)
@@ -183,6 +188,7 @@
 	list_reagents = list(/datum/reagent/floure = 1)
 	volume = 1
 	sellprice = 0
+	flavor_profile = list(FLAVOR_AFFIX_SWEET_COUNTER)
 
 /obj/item/reagent_containers/powder/salt/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	new /obj/effect/decal/cleanable/food/flour(get_turf(src))

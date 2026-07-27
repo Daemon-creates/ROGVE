@@ -55,7 +55,6 @@
 	bitesize = 6
 	slice_sound = TRUE
 	eating_slice = TRUE
-
 	fat_content = 80
 	flavor_profile = list(FLAVOR_AFFIX_RICH)
 
@@ -217,6 +216,7 @@
 	eating_slice = TRUE
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/cheddar/aged
 	slice_sound = TRUE
+	food_process_tags = CAN_SMOKE
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddar/aged
 	name = "wheel of aged cheese"

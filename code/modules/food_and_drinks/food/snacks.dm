@@ -60,14 +60,6 @@ All foods are distributed among various categories. Use common sense.
 	var/fried_type = null	//instead of becoming
 	var/deep_fried_type = null
 	var/filling_color = "#FFFFFF" //color to use when added to custom food.
-	// Cooking System Overhaul - Section 6 (procedural naming). If set, this
-	// item's cooked/finished name is rebuilt from its provenance ledger
-	// (if any) via /datum/food_provenance/build_name(suffix =
-	// provenance_name_suffix) once cooking finishes, instead of keeping a
-	// single fixed name regardless of what fed into it (e.g. a loaf that
-	// carries dried-fig provenance becomes "dried-fig loaf" instead of
-	// always "raisin loaf"). Left null (the default) preserves existing
-	// behavior for every item that hasn't opted in.
 	var/provenance_name_suffix = null
 	var/custom_food_type = null  //for food customizing. path of the custom food to create
 	var/junkiness = 0  //for junk food. used to lower human satiety.
@@ -83,17 +75,23 @@ All foods are distributed among various categories. Use common sense.
 
 	var/cooked_color = "#91665c"
 	var/burned_color = "#302d2d"
-
-	// Cooking System Overhaul - Phase 2: doneness/temperature-state ladder.
-	// Advances continuously with accumulated heat-time instead of the old
-	// flat "cooked or burned" threshold. See DONENESS_* defines.
 	var/doneness_stage = DONENESS_RAW
 	/// Nutrition multiplier already baked into current reagents for the current doneness_stage, tracked so it can be adjusted (not re-applied) as doneness advances.
 	var/doneness_nutrition_multiplier = 1
 	/// Color captured the first time doneness advances, used as the blend origin for get_doneness_color() so repeated stage advances don't compound the blend.
 	var/doneness_base_color
+	/// filling_color captured the first time doneness advances, used as the blend origin for get_doneness_filling_color() the same way doneness_base_color is used for get_doneness_color().
+	var/doneness_base_filling_color
 	/// Which doneness-stage taste descriptor (if any, see get_doneness_taste_descriptor()) is currently folded into this item's nutriment reagent data, so a later stage can cleanly replace it in apply_doneness_taste() instead of every stage's flavor stacking on top of each other.
 	var/applied_doneness_taste
+	/// Icon file to show while doneness_stage is still under get_doneness_finished_stage() (still-cooking look, e.g. the raw cut's sprite), swapped back to this item's own initial(icon)/initial(icon_state) once doneness_stage reaches that stage (the "finished" look). Null (the default) means this item keeps its normal icon/icon_state at every stage - opt-in only, see meat's fried/cooked types in cooked_meat.dm.
+	var/unfinished_icon
+	/// See unfinished_icon above. Must be set (non-null) for the unfinished-look swap to happen at all.
+	var/unfinished_icon_state
+	/// Set TRUE while this item's eat_effect has been forcibly overridden to the uncookedfood debuff because it's below get_doneness_minimum_safe_stage() (see apply_doneness_stage()), so the original eat_effect can be restored once it's cooked past that stage instead of being permanently lost.
+	var/doneness_undercooked_forced = FALSE
+	/// eat_effect this item had before get_doneness_minimum_safe_stage() forced it to the uncookedfood debuff - see doneness_undercooked_forced above.
+	var/doneness_prior_eat_effect
 
 	var/ingredient_size = 1
 	var/eat_effect
@@ -136,14 +134,12 @@ All foods are distributed among various categories. Use common sense.
 		SSticker.OnRoundstart(CALLBACK(src, PROC_REF(begin_rotting)))
 	if(cooked_type || fried_type)
 		cooktime = 30 SECONDS
-	// Cooking System Overhaul - Section 9 ("slow-roasted brisket" worked
-	// example generalized): any ingredient tagged CAN_SLOW_ROAST but with
-	// no hand-authored cooked_type/fried_type still needs a real cooktime
-	// so it actually finishes into the generic roasted fallback (see
-	// heating_act() below) instead of only ever burning. Duration is
-	// authored purely in game minutes per Section 5.
 	else if(food_process_tags & CAN_SLOW_ROAST)
 		cooktime = game_minutes2deciseconds(GENERIC_SLOW_ROAST_GAME_MINUTES)
+	else if(food_process_tags & CAN_SEAR)
+		cooktime = game_minutes2deciseconds(GENERIC_SEAR_GAME_MINUTES)
+	else if(food_process_tags & CAN_BAKE)
+		cooktime = game_minutes2deciseconds(GENERIC_BAKE_GAME_MINUTES)
 	..()
 
 /obj/item/reagent_containers/food/snacks/proc/begin_rotting()
@@ -213,13 +209,7 @@ All foods are distributed among various categories. Use common sense.
 		return
 	if(cooktime)
 		var/added_input = input
-		// Pick flat burninput instead of skill-scaled input so high cooking skill doesn't make food burn faster
-		// Cooking System Overhaul: a CAN_SLOW_ROAST-tagged item without a
-		// hand-authored cooked_type/fried_type still has a real, intended
-		// outcome (the generic roasted fallback in heating_act() below),
-		// so it should cook at the normal skill-scaled rate like any
-		// other legitimate recipe, not the flat "heading for badrecipe" rate.
-		if(!cooked_type && !fried_type && !(food_process_tags & CAN_SLOW_ROAST))
+		if(!cooked_type && !fried_type && !(food_process_tags & (CAN_SLOW_ROAST|CAN_SEAR|CAN_BAKE)))
 			added_input = burninput
 		if(cooking < cooktime)
 			cooking = cooking + added_input
@@ -232,41 +222,47 @@ All foods are distributed among various categories. Use common sense.
 /obj/item/reagent_containers/food/snacks/heating_act(atom/A)
 	if(istype(A,/obj/machinery/light/rogue/oven))
 		var/obj/item/result
+		var/produced_generic_bake = FALSE
 		if(cooked_type)
 			result = new cooked_type(A)
 			if(cooked_smell)
 				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+		else if(food_process_tags & CAN_BAKE)
+			result = create_provenance_baked(src, A)
+			if(cooked_smell)
+				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+			produced_generic_bake = TRUE
 		else
 			result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
 		propagate_meat_animal_source(src, result)
 		initialize_cooked_food(result, 1)
-		if(istype(result, /obj/item/reagent_containers/food/snacks) && cooked_type)
+		if(istype(result, /obj/item/reagent_containers/food/snacks) && (cooked_type || produced_generic_bake))
 			var/obj/item/reagent_containers/food/snacks/cooked_result = result
 			cooked_result.apply_doneness_stage(DONENESS_BLUE_RARE)
 		return result
 	if(istype(A,/obj/machinery/light/rogue/hearth) || istype(A,/obj/machinery/light/rogue/firebowl) || istype(A,/obj/machinery/light/rogue/campfire) || istype(A,/obj/machinery/light/rogue/hearth/mobilestove))
 		var/obj/item/result
 		var/produced_generic_roast = FALSE
+		var/produced_generic_sear = FALSE
 		if(fried_type)
 			result = new fried_type(A)
 			if(cooked_smell)
 				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
 		else if(food_process_tags & CAN_SLOW_ROAST)
-			// Cooking System Overhaul - Section 9 ("slow-roasted brisket"
-			// worked example generalized to any CAN_SLOW_ROAST ingredient
-			// without a hand-authored fried_type, per Section 2). Produces
-			// a provenance-carrying "roasted [source]" result the same way
-			// the other generic fallbacks (dried fruit, flour, ...) do,
-			// instead of falling through to badrecipe.
 			result = create_provenance_roasted(src, A)
 			if(cooked_smell)
 				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
 			produced_generic_roast = TRUE
+		else if(food_process_tags & CAN_SEAR)
+			result = create_provenance_seared(src, A)
+			if(cooked_smell)
+				result.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+			produced_generic_sear = TRUE
 		else
 			result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
 		propagate_meat_animal_source(src, result)
 		initialize_cooked_food(result, 1)
-		if(istype(result, /obj/item/reagent_containers/food/snacks) && (fried_type || produced_generic_roast))
+		if(istype(result, /obj/item/reagent_containers/food/snacks) && (fried_type || produced_generic_roast || produced_generic_sear))
 			var/obj/item/reagent_containers/food/snacks/cooked_result = result
 			cooked_result.apply_doneness_stage(DONENESS_BLUE_RARE)
 		return result
@@ -295,49 +291,57 @@ All foods are distributed among various categories. Use common sense.
 		apply_doneness_stage(target_stage)
 		if(burning > (burntime * 2))
 			burn()
-
-/**
- * Cooking System Overhaul - Phase 2.
- * Advances this item's doneness_stage (never regresses it) and applies the
- * name/color/nutrition changes associated with the new stage. Mirrors the
- * quality_prefix-on-initial(name) pattern used for pottery quality tiers.
- * `rescale_nutrition` is FALSE when a slice/portion is inheriting a stage
- * its source already accounted for in its own reagent volumes (see
- * initialize_slice() below), so the same multiplier isn't compounded twice.
- */
 /obj/item/reagent_containers/food/snacks/proc/apply_doneness_stage(new_stage, rescale_nutrition = TRUE)
 	if(new_stage <= doneness_stage)
 		return
 	if(isnull(doneness_base_color))
 		doneness_base_color = isnull(color) ? "#ffffff" : color
+	if(isnull(doneness_base_filling_color))
+		doneness_base_filling_color = isnull(filling_color) ? "#ffffff" : filling_color
 	doneness_stage = new_stage
 	var/doneness_prefix = get_doneness_prefix(doneness_stage)
-	if(doneness_prefix)
-		name = "[doneness_prefix][get_doneness_base_name()]"
+	name = "[doneness_prefix][get_doneness_base_name()]"
 	color = get_doneness_color(doneness_stage)
+	filling_color = get_doneness_filling_color(doneness_stage)
+	if(unfinished_icon_state)
+		if(doneness_stage >= get_doneness_finished_stage())
+			// Reached the "finished"/fully-cooked look - swap back to this item's own sprite.
+			icon = initial(icon)
+			icon_state = initial(icon_state)
+		else
+			// Still cooking - keep showing the still-cooking sprite.
+			if(unfinished_icon)
+				icon = unfinished_icon
+			icon_state = unfinished_icon_state
 	if(rescale_nutrition)
 		apply_doneness_nutrition_multiplier(get_doneness_nutrition_multiplier(doneness_stage))
 	apply_doneness_taste(doneness_stage)
+	var/minimum_safe_stage = get_doneness_minimum_safe_stage()
+	if(minimum_safe_stage > DONENESS_RAW && doneness_stage < minimum_safe_stage)
+		if(!doneness_undercooked_forced)
+			doneness_undercooked_forced = TRUE
+			doneness_prior_eat_effect = eat_effect
+		eat_effect = /datum/status_effect/debuff/uncookedfood
+	else if(doneness_undercooked_forced)
+		eat_effect = doneness_prior_eat_effect
+		doneness_undercooked_forced = FALSE
 	if(doneness_stage >= DONENESS_BURNT)
 		slice_path = null
 		eat_effect = /datum/status_effect/debuff/burnedfood
-
-/**
- * Cooking System Overhaul - Phase 10 (animal provenance for meat).
- * The un-prefixed base name doneness prefixes get applied to. Defaults to
- * the type's compile-time initial(name), preserving existing behavior for
- * every item that doesn't override this. /obj/item/reagent_containers/
- * food/snacks/rogue/meat overrides this to fold in which animal the cut
- * came from (see meat/get_doneness_base_name() in raw_meat.dm), so a
- * doneness-prefixed cooked name can read "medium-rare cow steak" instead
- * of always "medium-rare frysteak" regardless of source animal.
- */
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_base_name()
 	return initial(name)
+
+/// Doneness stage at/after which this item's icon swaps from unfinished_icon_state back to its own "finished" sprite (see apply_doneness_stage()). Default DONENESS_MEDIUM preserves existing behavior for every item that hasn't opted in. Override alongside get_doneness_minimum_safe_stage() for foodtypes (poultry) that aren't visually/actually "finished" until further along the ladder.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_finished_stage()
+	return DONENESS_MEDIUM
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_minimum_safe_stage()
+	return DONENESS_RAW
 
 /// Name prefix applied at a given doneness stage, empty string for stages that shouldn't rename the item.
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_prefix(stage)
 	switch(stage)
+		if(DONENESS_BLUE_RARE)
+			return "blue-rare "
 		if(DONENESS_RARE)
 			return "rare "
 		if(DONENESS_MEDIUM_RARE)
@@ -351,15 +355,24 @@ All foods are distributed among various categories. Use common sense.
 		if(DONENESS_BURNT)
 			return "burnt "
 	return ""
-
-/// Blends cooked_color towards burned_color as the item cooks further past blue-rare.
-/obj/item/reagent_containers/food/snacks/proc/get_doneness_color(stage)
+/obj/item/reagent_containers/food/snacks/proc/blend_doneness_color(base_color, stage)
 	if(stage >= DONENESS_BURNT)
 		return burned_color
 	if(stage <= DONENESS_BLUE_RARE)
-		return doneness_base_color
-	var/blend = (stage - DONENESS_BLUE_RARE) / (DONENESS_BURNT - DONENESS_BLUE_RARE)
-	return BlendRGB(doneness_base_color, burned_color, blend)
+		return base_color
+	if(stage <= DONENESS_MEDIUM)
+		var/blend = (stage - DONENESS_BLUE_RARE) / (DONENESS_MEDIUM - DONENESS_BLUE_RARE)
+		return BlendRGB(base_color, cooked_color, blend)
+	var/blend = (stage - DONENESS_MEDIUM) / (DONENESS_BURNT - DONENESS_MEDIUM)
+	return BlendRGB(cooked_color, burned_color, blend)
+
+/// See blend_doneness_color() above.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_color(stage)
+	return blend_doneness_color(doneness_base_color, stage)
+
+/// See blend_doneness_color() above.
+/obj/item/reagent_containers/food/snacks/proc/get_doneness_filling_color(stage)
+	return blend_doneness_color(doneness_base_filling_color, stage)
 
 /// Nutrition/reagent multiplier for a given doneness stage - peaks around medium, tapers off when under/overcooked.
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_nutrition_multiplier(stage)
@@ -410,18 +423,6 @@ All foods are distributed among various categories. Use common sense.
 		if(DONENESS_BURNT)
 			return "This is burnt to a crisp."
 	return null
-
-/**
- * Cooking System Overhaul - "different amounts of doneness have different
- * flavors" (meat: raw/blue-rare/rare/medium-rare/medium/medium-well/well-
- * done/burnt; see /obj/item/reagent_containers/food/snacks/rogue/bread's
- * override for the bread-family doughy/pale/golden/well-baked/dark/burnt
- * ladder). Returned string is folded into this item's nutriment taste data
- * by apply_doneness_taste() so /datum/reagents/generate_taste_message()
- * (the "tastes like..." feedback players see while eating) actually
- * changes with doneness, not just the name/color/examine text. Null means
- * this stage doesn't add its own taste note.
- */
 /obj/item/reagent_containers/food/snacks/proc/get_doneness_taste_descriptor(stage)
 	switch(stage)
 		if(DONENESS_BLUE_RARE)
@@ -439,13 +440,6 @@ All foods are distributed among various categories. Use common sense.
 		if(DONENESS_BURNT)
 			return "char"
 	return null
-
-/**
- * Folds get_doneness_taste_descriptor(stage) into every nutriment reagent's
- * taste data (the same list read by generate_taste_message()), replacing
- * whatever descriptor an earlier stage added instead of stacking every
- * stage's flavor on top of each other.
- */
 /obj/item/reagent_containers/food/snacks/proc/apply_doneness_taste(stage)
 	if(!reagents)
 		return
@@ -917,13 +911,6 @@ All foods are distributed among various categories. Use common sense.
 	slice.filling_color = filling_color
 	slice.name = slice_name ? slice_name : slice.name
 	propagate_meat_animal_source(src, slice)
-	// Cooking System Overhaul - "you should be able to mince a steak
-	// whether it is raw or medium rare or any amount of doneness". Any
-	// doneness this item reached (rare, well-done, ...) carries into
-	// whatever it's sliced/minced into, instead of every slice always
-	// starting back at raw - the transferred reagents already carry the
-	// doneness-scaled nutrition, so only the name/color/taste side of
-	// apply_doneness_stage() is reapplied here, not the multiplier.
 	if(doneness_stage > DONENESS_RAW)
 		slice.doneness_nutrition_multiplier = doneness_nutrition_multiplier
 		slice.apply_doneness_stage(doneness_stage, rescale_nutrition = FALSE)
@@ -967,11 +954,6 @@ All foods are distributed among various categories. Use common sense.
 			else
 				S.reagents.add_reagent(r_id, amount)
 	S.filling_color = filling_color
-	// Cooking System Overhaul - Section 4/6 (provenance follows the item
-	// through cooking; final naming is derived from the ledger, not
-	// hard-coded). Hand the ledger off to the freshly-cooked result and,
-	// if the result opted in via provenance_name_suffix, rebuild its
-	// name/desc from what actually went into it.
 	if(provenance)
 		S.provenance = provenance
 		provenance = null

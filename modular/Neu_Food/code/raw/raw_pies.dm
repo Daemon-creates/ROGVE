@@ -21,6 +21,7 @@
 	var/poisoning
 	var/crabby
 	var/substitute //There may be a better way to do this
+	var/customfilling
 	cooked_smell = /datum/pollutant/food/pie_base
 
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/piebottom/update_icon()
@@ -94,6 +95,22 @@
 			meaty = FALSE
 			add_overlay(roofeat)
 
+GLOBAL_LIST_INIT(pie_named_filling_types, list(
+	/obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish,
+	/obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef,
+	/obj/item/reagent_containers/food/snacks/rogue/cheddarwedge,
+	/obj/item/reagent_containers/food/snacks/rogue/veg/potato_sliced,
+	/obj/item/reagent_containers/food/snacks/rogue/cheese,
+	/obj/item/reagent_containers/food/snacks/egg,
+	/obj/item/reagent_containers/food/snacks/rogue/meat/bacon,
+	/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry,
+	/obj/item/reagent_containers/food/snacks/fat,
+	/obj/item/reagent_containers/food/snacks/rogue/meat/crab,
+	/obj/item/reagent_containers/food/snacks/rogue/veg/cabbage_sliced,
+	/obj/item/reagent_containers/food/snacks/grown/apple,
+	/obj/item/reagent_containers/food/snacks/grown/berries/rogue,
+	/obj/item/reagent_containers/food/snacks/rogue/piedough,
+))
 
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/piebottom/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
@@ -385,6 +402,41 @@
 			qdel(I)
 			return
 
+	if(!is_type_in_list(I, GLOB.pie_named_filling_types) && istype(I, /obj/item/reagent_containers/food/snacks))
+		if (process_step > 4)
+			return
+		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 30, TRUE, -1)
+		if(process_step == 1 && do_after(user,short_cooktime, target = src))
+			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+			to_chat(user, span_notice("Starting a pie with [I]..."))
+			name = "unfinished pie"
+			process_step += 1
+			potpie = TRUE
+			customfilling = TRUE
+			add_provenance_source(I, suffix = "pie filling", base_desc = initial(desc))
+			var/mutable_appearance/generic1 = mutable_appearance(icon, "fill_egg1")
+			add_overlay(generic1)
+			qdel(I)
+			return
+		if(potpie && customfilling && process_step == 2 && do_after(user,short_cooktime, target = src))
+			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+			to_chat(user, span_notice("Adding [I] to the filling. Needs more."))
+			process_step += 1
+			add_provenance_source(I, suffix = "pie filling", base_desc = initial(desc))
+			var/mutable_appearance/generic2 = mutable_appearance(icon, "fill_egg2")
+			add_overlay(generic2)
+			qdel(I)
+			return
+		if(potpie && customfilling && process_step == 3 && do_after(user,short_cooktime, target = src))
+			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+			to_chat(user, span_notice("Filling the pie to the brim with [I]. Still lacks a pie roof."))
+			process_step += 1
+			add_provenance_source(I, suffix = "pie filling", base_desc = initial(desc))
+			var/mutable_appearance/generic3 = mutable_appearance(icon, "fill_egg3")
+			add_overlay(generic3)
+			qdel(I)
+			return
+
 	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/piedough))
 		playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
 		if(fishy && process_step == 4 && do_after(user,short_cooktime, target = src))
@@ -413,6 +465,10 @@
 			process_step += 1
 			update_icon()
 			qdel(I)
+			if(customfilling && provenance)
+				var/derived_name = provenance.build_name(suffix = "pie")
+				if(derived_name)
+					name = "uncooked [derived_name]"
 		else if(applepie && process_step == 4 && do_after(user,short_cooktime, target = src))
 			name = "uncooked apple pie"
 			filling_color = "#947a4b"
@@ -448,3 +504,12 @@
 	else
 		return ..()
 	return ..()
+/obj/item/reagent_containers/food/snacks/rogue/foodbase/piebottom/heating_act(atom/A)
+	. = ..()
+	if(customfilling && provenance && istype(., /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/cooked_result = .
+		cooked_result.inherit_provenance_ledger(src)
+		var/derived_name = provenance.build_name(suffix = "pie")
+		if(derived_name)
+			cooked_result.name = derived_name
+		cooked_result.desc = provenance.build_desc(cooked_result.desc)

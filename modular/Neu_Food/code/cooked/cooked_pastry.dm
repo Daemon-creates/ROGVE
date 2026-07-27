@@ -296,6 +296,16 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 	rotprocess = SHELFLIFE_LONG
 
+/obj/item/reagent_containers/food/snacks/rogue/strudel/generic
+	name = "filled strudel"
+	desc = "A strudel packed with an unusual filling."
+	provenance_name_suffix = "strudel"
+	slice_path = /obj/item/reagent_containers/food/snacks/rogue/strudelslice/generic
+
+/obj/item/reagent_containers/food/snacks/rogue/strudelslice/generic
+	name = "filled strudel slice"
+	desc = "A slice of strudel with an unusual filling."
+
 /obj/item/reagent_containers/food/snacks/rogue/strudel/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
 	update_cooktime(user)

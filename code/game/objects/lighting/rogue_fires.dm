@@ -644,6 +644,29 @@
 							pot.reagents.remove_reagent(/datum/reagent/water, VOLUME_PER_STEW_COOK_AFTER) // Remove water first prevent overfill
 							pot.reagents.add_reagent(R.output, VOLUME_PER_STEW_COOK + VOLUME_PER_STEW_COOK_AFTER)
 							return
+			// Cooking System Overhaul - close CAN_BOIL/CAN_STEAM's long-standing
+			// "defined-but-unused" gap while preserving named stew recipes above:
+			// named reagent outputs keep priority, then any tagged ingredient with
+			// no named match falls through to a provenance-carrying generic item.
+			if(S.food_process_tags & (CAN_BOIL|CAN_STEAM))
+				if(pot.reagents.chem_temp < MIN_STEW_TEMPERATURE)
+					to_chat(user, span_notice("[pot] isn't boiling!</span>"))
+					return
+				var/is_boil = (S.food_process_tags & CAN_BOIL)
+				var/water_needed = is_boil ? VOLUME_PER_STEW_COOK : VOLUME_PER_STEW_COOK_AFTER
+				if(!pot.reagents.has_reagent(/datum/reagent/water, water_needed))
+					to_chat(user, span_notice("Not enough water."))
+					return
+				var/cook_duration = is_boil ? GENERIC_BOIL_GAME_MINUTES : GENERIC_STEAM_GAME_MINUTES
+				var/process_verb = is_boil ? "boiling" : "steaming"
+				to_chat(user, span_notice("I begin [process_verb] [S] in the pot."))
+				if(do_after(user, game_minutes2deciseconds(cook_duration) / cooktime_divisor, target = src))
+					var/obj/item/reagent_containers/food/snacks/result = is_boil ? create_provenance_boiled(S, src.loc) : create_provenance_steamed(S, src.loc)
+					propagate_meat_animal_source(S, result)
+					add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+					pot.reagents.remove_reagent(/datum/reagent/water, water_needed)
+					qdel(S)
+					return
 	. = ..()
 
 //////////////////////////////////

@@ -146,6 +146,7 @@
 	chopping_sound = TRUE
 	var/equippedloc = null
 	var/list/bitten_names = list()
+	food_process_tags = CAN_DRY | CAN_CANDY | CAN_PRESERVE_SPREAD | CAN_PICKLE | CAN_STEAM
 
 /obj/item/reagent_containers/food/snacks/grown/apple/On_Consume(mob/living/eater)
 	..()
@@ -266,6 +267,7 @@
 	icon_state = "tomato"
 	tastes = list("tomato" = 1)
 	splat_color = "#CD5320"
+	food_process_tags = CAN_DRY | CAN_CANDY | CAN_PRESERVE_SPREAD | CAN_PICKLE | CAN_SEAR
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue
 	seed = /obj/item/seeds/berryrogue
@@ -336,6 +338,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/acorn_powder = 4, /datum/reagent/drug/nicotine = 1)
 	grind_results = list(/datum/reagent/consumable/acorn_powder = 4)
 	mill_result = /obj/item/reagent_containers/powder/rocknut
+	food_process_tags = CAN_GRIND | CAN_CANDY
 
 /obj/item/reagent_containers/food/snacks/grown/sugarcane
 	seed = /obj/item/seeds/sugarcane
@@ -373,7 +376,8 @@
 	chopping_sound = TRUE
 	dropshrink = 0.9
 	rotprocess = SHELFLIFE_EXTREME
-	food_process_tags = CAN_PICKLE
+	food_process_tags = CAN_PICKLE | CAN_DRY | CAN_BOIL | CAN_CANDY
+	flavor_profile = list(FLAVOR_AFFIX_EARTHY)
 
 /*	..................   Sunflower   ................... */
 /obj/item/reagent_containers/food/snacks/grown/sunflower
@@ -402,6 +406,7 @@
 	obj_flags = CAN_BE_HIT
 	bitesize = 1
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/toxin/fyritiusnectar = 5)
+	flavor_profile = list(FLAVOR_AFFIX_WARMING)
 	grind_results = list(/datum/reagent/toxin/fyritiusnectar = 10)
 	dropshrink = 0.8
 	rotprocess = null
@@ -561,6 +566,9 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	rotprocess = null
 	seed = /obj/item/seeds/onion
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_CANDY | CAN_PICKLE
+	flavor_profile = list(FLAVOR_AFFIX_SHARP)
 
 /obj/item/reagent_containers/food/snacks/grown/cabbage/rogue
 	name = "cabbage"
@@ -575,6 +583,8 @@
 	rotprocess = SHELFLIFE_LONG
 	seed = /obj/item/seeds/cabbage
 	dropshrink = 0.7
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_PICKLE
 
 /obj/item/reagent_containers/food/snacks/grown/potato/rogue
 	name = "potato"
@@ -591,6 +601,8 @@
 	rotprocess = null
 	seed = /obj/item/seeds/potato
 	dropshrink = 0.7
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_PICKLE | CAN_CANDY
 
 /obj/item/reagent_containers/food/snacks/grown/garlick/rogue
 	name = "garlick bulb"
@@ -605,6 +617,8 @@
 	rotprocess = null
 	chopping_sound = TRUE
 	seed = /obj/item/seeds/garlick
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_BAKE
 
 // poppies, from vanderlin
 /obj/item/reagent_containers/food/snacks/grown/rogue/poppy
@@ -649,6 +663,8 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/preserved/carrot_baked
 	tastes = list("carrot" = 1)
 	dropshrink = 0.75
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_PICKLE | CAN_CANDY
 
 /*	..................   Cucumber   ................... */
 /obj/item/reagent_containers/food/snacks/grown/cucumber
@@ -661,6 +677,8 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/veg/cucumber_sliced
 	tastes = list("cucumber" = 1)
 	chopping_sound = TRUE
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_PICKLE
 
 /obj/item/reagent_containers/food/snacks/grown/eggplant
 	name = "eggplant"
@@ -670,3 +688,5 @@
 	slices_num = 1
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/eggplantcarved
 	slice_sound = TRUE
+	foodtype = VEGETABLES
+	food_process_tags = CAN_DRY | CAN_PICKLE

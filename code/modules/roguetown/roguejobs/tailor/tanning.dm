@@ -11,11 +11,15 @@
 	blade_dulling = DULLING_BASHCHOP
 	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
 	attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
+	var/list/rack_items = list()
+	var/max_rack_items = DRYING_RACK_MAX_ITEMS
 
 /obj/machinery/tanningrack/examine(mob/user)
 	. = ..()
 	if(hide)
 		. += span_warning("There is a piece of hide ready to be worked. I might need a knife for this.")
+	if(length(rack_items))
+		. += span_notice("[length(rack_items)] batch\es of food [length(rack_items) == 1 ? "is" : "are"] hanging here, drying on their own.")
 	if(!anchored)
 		. += span_warning("It is un-anchored and able to be moved.")
 
@@ -25,6 +29,13 @@
 		hide = null
 		I.loc = user.loc
 		user.put_in_active_hand(I)
+		update_icon()
+		return
+	if(length(rack_items))
+		var/obj/item/reagent_containers/food/snacks/taken = rack_items[1]
+		rack_items -= taken
+		taken.forceMove(user.loc)
+		user.put_in_active_hand(taken)
 		update_icon()
 
 /obj/machinery/tanningrack/attackby(obj/item/I, mob/living/user, params)
@@ -77,12 +88,14 @@
 		else
 			to_chat(user, span_warning("I need to anchor this down with a wooden stake before I can work this hide."))
 			return
-	if(try_slap_craft_process(user, I, src, CAN_DRY, GENERIC_DRY_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_dried_fruit)), "drying"))
-		return
-	if(try_slap_craft_process(user, I, src, CAN_CURE, GENERIC_CURE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_cured)), "salt-curing"))
-		return
-	if(try_slap_craft_process(user, I, src, CAN_SMOKE, GENERIC_SMOKE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_smoked)), "smoking"))
-		return
+	if(istype(I, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/food = I
+		if(try_slap_craft_process_passive(user, food, src, CAN_DRY, GENERIC_DRY_GAME_MINUTES, get_generic_dry_generator(food), "drying"))
+			return
+		if(try_slap_craft_process_passive(user, food, src, CAN_CURE, GENERIC_CURE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_cured)), "salt-curing"))
+			return
+		if(try_slap_craft_process_passive(user, food, src, CAN_SMOKE, GENERIC_SMOKE_GAME_MINUTES, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(create_provenance_smoked)), "smoking"))
+			return
 	if(istype(I, /obj/item/grown/log/tree/stake))
 		if(anchored)
 			anchored = FALSE
@@ -93,6 +106,14 @@
 		playsound(src,pick('sound/foley/woodclimb.ogg'), 100, TRUE)
 		return
 	..()
+/obj/machinery/tanningrack/proc/finish_rack_process(obj/item/reagent_containers/food/snacks/ingredient, datum/callback/generator_cb)
+	if(QDELETED(ingredient) || !(ingredient in rack_items))
+		return
+	rack_items -= ingredient
+	if(!QDELETED(src))
+		generator_cb.Invoke(ingredient, get_turf(src))
+		update_icon()
+	qdel(ingredient)
 
 /obj/machinery/tanningrack/update_icon()
 	cut_overlays()

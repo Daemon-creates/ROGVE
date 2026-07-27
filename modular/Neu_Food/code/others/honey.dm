@@ -18,6 +18,7 @@
 	tastes = list("sweetness" = 1)
 	eat_effect = null
 	rotprocess = null
+	food_process_tags = CAN_FERMENT
 
 	var/honey_color = ""
 

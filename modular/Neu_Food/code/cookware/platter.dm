@@ -21,7 +21,6 @@
 	if(length(contents))
 		. += span_notice("Plated here: [get_meal_contents_summary()].")
 
-
 /*	..................   Food platter   ................... */
 /obj/item/cooking/platter/attackby(obj/item/I, mob/user, params)
 
@@ -32,12 +31,6 @@
 	var/found_table = locate(/obj/structure/table) in (loc)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/))
 		if(isturf(loc)&& (found_table))
-			// Cooking System Overhaul - "modular meals": several separate
-			// dishes can share one platter (any combination the player
-			// wants), instead of the platter only ever holding one dish
-			// at a time. The combined name/description is generated from
-			// whatever's actually plated (see update_icon() below), not
-			// picked from a fixed list of "meal" combos.
 			if (contents.len < max_meal_items)
 				playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 				to_chat(user, span_info("I add \the [I.name] to \the [name]."))
@@ -58,8 +51,6 @@
 			var/obj/item/reagent_containers/food/snacks/S = contents[1]
 			S.attack(M,user,def_zone)
 		update_icon()
-
-
 /obj/item/cooking/platter/proc/get_meal_contents_summary()
 	var/list/plated_names = list()
 	for(var/obj/item/plated_item in contents)

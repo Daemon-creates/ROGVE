@@ -57,6 +57,7 @@
 	slice_batch = FALSE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME	
+	var/dough_quality = 0
 
 /obj/item/reagent_containers/food/snacks/rogue/bread/update_icon()
 	if(slices_num)
@@ -64,7 +65,12 @@
 	else
 		icon_state = "loaf_slice"
 
-
+/obj/item/reagent_containers/food/snacks/rogue/bread/examine(mob/user)
+	. = ..()
+	if(dough_quality >= 2)
+		. += span_notice("It looks exceptionally well-proofed.")
+	else if(dough_quality == 1)
+		. += span_notice("It looks nicely risen.")
 /proc/get_bread_doneness_prefix(stage)
 	switch(stage)
 		if(DONENESS_BLUE_RARE)
@@ -158,25 +164,35 @@
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/cheddarslice))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/cheddarslice))
 		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
 		if(do_after(user,short_cooktime, target = src))
 			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/cheese/sammich= new(get_turf(user))
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/fat/salo/slice))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/fat/salo/slice))
 		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
 		if(do_after(user,short_cooktime, target = src))
 			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/salo/sammich= new(get_turf(user))
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/meat/bacon/fried))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/meat/bacon/fried))
 		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
 		if(do_after(user,short_cooktime, target = src))
 			user.adjust_experience(/datum/skill/craft/cooking, user.STAINT * 0.8)
 			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/bacon/sammich= new(get_turf(user))
+			user.put_in_hands(sammich)
+			qdel(I)
+			qdel(src)
+	else if(istype(I, /obj/item/reagent_containers/food/snacks) && !istype(I, /obj/item/reagent_containers/food/snacks/rogue/bread) && !istype(I, /obj/item/reagent_containers/food/snacks/rogue/breadslice))
+		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
+		if(do_after(user,short_cooktime, target = src))
+			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/generic/sammich = new(get_turf(user))
+			sammich.apply_provenance_from(I, suffix = "bread")
+			if(I.reagents)
+				I.reagents.trans_to(sammich, I.reagents.total_volume)
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
@@ -205,23 +221,33 @@
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/friedegg)) //This actually creates a toast out of regular bread so we put it here.
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/friedegg/sausagebacon))
+		playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
+		if(do_after(user,short_cooktime, target = src))
+			new /obj/item/reagent_containers/food/snacks/rogue/friedegg/hammerhold(loc)
+			qdel(I)
+			qdel(src)
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/friedegg)) //This actually creates a toast out of regular bread so we put it here.
 		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
 		if(do_after(user,short_cooktime, target = src))
 			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/egg/sammich= new(get_turf(user))
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/friedegg/sausagebacon))
-		playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
-		if(do_after(user,short_cooktime, target = src))
-			new /obj/item/reagent_containers/food/snacks/rogue/friedegg/hammerhold(loc)
-			qdel(I)
-			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/tartar))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/tartar))
 		playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
 		if(do_after(user,short_cooktime, target = src))
 			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/tartar/sammich= new(get_turf(user))
+			user.put_in_hands(sammich)
+			qdel(I)
+			qdel(src)
+	else if(istype(I, /obj/item/reagent_containers/food/snacks) && !istype(I, /obj/item/reagent_containers/food/snacks/rogue/bread) && !istype(I, /obj/item/reagent_containers/food/snacks/rogue/breadslice))
+		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
+		if(do_after(user,short_cooktime, target = src))
+			var/obj/item/reagent_containers/food/snacks/rogue/sandwich/generic/toasted/sammich = new(get_turf(user))
+			sammich.apply_provenance_from(I, suffix = "toast")
+			if(I.reagents)
+				I.reagents.trans_to(sammich, I.reagents.total_volume)
 			user.put_in_hands(sammich)
 			qdel(I)
 			qdel(src)
@@ -307,6 +333,18 @@
 	icon_state = "toast_tartar"
 	foodtype = GRAIN | MEAT
 
+/obj/item/reagent_containers/food/snacks/rogue/sandwich/generic
+	name = "topped bread"
+	desc = "A slice of bread with something piled on top."
+	icon_state = "loaf_slice"
+	foodtype = GRAIN
+
+/// Toasted counterpart of the above, used when the topping is put on toast rather than plain bread - see breadslice/toast/attackby() below.
+/obj/item/reagent_containers/food/snacks/rogue/sandwich/generic/toasted
+	name = "topped toast"
+	desc = "A piece of toast with something piled on top."
+	icon_state = "toast"
+
 /*	.................   Bread bun   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bun
 	name = "bun"
@@ -320,6 +358,10 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 
+/obj/item/reagent_containers/food/snacks/rogue/bun/filled
+	name = "filled bun"
+	desc = "A bun with something tucked inside."
+
 /obj/item/reagent_containers/food/snacks/rogue/bun/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked))
@@ -330,12 +372,23 @@
 			user.put_in_hands(hotdog)
 			qdel(I)
 			qdel(src)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/cheddarwedge))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/cheddarwedge))
 		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 100, TRUE, -1)
 		to_chat(user, "<span class='notice'>Stuffing the bun with cheese...</span>")
 		if(do_after(user,short_cooktime, target = src))
 			user.adjust_experience(/datum/skill/craft/cooking, user.STAINT * 0.8)
 			new /obj/item/reagent_containers/food/snacks/rogue/bun_raston(loc)
+			qdel(I)
+			qdel(src)
+	else if(istype(I, /obj/item/reagent_containers/food/snacks))
+		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
+		to_chat(user, span_notice("Stuffing [I] into the bun..."))
+		if(do_after(user, short_cooktime, target = src))
+			var/obj/item/reagent_containers/food/snacks/rogue/bun/filled/stuffed = new(get_turf(user))
+			stuffed.apply_provenance_from(I, suffix = "bun")
+			if(I.reagents)
+				I.reagents.trans_to(stuffed, I.reagents.total_volume)
+			user.put_in_hands(stuffed)
 			qdel(I)
 			qdel(src)
 	else
@@ -443,13 +496,24 @@
 			if(do_after(user,short_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
 				var/obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked/loaf = new(loc)
-				// Cooking System Overhaul - Section 3/4: keep threading the
-				// ledger forward (this dough's own provenance from the
-				// first batch of dried fruit, plus this second batch).
 				if(src.provenance)
 					loaf.inherit_provenance_ledger(src)
 				if(I.provenance)
 					loaf.record_provenance_from(I)
+				qdel(I)
+				qdel(src)
+		else
+			to_chat(user, span_warning("You need to put [src] on a table to work it."))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks))
+		if(isturf(loc)&& (found_table))
+			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
+			to_chat(user, span_notice("Stuffing and sealing the dough with [I] for baking."))
+			if(do_after(user,short_cooktime, target = src))
+				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+				var/obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked/generic/loaf = new(loc)
+				if(src.provenance)
+					loaf.inherit_provenance_ledger(src)
+				loaf.record_provenance_from(I)
 				qdel(I)
 				qdel(src)
 		else
@@ -468,17 +532,16 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	rotprocess = SHELFLIFE_DECENT
 
+/obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked/generic
+	name = "raw stuffed loaf"
+	desc = "A filled loaf, ready for the oven."
+	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/raisinbread/stuffed
+
 /obj/item/reagent_containers/food/snacks/rogue/raisinbread
 	name = "raisin loaf"
 	desc = "A popular dessert amongst the peasantry, this loaf of sweetbread's speckled with fruity surprises. In recent years, it has more palettes amongst the papacy: t'was Rockhill's abbey that christened a variant, glazed with a sugary veneer."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
 	icon_state = "raisinbread6"
-	// Cooking System Overhaul - Section 6/9 ("raisin bread, generalized").
-	// If provenance was recorded on the way here (e.g. the dried fruit
-	// used was CAN_DRY-generic rather than the plain hand-authored
-	// "raisins" item), the loaf's actual name/desc is rebuilt from the
-	// ledger (e.g. "dried plum loaf") instead of always reading "raisin
-	// loaf" regardless of what dried fruit went in.
 	provenance_name_suffix = "loaf"
 	bitesize = 6
 	slices_num = 6
@@ -511,6 +574,18 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
+
+/obj/item/reagent_containers/food/snacks/rogue/raisinbread/stuffed
+	name = "stuffed loaf"
+	desc = "A hearty loaf with a tucked-in filling."
+	provenance_name_suffix = "loaf"
+	slice_path = /obj/item/reagent_containers/food/snacks/rogue/raisinbreadslice/stuffed
+	tastes = list("bread" = 1)
+
+/obj/item/reagent_containers/food/snacks/rogue/raisinbreadslice/stuffed
+	name = "stuffed loaf slice"
+	desc = "A slice of bread with hidden filling baked through."
+	tastes = list("bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_grenz
 	list_reagents = list(/datum/reagent/consumable/nutriment = SAUSAGE_NUTRITION+SMALLDOUGH_NUTRITION)

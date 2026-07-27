@@ -151,7 +151,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/berries/rogue)) //berry cake (+poison)
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/berries/rogue)) //berry cake (+poison)
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Squashing some and mixing-in the left-over berries..."))
@@ -165,7 +165,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry)) //blackberry cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry)) //blackberry cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Pouring and filling the cake with juicy blackberries..."))
@@ -176,7 +176,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/preserved/carrot_baked) || istype(I, /obj/item/reagent_containers/food/snacks/grown/carrot)) //carrot cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/preserved/carrot_baked) || istype(I, /obj/item/reagent_containers/food/snacks/grown/carrot)) //carrot cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Peeling and mixing the [I] into the frosting and dough..."))
@@ -187,7 +187,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/lemon)) //lemon cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/lemon)) //lemon cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Chopping the [I] and mixing it with the cake..."))
@@ -198,7 +198,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/lime)) //lime cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/lime)) //lime cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Chopping the [I] and mixing it with the cake..."))
@@ -227,7 +227,7 @@
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
 */
-	if(istype(I, /obj/item/alch/mentha)) //mentha cake
+	else if(istype(I, /obj/item/alch/mentha)) //mentha cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Chopping and mixing the [I] with the cake frosting..."))
@@ -238,7 +238,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/clothing/head/peaceflower)) //peace cake
+	else if(istype(I, /obj/item/clothing/head/peaceflower)) //peace cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Carefully adding the [I] to the cake..."))
@@ -250,7 +250,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/raspberry)) //raspberry cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/raspberry)) //raspberry cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Pouring and filling the cake with juicy raspberries..."))
@@ -261,7 +261,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/nut)) //rocknut cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/nut)) //rocknut cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Surrounding the cake with [I]..."))
@@ -272,7 +272,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/strawberry)) //strawberry cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/strawberry)) //strawberry cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Surrounding the cake with [I]..."))
@@ -283,7 +283,7 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine)) //tangerine cake
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine)) //tangerine cake
 		if(isturf(loc)&& (found_table))
 			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
 			to_chat(user, span_notice("Chopping the [I] and mixing it with the cake..."))
@@ -294,7 +294,20 @@
 				qdel(src)
 		else
 			to_chat(user, span_warning("You need to put [src] on a table to work it."))
-	//(We could add generic cakes here, using the filling overlays)
+	else if(istype(I, /obj/item/reagent_containers/food/snacks))
+		if(isturf(loc)&& (found_table))
+			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
+			to_chat(user, span_notice("Mixing [I] into the frosted cake..."))
+			if(do_after(user, long_cooktime, target = src))
+				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+				var/obj/item/reagent_containers/food/snacks/rogue/frostedcake/generic/genericcake = new(loc)
+				genericcake.apply_provenance_from(I, suffix = "cake")
+				if(I.reagents)
+					I.reagents.trans_to(genericcake, I.reagents.total_volume)
+				qdel(I)
+				qdel(src)
+		else
+			to_chat(user, span_warning("You need to put [src] on a table to work it."))
 	else
 		return ..()
 
@@ -314,6 +327,22 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 	extra_eat_effect = /datum/status_effect/buff/sweet
 	rotprocess = SHELFLIFE_LONG
+
+/**
+ * Cooking System Overhaul - generic cake fallback used by
+ * /frostedcake/attackby() when no named fruit/special ingredient branch
+ * matches. Reuses the plain frosted-cake sprite and derives name/desc from
+ * provenance, matching the same no-new-art convention used by the other
+ * generic process fallbacks.
+ */
+/obj/item/reagent_containers/food/snacks/rogue/frostedcake/generic
+	name = "filled frosted cake"
+	desc = "A frosted cake filled with something unexpected."
+	slice_path = /obj/item/reagent_containers/food/snacks/rogue/frostedcakeslice/generic
+
+/obj/item/reagent_containers/food/snacks/rogue/frostedcakeslice/generic
+	name = "filled frosted cake slice"
+	desc = "A frosted cake slice filled with something unexpected."
 
 //	..................   Apple cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/applecake

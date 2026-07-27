@@ -1,3 +1,6 @@
+// Simple cooked meat from any animals.
+// Only includes simple cooked meat instead of the meal.
+// Try to order in the same order as raw meat file ok
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/fried
 	eat_effect = null
 	slices_num = 1
@@ -5,13 +8,15 @@
 	desc = "A slab of beastflesh, fried to a perfect medium-rare"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "frysteak"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "meatsteak"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	faretype = FARE_NEUTRAL
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("warm steak" = 1)
 	fried_type = null
 	cooked_type = null
-	animal_name_format = "fried %ANIMAL% steak"
+	animal_name_format = "%ANIMAL% steak"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/fried/attackby(obj/item/I, mob/living/user, params)
 	var/obj/item/reagent_containers/peppermill/mill = I
@@ -86,12 +91,18 @@
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	faretype = FARE_FINE
 	icon_state = "roastpork"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "pork"
 	tastes = list("crispy pork" = 1)
 	bitesize = 3
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
+	// No animal_source for the pig-specific cut, so the doneness prefix
+	// (e.g. "blue-rare ") is applied straight to the plain ingredient
+	// name instead of the verbose "roast pork".
+	base_food_name = "pork"
 
 /*	.............   Crispy bacon   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/bacon/fried
@@ -101,10 +112,13 @@
 	faretype = FARE_FINE
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "friedbacon"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "bacon"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
+	base_food_name = "bacon"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/bacon/fried/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -135,11 +149,14 @@
 	faretype = FARE_POOR
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "friedspider"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "spidermeat"
 	eat_effect = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_POOR)
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
+	base_food_name = "spidermeat"
 
 /*	.................  Whole Chicken roast   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked
@@ -149,14 +166,15 @@
 	name = "roast bird"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "roastchicken"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "halfchicken"
 	faretype = FARE_FINE
 	portable = FALSE
 	tastes = list("tasty birdmeat" = 1)
 	cooked_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEAL_MEAGRE)
 	rotprocess = SHELFLIFE_DECENT
-	// Cooking System Overhaul - Phase 10 ("same with ... poultry").
-	animal_name_format = "roast %ANIMAL%"
+	animal_name_format = "%ANIMAL%"
 	
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/attackby(obj/item/I, mob/user, params)
@@ -211,21 +229,19 @@
 /*	.............   Frybird   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried
 	eat_effect = null
-	// Cooking System Overhaul: mince-able at any doneness, same as the
-	// generic steak fix above - inherits slice_path (mince/poultry) from
-	// /meat/poultry/cutlet instead of always disabling slicing once fried.
 	slices_num = 1
 	name = "frybird"
 	desc = "Poultry scorched to a perfect delicious crisp."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "frybird"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "chickencutlet"
 	faretype = FARE_FINE
 	portable = FALSE
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_DECENT
-	// Cooking System Overhaul - Phase 10.
-	animal_name_format = "fried %ANIMAL%"
+	animal_name_format = "%ANIMAL%"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -283,27 +299,31 @@
 	desc = "A fried piece of crabmeat, yum."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "crabmeat"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "crabmeatraw"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	desc = ""
 	fried_type = null
 	cooked_type = null
+	base_food_name = "crabmeat"
 
 /* .............   Fried Cabbit   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
 	eat_effect = null
-	// Cooking System Overhaul: mince-able at any doneness (inherits
-	// slice_path mince/rabbit from /meat/rabbit).
 	slices_num = 1
 	name = "fried cabbit"
 	desc = "A slab of cabbit, fried to a perfect crispy texture."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "frycabbit"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "cabbitcutlet"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)	//It's easier and cheaper than normal meat to find.
 	faretype = FARE_NEUTRAL
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("warm cabbit" = 1)
 	fried_type = null
 	cooked_type = null
+	base_food_name = "cabbit"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -322,18 +342,19 @@
 /* .............   Fried Volf   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/wolf/fried
 	eat_effect = null
-	// Cooking System Overhaul: mince-able at any doneness (inherits
-	// slice_path mince/beef from /meat/steak/wolf).
 	slices_num = 1
 	name = "fried volf"
 	desc = "A slab of volf, fried to a perfect medium rare. A bit gamey and chewy, but tasty."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "fryvolf"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "volfstrip"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	faretype = FARE_NEUTRAL
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
+	base_food_name = "volf"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/wolf/fried/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -352,36 +373,38 @@
 /* .............   Seared Gnoll   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/gnoll/seared
 	eat_effect = null
-	// Cooking System Overhaul: mince-able at any doneness (inherits
-	// slice_path mince/beef from /meat/steak/gnoll).
 	slices_num = 1
 	name = "seared gnoll"
 	desc = "A disgusting sinewy mess of gnoll meat. Seems the muscle has only toughened after being seared."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "searedgnoll"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "gnoll"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY)
 	faretype = FARE_POOR
 	rotprocess = SHELFLIFE_EXTREME
 	fried_type = null
 	cooked_type = null
+	base_food_name = "gnoll meat"
 
 /* .............   Fried Filet    ................ */
 // This is seafood but is one of the "simple cooked meat" so I put it here.
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish/fried
 	eat_effect = null
-	// Cooking System Overhaul: mince-able at any doneness (inherits
-	// slice_path mince/fish from /meat/fish).
 	slices_num = 1
 	name = "fryfilet"
 	desc = "A slab of flaky fish, fried until falling apart."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "cooked_filet"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "fish_filet"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	faretype = FARE_NEUTRAL
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("warm fish" = 1)
 	fried_type = null
 	cooked_type = null
+	base_food_name = "fish filet"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish/fried/attackby(obj/item/I, mob/living/user, params)
 	var/obj/item/reagent_containers/peppermill/mill = I
@@ -411,18 +434,18 @@
 /* .............   Fried Shellfish    ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish/fried
 	eat_effect = null
-	// Cooking System Overhaul: mince-able at any doneness (inherits
-	// slice_path mince/fish from /meat/shellfish).
 	slices_num = 1
 	name = "fried shellfish"
 	desc = "Fried shellfish meat. A bit salty, but delicious."
 	faretype = FARE_NEUTRAL
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "shellfish_meat_cooked"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "shellfish_meat"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	fried_type = null
 	cooked_type = null
-
+	base_food_name = "shellfish meat"
 
 /*	.............   Sausage & Wiener   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
@@ -431,11 +454,12 @@
 	desc = "Delicious flesh stuffed in a intestine casing."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat.dmi'
 	icon_state = "wiener"
+	unfinished_icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
+	unfinished_icon_state = "raw_sausage"
 	faretype = FARE_NEUTRAL
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_EXTREME
-	// Cooking System Overhaul - Phase 10 ("same with sausage").
 	animal_name_format = "%ANIMAL% sausage"
 
 /* .............   Fried Cabbit w/ Garlick  ................ */

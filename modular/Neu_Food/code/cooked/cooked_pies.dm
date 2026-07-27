@@ -8,6 +8,25 @@
 	color = "#e7e2df"
 	dropshrink = 0.8
 	var/stunning = FALSE
+	var/filling_doneness_stage = DONENESS_RAW
+
+/obj/item/reagent_containers/food/snacks/rogue/pie/apply_doneness_stage(new_stage, rescale_nutrition = TRUE)
+	if(new_stage <= doneness_stage)
+		return
+	filling_doneness_stage = round(new_stage / 2)
+	..()
+
+/obj/item/reagent_containers/food/snacks/rogue/pie/get_doneness_filling_color(stage)
+	return blend_doneness_color(doneness_base_filling_color, filling_doneness_stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/pie/get_doneness_prefix(stage)
+	return get_bread_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/pie/get_doneness_examine_text(stage)
+	return get_bread_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/pie/get_doneness_taste_descriptor(stage)
+	return get_bread_doneness_taste_descriptor(stage)
 
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked
 	icon_state = "pie"
@@ -58,6 +77,13 @@
 			M.reagents.remove_reagent(/datum/reagent/consumable/nutriment, M.reagents.total_volume)
 			M.reagents.trans_to(src, M.reagents.total_volume)
 		qdel(M)
+/obj/item/reagent_containers/food/snacks/rogue/pie/initialize_slice(obj/item/reagent_containers/food/snacks/slice, reagents_per_slice)
+	. = ..()
+	if(provenance)
+		slice.inherit_provenance_ledger(src)
+		var/derived_slice_name = provenance.build_name(suffix = "pie slice")
+		if(derived_slice_name)
+			slice.name = derived_slice_name
 
 /obj/item/reagent_containers/food/snacks/rogue/pieslice
 	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
@@ -75,6 +101,25 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 	color = "#e7e2df"
 	rotprocess = SHELFLIFE_LONG
+	var/filling_doneness_stage = DONENESS_RAW
+
+/obj/item/reagent_containers/food/snacks/rogue/pieslice/apply_doneness_stage(new_stage, rescale_nutrition = TRUE)
+	if(new_stage <= doneness_stage)
+		return
+	filling_doneness_stage = round(new_stage / 2)
+	..()
+
+/obj/item/reagent_containers/food/snacks/rogue/pieslice/get_doneness_filling_color(stage)
+	return blend_doneness_color(doneness_base_filling_color, filling_doneness_stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/pieslice/get_doneness_prefix(stage)
+	return get_bread_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/pieslice/get_doneness_examine_text(stage)
+	return get_bread_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/pieslice/get_doneness_taste_descriptor(stage)
+	return get_bread_doneness_taste_descriptor(stage)
 
 // -------------- MEAT PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/meat // bae item

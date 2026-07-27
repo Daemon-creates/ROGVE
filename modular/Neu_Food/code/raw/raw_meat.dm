@@ -14,23 +14,48 @@
 	cooked_smell = /datum/pollutant/food/fried_meat
 	var/fresh_meat = FALSE
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/meat_rotten
-	food_process_tags = CAN_CURE | CAN_SMOKE | CAN_SLOW_ROAST
+	food_process_tags = CAN_CURE | CAN_SMOKE | CAN_SLOW_ROAST | CAN_DRY
 	fat_content = 30
 	var/animal_source
 	var/animal_name_format
-
+	var/base_food_name
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/set_animal_source(source_name)
 	if(!source_name || animal_source)
 		return
 	animal_source = source_name
 	if(animal_name_format)
 		name = replacetext(animal_name_format, "%ANIMAL%", animal_source)
+	add_animal_taste_tag(source_name)
+/obj/item/reagent_containers/food/snacks/rogue/meat/proc/add_animal_taste_tag(source_name)
+	if(!reagents || !source_name)
+		return
+	for(var/datum/reagent/consumable/nutriment/nutriment_reagent in reagents.reagent_list)
+		if(!istype(nutriment_reagent.data, /list))
+			nutriment_reagent.data = list()
+		if(!(source_name in nutriment_reagent.data))
+			nutriment_reagent.data[source_name] = 1
+/obj/item/reagent_containers/food/snacks/rogue/meat/proc/merge_animal_source(source_name)
+	if(!source_name)
+		return
+	if(!animal_source)
+		set_animal_source(source_name)
+		return
+	var/list/existing_parts = splittext(animal_source, "-")
+	for(var/existing_part in existing_parts)
+		if(LOWER_TEXT(existing_part) == LOWER_TEXT(source_name))
+			return //already accounted for, don't repeat it ("cow-cow") or double-tag its flavor
+	animal_source = "[animal_source]-[source_name]"
+	if(animal_name_format)
+		name = replacetext(animal_name_format, "%ANIMAL%", animal_source)
+	add_animal_taste_tag(source_name)
 
-/// See get_doneness_base_name() in code/modules/food_and_drinks/food/snacks.dm - folds animal_source into the un-prefixed base name doneness prefixes get applied to, instead of always falling back to the type's fixed initial(name).
 /obj/item/reagent_containers/food/snacks/rogue/meat/get_doneness_base_name()
 	if(animal_source && animal_name_format)
 		return replacetext(animal_name_format, "%ANIMAL%", animal_source)
+	if(base_food_name)
+		return base_food_name
 	return ..()
+
 /proc/propagate_meat_animal_source(obj/item/source, obj/item/target)
 	if(!istype(source, /obj/item/reagent_containers/food/snacks/rogue/meat))
 		return
@@ -143,9 +168,49 @@
 	slice_sound = TRUE
 	ingredient_size = 4
 	cooked_smell = /datum/pollutant/food/cooked_chicken
-	// Cooking System Overhaul - Phase 10: chicken and drider both butcher
-	// into this same generic whole-bird type.
 	animal_name_format = "plucked %ANIMAL%"
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_minimum_safe_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_finished_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_prefix(stage)
+	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
+		return "undercooked "
+	switch(stage)
+		if(DONENESS_WELL_DONE)
+			return "well-done "
+		if(DONENESS_BURNT)
+			return "burnt "
+	return "" // properly cooked (medium-well) poultry is just "chicken"/"bird" - no fine-dining prefix like beef gets
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_examine_text(stage)
+	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
+		return "This still looks undercooked - poultry needs to be cooked all the way through before it's safe to eat."
+	switch(stage)
+		if(DONENESS_RAW)
+			return "This looks completely raw."
+		if(DONENESS_MEDIUM_WELL)
+			return "This looks properly cooked through."
+		if(DONENESS_WELL_DONE)
+			return "This is well done."
+		if(DONENESS_BURNT)
+			return "This is burnt to a crisp."
+	return null
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/poultry/get_doneness_taste_descriptor(stage)
+	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
+		return "undercooked poultry"
+	switch(stage)
+		if(DONENESS_MEDIUM_WELL)
+			return "juicy poultry"
+		if(DONENESS_WELL_DONE)
+			return "roasted poultry"
+		if(DONENESS_BURNT)
+			return "char"
+	return null
 
 /* ............. Chicken Cutlet (Drumstick) ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
@@ -157,7 +222,6 @@
 	slice_bclass = BCLASS_CHOP
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried
-	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "%ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/attackby(obj/item/I, mob/living/user)
@@ -272,8 +336,9 @@
 			if(do_after(user,long_cooktime, target = src))
 				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
 				var/obj/item/reagent_containers/food/snacks/rogue/meat/sausage/new_sausage = new(loc)
-				propagate_meat_animal_source(src, new_sausage)
-				propagate_meat_animal_source(I, new_sausage)
+				var/obj/item/reagent_containers/food/snacks/rogue/meat/mince/other_mince = I
+				new_sausage.merge_animal_source(src.animal_source)
+				new_sausage.merge_animal_source(other_mince.animal_source)
 				qdel(I)
 				qdel(src)
 		else
@@ -306,7 +371,6 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	name = "minced meat"
-	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "minced %ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
@@ -321,7 +385,6 @@
 	name = "minced poultry"
 	icon_state = "meatmince"
 	cooked_smell = /datum/pollutant/food/cooked_chicken
-	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "minced %ANIMAL% meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage
@@ -331,7 +394,6 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
 	cooked_smell = /datum/pollutant/food/fried_sausage
-	// Cooking System Overhaul - Phase 10 ("same with sausage").
 	animal_name_format = "raw %ANIMAL% sausage"
 
 /* ............. fish chop ................*/
