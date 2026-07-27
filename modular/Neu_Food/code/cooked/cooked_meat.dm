@@ -59,7 +59,7 @@
 			qdel(src)
 
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -174,6 +174,7 @@
 	cooked_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEAL_MEAGRE)
 	rotprocess = SHELFLIFE_DECENT
+	// Cooking System Overhaul - Phase 10 ("same with ... poultry").
 	animal_name_format = "%ANIMAL%"
 	
 
@@ -241,6 +242,7 @@
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_DECENT
+	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "%ANIMAL%"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried/attackby(obj/item/I, mob/living/user, params)
@@ -310,6 +312,8 @@
 /* .............   Fried Cabbit   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
 	eat_effect = null
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/rabbit from /meat/rabbit).
 	slices_num = 1
 	name = "fried cabbit"
 	desc = "A slab of cabbit, fried to a perfect crispy texture."
@@ -342,6 +346,8 @@
 /* .............   Fried Volf   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/wolf/fried
 	eat_effect = null
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/beef from /meat/steak/wolf).
 	slices_num = 1
 	name = "fried volf"
 	desc = "A slab of volf, fried to a perfect medium rare. A bit gamey and chewy, but tasty."
@@ -373,6 +379,8 @@
 /* .............   Seared Gnoll   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/gnoll/seared
 	eat_effect = null
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/beef from /meat/steak/gnoll).
 	slices_num = 1
 	name = "seared gnoll"
 	desc = "A disgusting sinewy mess of gnoll meat. Seems the muscle has only toughened after being seared."
@@ -391,6 +399,8 @@
 // This is seafood but is one of the "simple cooked meat" so I put it here.
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish/fried
 	eat_effect = null
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/fish from /meat/fish).
 	slices_num = 1
 	name = "fryfilet"
 	desc = "A slab of flaky fish, fried until falling apart."
@@ -429,11 +439,13 @@
 			qdel(src)
 
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))
+		return ..()
 
 /* .............   Fried Shellfish    ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish/fried
 	eat_effect = null
+	// Cooking System Overhaul: mince-able at any doneness (inherits
+	// slice_path mince/fish from /meat/shellfish).
 	slices_num = 1
 	name = "fried shellfish"
 	desc = "Fried shellfish meat. A bit salty, but delicious."
@@ -460,6 +472,7 @@
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	rotprocess = SHELFLIFE_EXTREME
+	// Cooking System Overhaul - Phase 10 ("same with sausage").
 	animal_name_format = "%ANIMAL% sausage"
 
 /* .............   Fried Cabbit w/ Garlick  ................ */

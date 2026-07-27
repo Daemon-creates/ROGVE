@@ -19,7 +19,6 @@
 	var/animal_source
 	var/animal_name_format
 	var/base_food_name
-
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/set_animal_source(source_name)
 	if(!source_name || animal_source)
 		return
@@ -27,7 +26,6 @@
 	if(animal_name_format)
 		name = replacetext(animal_name_format, "%ANIMAL%", animal_source)
 	add_animal_taste_tag(source_name)
-
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/add_animal_taste_tag(source_name)
 	if(!reagents || !source_name)
 		return
@@ -36,7 +34,6 @@
 			nutriment_reagent.data = list()
 		if(!(source_name in nutriment_reagent.data))
 			nutriment_reagent.data[source_name] = 1
-
 /obj/item/reagent_containers/food/snacks/rogue/meat/proc/merge_animal_source(source_name)
 	if(!source_name)
 		return
@@ -59,6 +56,7 @@
 	if(base_food_name)
 		return base_food_name
 	return ..()
+
 
 /proc/propagate_meat_animal_source(obj/item/source, obj/item/target)
 	if(!istype(source, /obj/item/reagent_containers/food/snacks/rogue/meat))
@@ -111,6 +109,7 @@
 	slices_num = 2
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	slice_bclass = BCLASS_CHOP
+
 	animal_name_format = "raw %ANIMAL% meat"
 
 
@@ -167,7 +166,7 @@
 	icon_state = "halfchicken"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked
-	fried_type = null
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked
 	slices_num = 2
 	slice_sound = TRUE
 	ingredient_size = 4
@@ -175,7 +174,6 @@
 	// Cooking System Overhaul - Phase 10: chicken and drider both butcher
 	// into this same generic whole-bird type.
 	animal_name_format = "plucked %ANIMAL%"
-
 /proc/get_poultry_doneness_prefix(stage)
 	if(stage > DONENESS_RAW && stage < DONENESS_MEDIUM_WELL)
 		return "undercooked "
@@ -406,6 +404,20 @@
 	cooked_smell = /datum/pollutant/food/cooked_chicken
 	// Cooking System Overhaul - Phase 10.
 	animal_name_format = "minced %ANIMAL% meat"
+/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry/get_doneness_minimum_safe_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry/get_doneness_finished_stage()
+	return DONENESS_MEDIUM_WELL
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry/get_doneness_prefix(stage)
+	return get_poultry_doneness_prefix(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry/get_doneness_examine_text(stage)
+	return get_poultry_doneness_examine_text(stage)
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry/get_doneness_taste_descriptor(stage)
+	return get_poultry_doneness_taste_descriptor(stage)
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage
 	name = "raw sausage"

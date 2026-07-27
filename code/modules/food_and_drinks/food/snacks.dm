@@ -239,7 +239,7 @@ All foods are distributed among various categories. Use common sense.
 		initialize_cooked_food(result, 1)
 		if(istype(result, /obj/item/reagent_containers/food/snacks) && (cooked_type || produced_generic_bake))
 			var/obj/item/reagent_containers/food/snacks/cooked_result = result
-			cooked_result.apply_doneness_stage(DONENESS_BLUE_RARE)
+			cooked_result.apply_doneness_stage(cooked_result.get_doneness_finished_stage())
 		return result
 	if(istype(A,/obj/machinery/light/rogue/hearth) || istype(A,/obj/machinery/light/rogue/firebowl) || istype(A,/obj/machinery/light/rogue/campfire) || istype(A,/obj/machinery/light/rogue/hearth/mobilestove))
 		var/obj/item/result
@@ -265,7 +265,9 @@ All foods are distributed among various categories. Use common sense.
 		initialize_cooked_food(result, 1)
 		if(istype(result, /obj/item/reagent_containers/food/snacks) && (fried_type || produced_generic_roast || produced_generic_sear))
 			var/obj/item/reagent_containers/food/snacks/cooked_result = result
-			cooked_result.apply_doneness_stage(DONENESS_BLUE_RARE)
+			// See the oven branch above - cooktime should reach the
+			// finished doneness stage directly, not always DONENESS_BLUE_RARE.
+			cooked_result.apply_doneness_stage(cooked_result.get_doneness_finished_stage())
 		return result
 	var/obj/item/result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
 	initialize_cooked_food(result, 1)
@@ -360,15 +362,6 @@ All foods are distributed among various categories. Use common sense.
 			return "burnt "
 	return ""
 
-/**
- * Blends `base_color` towards cooked_color one step at a time across
- * blue-rare/rare/medium-rare, landing exactly on cooked_color at
- * DONENESS_MEDIUM (matching the sprite swap in apply_doneness_stage()),
- * then blends cooked_color towards burned_color one step at a time across
- * medium-well/well-done, landing exactly on burned_color at DONENESS_BURNT.
- * Shared by get_doneness_color() (item color) and
- * get_doneness_filling_color() (filling_color) so both blend identically.
- */
 /obj/item/reagent_containers/food/snacks/proc/blend_doneness_color(base_color, stage)
 	if(stage >= DONENESS_BURNT)
 		return burned_color
@@ -456,7 +449,12 @@ All foods are distributed among various categories. Use common sense.
 			return "char"
 	return null
 
-
+/**
+ * Folds get_doneness_taste_descriptor(stage) into every nutriment reagent's
+ * taste data (the same list read by generate_taste_message()), replacing
+ * whatever descriptor an earlier stage added instead of stacking every
+ * stage's flavor on top of each other.
+ */
 /obj/item/reagent_containers/food/snacks/proc/apply_doneness_taste(stage)
 	if(!reagents)
 		return
@@ -928,7 +926,6 @@ All foods are distributed among various categories. Use common sense.
 	slice.filling_color = filling_color
 	slice.name = slice_name ? slice_name : slice.name
 	propagate_meat_animal_source(src, slice)
-
 	if(doneness_stage > DONENESS_RAW)
 		slice.doneness_nutrition_multiplier = doneness_nutrition_multiplier
 		slice.apply_doneness_stage(doneness_stage, rescale_nutrition = FALSE)
@@ -972,7 +969,6 @@ All foods are distributed among various categories. Use common sense.
 			else
 				S.reagents.add_reagent(r_id, amount)
 	S.filling_color = filling_color
-
 	if(provenance)
 		S.provenance = provenance
 		provenance = null

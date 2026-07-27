@@ -78,6 +78,13 @@
 			return 1
 	..()
 
+/* added to proc
+/obj/item/reagent_containers/food/snacks/proc/slice(obj/item/W, mob/user)
+	if(slice_sound)
+		playsound(get_turf(user), 'modular/Neu_Food/sound/slicing.ogg', 60, TRUE, -1) // added some choppy sound
+	if(chopping_sound)
+		playsound(get_turf(user), 'modular/Neu_Food/sound/chopping_block.ogg', 60, TRUE, -1) // added some choppy sound
+*/
 /*	........   Kitchen tools / items   ................ */
 
 
@@ -123,12 +130,14 @@
 	playsound(get_turf(user), 'modular/Neu_Food/sound/splishy.ogg', 100, TRUE, -1)
 	if(do_after(user, short_cooktime, target = src))
 		add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+
 		var/reagent_color = master_reagent?.color || "#d9d0cb"
 		color = BlendRGB("#FFFFFF", BlendRGB(color || "#FFFFFF", reagent_color, 0.5), 0.5)
 		name = "wet [name]"
 		desc = "Destined for greatness, at your hands."
 		record_provenance_from(R)
-		R.reagents.remove_all(10)
+		reagents.maximum_volume += 10
+		R.reagents.trans_to(src, 10)
 		water_added = TRUE
 	return TRUE
 
@@ -181,7 +190,6 @@
 	list_reagents = list(/datum/reagent/floure = 1)
 	volume = 1
 	sellprice = 0
-
 	flavor_profile = list(FLAVOR_AFFIX_SWEET_COUNTER)
 
 /obj/item/reagent_containers/powder/salt/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -247,6 +255,9 @@
 	list_reagents = list(/datum/reagent/floure = 1)
 	volume = 1
 	sellprice = 0
+	// water_added is already declared earlier in this file on the parent
+	// /obj/item/reagent_containers/powder type - redeclaring it here was a
+	// duplicate var definition.
 
 /obj/item/reagent_containers/powder/coarse_salt
 	name = "coarse salt"
@@ -264,6 +275,10 @@
 	..()
 	qdel(src)
 
+// Merged the two steps (wetting with water, then sifting with cloth) into a
+// single attackby() - they were previously two separate proc definitions for
+// the same type/signature, which silently overrode one another and left the
+// wetting step dead code.
 /obj/item/reagent_containers/powder/mineral/attackby(obj/item/I, mob/user, params)
 	if(water_added)
 		if(!istype(I, /obj/item/natural/cloth))

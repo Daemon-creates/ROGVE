@@ -57,7 +57,7 @@
 			qdel(M)
 			qdel(src)
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))	
+		return ..()
 	
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
 	name = "cooked cod"
@@ -85,7 +85,7 @@
 			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
 			qdel(src)
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))
+		return ..()
 	
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster
 	name = "cooked lobster"
@@ -126,7 +126,7 @@
 				qdel(I)
 				qdel(src)
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))
+		return ..()
 	
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon
 	name = "cooked salmon"
@@ -157,7 +157,7 @@
 			qdel(src)
 		
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))	
+		return ..()
 	
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/plaice
 	name = "cooked plaice"
@@ -179,7 +179,7 @@
 			qdel(M)
 			qdel(src)
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))	
+		return ..()
 	
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/mudskipper
 	name = "cooked mudskipper"
@@ -207,7 +207,7 @@
 			qdel(M)
 			qdel(src)
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))	
+		return ..()
 	
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/sunny
 	name = "cooked sunny"
@@ -241,7 +241,7 @@
 			add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
 			qdel(src)
 	else
-		to_chat(user, span_warning("You need to put [src] on a table to knead in the spice."))
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	name = "cooked shrimp"
