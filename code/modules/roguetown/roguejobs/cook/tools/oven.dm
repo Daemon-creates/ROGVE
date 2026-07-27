@@ -58,10 +58,6 @@
 					need_underlay_update = TRUE
 					continue
 			var/obj/item/C = I.cooking(10 * cooktime_divisor, 10, src)
-			if(QDELETED(I))
-				food -= I
-				need_underlay_update = TRUE
-				continue
 			if(C)
 				donefoods = TRUE
 				food -= I
@@ -69,6 +65,11 @@
 				food += C
 				visible_message(span_notice("Something smells good!"))
 				need_underlay_update = TRUE
+				continue
+			if(QDELETED(I)) // Safety net in case some other effect destroys I without producing a replacement.
+				food -= I
+				need_underlay_update = TRUE
+				continue
 		update_icon()
 
 
