@@ -78,13 +78,6 @@
 			return 1
 	..()
 
-/* added to proc
-/obj/item/reagent_containers/food/snacks/proc/slice(obj/item/W, mob/user)
-	if(slice_sound)
-		playsound(get_turf(user), 'modular/Neu_Food/sound/slicing.ogg', 60, TRUE, -1) // added some choppy sound
-	if(chopping_sound)
-		playsound(get_turf(user), 'modular/Neu_Food/sound/chopping_block.ogg', 60, TRUE, -1) // added some choppy sound
-*/
 /*	........   Kitchen tools / items   ................ */
 
 
@@ -188,6 +181,7 @@
 	list_reagents = list(/datum/reagent/floure = 1)
 	volume = 1
 	sellprice = 0
+
 	flavor_profile = list(FLAVOR_AFFIX_SWEET_COUNTER)
 
 /obj/item/reagent_containers/powder/salt/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -253,7 +247,6 @@
 	list_reagents = list(/datum/reagent/floure = 1)
 	volume = 1
 	sellprice = 0
-	var/water_added
 
 /obj/item/reagent_containers/powder/coarse_salt
 	name = "coarse salt"
@@ -272,10 +265,20 @@
 	qdel(src)
 
 /obj/item/reagent_containers/powder/mineral/attackby(obj/item/I, mob/user, params)
+	if(water_added)
+		if(!istype(I, /obj/item/natural/cloth))
+			return ..()
+		user.visible_message(span_info("[user] sifts the minerals..."))
+		playsound(get_turf(user), 'modular/Neu_Food/sound/peppermill.ogg', 90, TRUE, -1)
+		if(!do_after(user, 3 SECONDS, target = src))
+			return ..()
+		new /obj/item/reagent_containers/powder/coarse_salt(get_turf(loc))
+		qdel(src)
+		return TRUE
 	var/found_table = locate(/obj/structure/table) in (loc)
 	var/obj/item/reagent_containers/R = I
 	update_cooktime(user)
-	if(!istype(R) || (water_added))
+	if(!istype(R))
 		return ..()
 	if(isturf(loc)&& (!found_table))
 		to_chat(user, span_notice("Need a table..."))
@@ -292,18 +295,3 @@
 		water_added = TRUE
 		color = "#666262"
 	return TRUE
-
-/obj/item/reagent_containers/powder/mineral/attackby(obj/item/I, mob/user, params)
-	if(!water_added)
-		return ..()
-
-	if(!istype(I, /obj/item/natural/cloth))
-		return ..()
-
-	user.visible_message(span_info("[user] sifts the minerals..."))
-	playsound(get_turf(user), 'modular/Neu_Food/sound/peppermill.ogg', 90, TRUE, -1)
-	if(!do_after(user, 3 SECONDS, target = src))
-		return ..()
-
-	new /obj/item/reagent_containers/powder/coarse_salt(get_turf(loc))
-	qdel(src)
