@@ -19,7 +19,7 @@
 	if(hide)
 		. += span_warning("There is a piece of hide ready to be worked. I might need a knife for this.")
 	if(length(rack_items))
-		. += span_notice("[length(rack_items)] batch\es of food [length(rack_items) == 1 ? "is" : "are"] hanging here, drying on their own.")
+		. += span_notice("[length(rack_items)] [length(rack_items) == 1 ? "batch" : "batches"] of food [length(rack_items) == 1 ? "is" : "are"] hanging here, drying on their own.")
 	if(!anchored)
 		. += span_warning("It is un-anchored and able to be moved.")
 
