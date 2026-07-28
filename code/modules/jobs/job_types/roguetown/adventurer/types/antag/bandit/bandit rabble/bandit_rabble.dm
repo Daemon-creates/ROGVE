@@ -1,5 +1,5 @@
 /datum/job/roguetown/bandit_rabble
-	title = "Bandit Rabble"
+	title = "Footpad"
 	flag = BANDIT
 	department_flag = WANDERERS
 	faction = "Station"
@@ -8,7 +8,7 @@
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
 	tutorial = "You're one of many hands in the camp - muscle first, questions never. \
-	Whatever the Leader wants done, you and the rest of the rabble get it done, in exchange for a share of the loot and a place to sleep."
+	Whatever the Demagogue wants done, you and the rest of the footpads get it done, in exchange for a share of the loot and a place to sleep."
 
 	outfit = /datum/outfit/job/roguetown/bandit_rabble
 	outfit_female = null

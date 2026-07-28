@@ -1,5 +1,5 @@
 /datum/job/roguetown/bandit_specialist
-	title = "Bandit Specialist"
+	title = "Highwayman"
 	flag = BANDIT
 	department_flag = WANDERERS
 	faction = "Station"
@@ -8,7 +8,7 @@
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
 	tutorial = "You bring a trade to the camp that the rank and file can't match - be it faith, steel, or salves. \
-	The rabble follow the Leader's word, but they come to you when they need something only a specialist can provide."
+	The footpads follow the Demagogue's word, but they come to you when they need something only a specialist can provide."
 
 	outfit = null
 	outfit_female = null

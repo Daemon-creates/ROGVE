@@ -1,4 +1,3 @@
-
 #define ENGSEC			(1<<0)
 
 #define CAPTAIN			(1<<0)
@@ -128,8 +127,18 @@
 #define PRIEST		(1<<0)
 #define MONK		(1<<1)
 #define GRAVEDIGGER	(1<<2)
+#define OBLATE		(1<<4)
+#define SEXTON		(1<<5)
 
-#define COURTIERS	(1<<3)
+#define GROVE			(1<<6)
+#define ARCHDRUID	(1<<0)
+#define DRUIDKEEPER	(1<<1)
+#define TOTEMWARRIOR	(1<<2)
+#define GROVEEXILE	(1<<3)
+#define GROVER		(1<<4)
+#define BRIAR		(1<<5)
+#define THORN		(1<<6)
+#define COURTIERS	(1<<7)
 
 #define JESTER		(1<<0)
 #define WIZARD		(1<<1)
@@ -171,14 +180,31 @@
 #define LUNATIC		(1<<17)
 #define MIGRANT		(1<<18)
 #define ASSASSIN	(1<<19)
-#define YOUNGFOLK	(1<<6)
+// YOUNGFOLK used to be (1<<6), colliding with GROVE (also (1<<6)) - both are
+// real, live department_flag values checked in the same switch(department_flag)
+// in job.dm (bitflag_to_department), new_player.dm (LateChoices) and _job.dm
+// (get_faction_group), so a job flagged YOUNGFOLK would silently mismatch
+// whichever case (GROVE or YOUNGFOLK) happened to be written first. Moved to
+// (1<<20), well past every other bit used in this file (the highest is
+// ASSASSIN at (1<<19)), to make it collision-free with every flag here,
+// not just the other department_flag values.
+#define YOUNGFOLK	(1<<20)
 
 #define APPRENTICE	(1<<0)
 #define CHURCHLING	(1<<1)
 #define ORPHAN		(1<<2)
 #define SHOPHAND	(1<<3)
 
-#define WANDERERS		(1<<7)
+// WANDERERS used to be (1<<7), colliding with COURTIERS (also (1<<7)) - both
+// are real, live department_flag values checked in the same
+// switch(department_flag) in job.dm (bitflag_to_department), new_player.dm
+// (LateChoices) and _job.dm (get_faction_group), so a job flagged WANDERERS
+// would silently mismatch whichever case (COURTIERS or WANDERERS) happened to
+// be written first, landing wanderer/mercenary roles under "Courtiers"/"keep"
+// instead of "Wanderers"/"mercenary". Moved to (1<<21), well past every other
+// bit used in this file, to make it collision-free with every flag here, not
+// just the other department_flag values.
+#define WANDERERS		(1<<21)
 
 #define WANDERER		(1<<1)
 #define ADVENTURER      (1<<2)
@@ -284,12 +310,22 @@
 
 #define JDO_PRIEST 10
 #define JDO_MARTYR 11
+#define JDO_SEXTON 11
 #define JDO_TEMPLAR 12
 #define JDO_MONK 13
-#define JDO_DRUID 13.1
+#define JDO_OBLATE 13.2
 #define JDO_CHURCHLING 14
 #define JDO_KEEPER 14.1
 #define JDO_GRAVEMAN 15
+
+#define JDO_ARCHDRUID 13.05
+#define JDO_DRUIDKEEPER 13.06
+#define JDO_TOTEMWARRIOR 13.07
+#define JDO_DRUID 13.1
+#define JDO_GROVEEXILE 13.11
+#define JDO_GROVER 13.12
+#define JDO_BRIAR 13.13
+#define JDO_THORN 13.14
 
 #define JDO_MERCHANT 17
 #define JDO_SHOPHAND 17.1
@@ -381,6 +417,8 @@
 
 #define CHURCH_ROLES \
 	/datum/job/roguetown/churchling,\
+	/datum/job/roguetown/oblate,\
+	/datum/job/roguetown/sexton,\
 	/datum/job/roguetown/druid,\
 	/datum/job/roguetown/monk,\
 	/datum/job/roguetown/priest,\

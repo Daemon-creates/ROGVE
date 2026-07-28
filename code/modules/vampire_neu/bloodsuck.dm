@@ -78,8 +78,7 @@
 	else
 		blood_handle |= BLOOD_PREFERENCE_LIVING
 
-	if(victim.job in list("Priest", "Priestess", "Cleric", "Acolyte", "Templar", "Churchling", "Crusader", "Inquisitor"))
-		blood_handle |= BLOOD_PREFERENCE_HOLY
+	if(victim.job in list("Priest", "Priestess", "Cleric", "Acolyte", "Templar", "Bedesman", "Bedeswoman", "Oblate", "Sexton", "Crusader", "Inquisitor"))		blood_handle |= BLOOD_PREFERENCE_HOLY
 	if(VVictim)
 		blood_handle |= BLOOD_PREFERENCE_KIN
 		blood_handle  &= ~BLOOD_PREFERENCE_LIVING

@@ -46,8 +46,11 @@ SUBSYSTEM_DEF(familytree)
 		)
 	var/list/nomarry_jobs = list(
 		"Nightswain",
-		"Churchling",
+		"Bedesman",
+		"Bedeswoman",
 		"Acolyte",
+		"Sexton",
+		"Oblate",
 		"Templar",
 		"Martyr",
 		"Priest",
