@@ -93,8 +93,8 @@
 	..()
 	H.adjust_blindness(-3)
 	neck = /obj/item/clothing/neck/roguetown/talkstone
-	cloak = /obj/item/clothing/cloak/black_cloak
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
+	mask = /obj/item/clothing/neck/roguetown/collar/feldcollar
+	armor = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/loudmouth
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	pants = /obj/item/clothing/under/roguetown/tights/random
 	shoes = /obj/item/clothing/shoes/roguetown/shortboots
