@@ -83,4 +83,4 @@
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
 	name = "custodial gambeson"
 	color = "#e98738"
-	var/picked = TRUE
+	picked = TRUE
