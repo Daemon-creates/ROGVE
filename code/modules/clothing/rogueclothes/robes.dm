@@ -131,6 +131,9 @@
 /obj/item/clothing/suit/roguetown/shirt/robe/mageyellow
 	color = "#c1b144"
 
+/obj/item/clothing/suit/roguetown/shirt/robe/magewhite
+	color = "#e8e8e0"
+
 /obj/item/clothing/suit/roguetown/shirt/robe/merchant
 	name = "guilder jacket"
 	icon_state = "merrobe"
