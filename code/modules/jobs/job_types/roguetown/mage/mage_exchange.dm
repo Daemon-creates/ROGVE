@@ -37,6 +37,7 @@
 	backr = /obj/item/rogueweapon/woodstaff
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
+	pants = /obj/item/clothing/under/roguetown/tights/random
 
 /datum/advclass/mageexchange
 	name = "Foreign Exchange Student"
