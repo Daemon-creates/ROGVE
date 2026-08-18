@@ -73,7 +73,7 @@
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
 	shoes = /obj/item/clothing/shoes/roguetown/shalal
 	gloves = /obj/item/clothing/gloves/roguetown/leather/white
-	cloak = /obj/item/clothing/cloak/half/orange
+	cloak = /obj/item/clothing/cloak/ordinatorcape
 	belt = /obj/item/storage/belt/rogue/leather
 	backr = /obj/item/rogueweapon/halberd
 	backpack_contents = list(
@@ -83,4 +83,5 @@
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
 	name = "custodial gambeson"
 	color = "#e98738"
+	detail_color ="#720a24"
 	picked = TRUE

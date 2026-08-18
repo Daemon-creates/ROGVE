@@ -1,5 +1,5 @@
 /datum/job/roguetown/mageexchange
-	title = "Foreign Exchange Student"
+	title = "Foreign Exchange Mage"
 	flag = MAGEEXCHANGE
 	department_flag = MAGEGUILD
 	selection_color = JCOLOR_COURTIER
@@ -31,15 +31,12 @@
 	)
 
 /datum/outfit/job/roguetown/mageexchange
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights/random
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/storage/keyring/mageapprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/woodstaff
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
-	head = /obj/item/clothing/head/roguetown/roguehood/mage
 
 /datum/advclass/mageexchange
 	name = "Foreign Exchange Student"

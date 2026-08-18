@@ -33,8 +33,6 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights/random
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/storage/keyring/mageapprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -71,7 +69,6 @@
 
 /datum/outfit/job/roguetown/wapprentice/black/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/black
-	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/associate
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
@@ -118,7 +115,6 @@
 
 /datum/outfit/job/roguetown/wapprentice/white/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magewhite
-	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/associate
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
@@ -160,7 +156,6 @@
 
 /datum/outfit/job/roguetown/wapprentice/red/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magered
-	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/associate
 	backr = /obj/item/rogueweapon/sword/short
 	backpack_contents = list(
@@ -209,7 +204,6 @@
 
 /datum/outfit/job/roguetown/wapprentice/blue/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mageblue
-	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/associate
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
@@ -260,7 +254,6 @@
 
 /datum/outfit/job/roguetown/wapprentice/green/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magegreen
-	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/alchemist
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
