@@ -1,7 +1,7 @@
 /datum/job/roguetown/wapprentice
 	title = "Apprentice Mage"
 	flag = MAGEASSOCIATE
-	department_flag = COURTIERS
+	department_flag = MAGEGUILD
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
