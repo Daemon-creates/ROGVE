@@ -72,7 +72,7 @@
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/associate
-	r_hand = /obj/item/rogueweapon/woodstaff/riddle_of_steel
+	r_hand = /obj/item/ritechalk
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 2,
 		/obj/item/recipe_book/alchemy,
@@ -124,7 +124,7 @@
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magegreen
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/alchemist
-	backr = /obj/item/rogueweapon/sickle
+	r_hand = /obj/item/rogueweapon/sickle
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 2,
 		/obj/item/seeds/swampweed,
@@ -176,7 +176,7 @@
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mageorange
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	beltl = /obj/item/storage/magebag/associate
-	backr = /obj/item/rogueweapon/hammer/iron
+	r_hand = /obj/item/rogueweapon/hammer/iron
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 2,
 		/obj/item/recipe_book/alchemy,

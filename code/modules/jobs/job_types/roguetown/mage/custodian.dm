@@ -12,10 +12,10 @@
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 	job_traits = list(TRAIT_GUARDSMAN, TRAIT_STEELHEARTED, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T1)
 	tutorial = "You are sworn, in order: first to the vault, that harmful Zizoid artifacts locked within never see the light of day; \
-		second to the Grand Master, whose word is law within these walls; \
+		second to the Headmaster, whose word is law within these walls; \
 		third to the mages of the tower, whose safety is your charge; \
 		and lastly to the tower itself, that its halls remain standing for the mages yet to come. \
-		You are a Paragon of Noc and a protectorate of the arcane, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
+		You are a Paragon of Noc and a protectorate of the arcyne, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
 	display_order = JDO_CUSTODIAN
 	whitelist_req = TRUE
 
@@ -38,10 +38,10 @@
 /datum/advclass/custodian
 	name = "Custodian"
 	tutorial = "You are sworn, in order: first to the vault, that harmful Zizoid artifacts locked within never see the light of day; \
-		second to the Grand Master, whose word is law within these walls; \
+		second to the Headmaster, whose word is law within these walls; \
 		third to the mages of the tower, whose safety is your charge; \
 		and lastly to the tower itself, that its halls remain standing for the mages yet to come. \
-		You are a Paragon of Noc and a protectorate of the arcane, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
+		You are a Paragon of Noc and a protectorate of the arcyne, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
 	outfit = /datum/outfit/job/roguetown/custodian/basic
 
 	category_tags = list(CTAG_CUSTODIAN)
@@ -72,10 +72,9 @@
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
 	shoes = /obj/item/clothing/shoes/roguetown/shalal
-	gloves = /obj/item/clothing/gloves/roguetown/leather/white
 	cloak = /obj/item/clothing/cloak/ordinatorcape
 	belt = /obj/item/storage/belt/rogue/leather
-	backr = /obj/item/rogueweapon/halberd
+	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
 	backpack_contents = list(
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
 	)

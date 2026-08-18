@@ -34,13 +34,13 @@
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/storage/keyring/mageapprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
+	r_hand = /obj/item/rogueweapon/woodstaff
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
 	pants = /obj/item/clothing/under/roguetown/tights/random
 
 /datum/advclass/mageexchange
-	name = "Foreign Exchange Student"
+	name = "Foreign Exchange Mage"
 	tutorial = "You've traveled far from your homeland to study within these walls, drawn by the tower's renown even across borders and seas. \
 		You've picked up enough of the Imperial tongue to follow along with your tutors, though your own mouth still refuses to shape its sounds properly - \
 		you'll have to make do with your mother tongue, and whatever patience your hosts can spare you."

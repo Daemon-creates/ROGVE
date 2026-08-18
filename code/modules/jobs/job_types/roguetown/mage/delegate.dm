@@ -12,7 +12,7 @@
 	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	display_order = JDO_MAGEDELEGATE
 	tutorial = "You are the Headmaster's right hand, entrusted to see that their will is carried out even in their absence. \
-		Where the Headmaster sets the course of the tower's studies, it falls to you to see that the day-to-day matters - discipline, provisions, and the training of the younger mages - do not fall to ruin. \
+		Where the Headmaster sets the course of the tower's studies, it falls to you to see that the day-to-day matters - discipline, provisions, and the training of the apprentice mages - do not fall to ruin. \
 		Should the Headmaster's seat ever fall empty, all eyes will turn to you."
 	outfit = /datum/outfit/job/roguetown/magedelegate
 	whitelist_req = TRUE
@@ -34,7 +34,7 @@
 /datum/advclass/magedelegate
 	name = "Delegate"
 	tutorial = "You are the Headmaster's right hand, entrusted to see that their will is carried out even in their absence. \
-		Where the Headmaster sets the course of the tower's studies, it falls to you to see that the day-to-day matters - discipline, provisions, and the training of the younger mages - do not fall to ruin. \
+		Where the Headmaster sets the course of the tower's studies, it falls to you to see that the day-to-day matters - discipline, provisions, and the training of the apprentice mages - do not fall to ruin. \
 		Should the Headmaster's seat ever fall empty, all eyes will turn to you."
 	outfit = /datum/outfit/job/roguetown/magedelegate/basic
 
@@ -102,7 +102,7 @@
 	beltr = /obj/item/storage/keyring/mage
 	beltl = /obj/item/storage/magebag/associate
 	id = /obj/item/clothing/ring/gold
-	r_hand = /obj/item/rogueweapon/woodstaff/riddle_of_steel
+	r_hand = /obj/item/rogueweapon/woodstaff/wise
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
 		/obj/item/reagent_containers/glass/bottle/rogue/poison,
