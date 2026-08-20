@@ -355,6 +355,34 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Scribe"
 	icon_state = "arrow"
 
+/obj/effect/landmark/start/archdruid
+	name = "Archdruid"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/briar
+	name = "Briar"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/sacrist
+	name = "Sacrist"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/groveexile
+	name = "Exile"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/grover
+	name = "Grover"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/thorn
+	name = "Thorn"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/totemwarrior
+	name = "Fian"
+	icon_state = "arrow"
+
 /obj/effect/landmark/start/farmer
 	name = "Soilson"
 	icon_state = "arrow"
