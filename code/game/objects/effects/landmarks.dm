@@ -237,6 +237,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Gatemaster"
 	icon_state = "arrow"
 
+/obj/effect/landmark/start/Custodian
+	name = "Custodian"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/magedelegate
+	name = "Delegate"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/mageexchange
+	name = "Foreign Exchange Mage"
+	icon_state = "arrow"
+
 /obj/effect/landmark/start/villager
 	name = "Towner"
 	icon_state = "arrow"
