@@ -556,7 +556,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NATURALARMOR = span_info("Whether by natural or other means, my skin is strong enough to resist being pierced and cut."),
 	TRAIT_CLERGYRADICAL = span_info("I follow the radical path of the clergy, abandoning the old road of devotion in favor of self-guided miracle study."),
 	TRAIT_TRIBAL = span_info("I belong to the Island's tribe."),
-	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others.")
+	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others."),
 	TRAIT_TRANSVESTITE = span_info("I've always found myself drawn to the roles of the opposite gender.")
 ))
 
