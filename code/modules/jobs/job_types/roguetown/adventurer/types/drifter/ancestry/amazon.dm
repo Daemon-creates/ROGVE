@@ -6,7 +6,8 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/drifter/amazon
 	category_tags = list(CTAG_ADVENTURER)
-	traits_applied = list(TRAIT_DODGEEXPERT)
+	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN, TRAIT_DEATHBYSNUSNU)
+	
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_SPD = 1,
