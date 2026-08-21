@@ -9,7 +9,7 @@
 	allowed_races = ACCEPTED_RACES
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = ALL_AGES_LIST
-
+	allowed_patrons = list(/datum/patron/old_god)
 	tutorial = "The Church’s sacred relics and holy objects do not tend to themselves. As Sexton, you are charged with keeping the reliquary vault well stocked. The Archbishop expects to see a house rich in devotion, and so it falls to you to ensure the shelves never look bare when his agents come to inspect and to keep the Church’s payments flowing."
 
 	outfit = /datum/outfit/job/roguetown/sexton

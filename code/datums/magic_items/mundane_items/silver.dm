@@ -18,7 +18,7 @@
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_SILVER_WEAK) && !user.has_status_effect(STATUS_EFFECT_ANTIMAGIC))
 		var/datum/antagonist/vampire/V_lord = user.mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(V_lord.generation >= GENERATION_METHUSELAH)
+		if(V_lord && V_lord.generation >= GENERATION_METHUSELAH)
 			return
 
 		to_chat(user, span_userdanger("I can't pick up the silver, it is my BANE!"))
@@ -33,7 +33,7 @@
 		var/datum/antagonist/vampire/V_lord = H.mind.has_antag_datum(/datum/antagonist/vampire)
 		var/datum/antagonist/werewolf/W = H.mind.has_antag_datum(/datum/antagonist/werewolf/)
 		if(ishuman(H))
-			if(V_lord.generation < GENERATION_METHUSELAH)
+			if(V_lord && V_lord.generation < GENERATION_METHUSELAH)
 				to_chat(H, span_userdanger("I can't pick up the silver, it is my BANE!"))
 				H.Knockdown(10)
 				H.Paralyze(10)

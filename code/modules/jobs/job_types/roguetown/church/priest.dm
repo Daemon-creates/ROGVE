@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	selection_color = JCOLOR_CHURCH
 	f_title = "Bishop"
 	allowed_races = RACES_NO_CONSTRUCT		//Too recent arrivals to ascend to priesthood.
-	allowed_patrons = ALL_DIVINE_PATRONS
+	allowed_patrons = list(/datum/patron/old_god)
 	allowed_sexes = list(MALE, FEMALE)
 	tutorial = "The Divine is all that matters in a world of the immoral. \
 	The Weeping God left his children to rule over us mortals--and you will preach their wisdom to any who still heed their will. \
