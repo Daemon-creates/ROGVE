@@ -31,8 +31,10 @@
 
 /datum/advclass/drifter/disgracedknight/post_equip(mob/living/carbon/human/H)
 	..()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(drifter_add_delayed_bounty), WEAKREF(H), rand(250, 450), "murder", "An outraged liege"), game_minutes2deciseconds(48 * 60))
-
+	addtimer(
+		CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(drifter_add_delayed_bounty), WEAKREF(H), rand(250, 450), "murder", "An outraged liege"),
+		48 * 60 * 60 * 10
+	)
 /datum/outfit/job/roguetown/drifter/disgracedknight/pre_equip(mob/living/carbon/human/H)
 	..()
 	shoes = /obj/item/clothing/shoes/roguetown/boots
