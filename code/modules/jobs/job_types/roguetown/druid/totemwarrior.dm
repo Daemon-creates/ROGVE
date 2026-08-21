@@ -14,7 +14,7 @@
 	outfit = /datum/outfit/job/roguetown/totemwarrior
 	social_rank = SOCIAL_RANK_YEOMAN
 	tutorial = "Whatever circumstances brought you here, your impressive physical might is a gift from Dendor himself. An ex-soldier, a passion-struck mercenary, or perhaps even a tamed wildman-- who you are is not important. \
-	What is important is that which is greater than yourself, the very nature in which you inhabit. Protect the Archdruid and his realm at all costs, the fate of everything depending on it. \"
+	What is important is that which is greater than yourself, the very nature in which you inhabit. Protect the Archdruid and his realm at all costs, the fate of everything depending on it."
 
 	display_order = JDO_TOTEMWARRIOR
 	give_bank_account = TRUE
