@@ -7,6 +7,8 @@
 	outfit = /datum/outfit/job/roguetown/drifter/dweller
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
+	gate_ancestries = list(/datum/species/anthromorphsmall)
+	gate_religions = list(/datum/patron/inhumen/graggar)
 	subclass_stats = list(
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,

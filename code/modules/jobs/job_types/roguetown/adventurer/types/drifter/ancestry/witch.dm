@@ -8,6 +8,8 @@
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_RITUALIST, TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE_T2, TRAIT_LITERACY)
 	subclass_spellpoints = 6
+	gate_ancestries = list(/datum/species/dwarf/gnome)
+	gate_genders = list(FEMALE)
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_SPD = 1,

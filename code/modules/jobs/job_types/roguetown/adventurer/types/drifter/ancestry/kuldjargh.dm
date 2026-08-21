@@ -6,6 +6,8 @@
 	allowed_races = list(/datum/species/dwarf/mountain, /datum/species/human/northern)
 	outfit = /datum/outfit/job/roguetown/drifter/kuldjargh
 	category_tags = list(CTAG_ADVENTURER)
+	gate_ancestries = list(/datum/species/dwarf, /datum/species/human/northern)
+	gate_races = list(SKIN_COLOR_HAMMERHOLD)
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_CON = 1,

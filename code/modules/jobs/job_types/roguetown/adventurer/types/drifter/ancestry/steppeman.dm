@@ -7,6 +7,8 @@
 	outfit = /datum/outfit/job/roguetown/drifter/steppeman
 	category_tags = list(CTAG_ADVENTURER)
 	subclass_languages = list(/datum/language/aavnic)
+	gate_races = list(SKIN_COLOR_GRONN, SKIN_COLOR_AVAR)
+	gate_ancestries = list(/datum/species/halforc)
 	subclass_stats = list(
 		STATKEY_PER = 2,
 		STATKEY_SPD = 1,

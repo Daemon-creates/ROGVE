@@ -6,6 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/drifter/goblin_knight
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
+	gate_ancestries = list(/datum/species/goblinp)
 	subclass_stats = list(
 		STATKEY_STR = 1,
 		STATKEY_SPD = 1,

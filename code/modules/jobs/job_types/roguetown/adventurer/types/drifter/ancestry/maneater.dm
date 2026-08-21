@@ -6,6 +6,13 @@
 	allowed_races = list(/datum/species/kobold, /datum/species/lamia, /datum/species/lizardfolk, /datum/species/dracon)
 	outfit = /datum/outfit/job/roguetown/drifter/maneater
 	category_tags = list(CTAG_ADVENTURER)
+	gate_ancestries = list(
+		/datum/species/dracon,
+		/datum/species/kobold,
+		/datum/species/lamia,
+		/datum/species/lizardfolk
+	)
+	gate_religions = list(/datum/patron/inhumen/graggar)
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_CON = 1,

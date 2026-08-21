@@ -8,6 +8,8 @@
 	outfit = /datum/outfit/job/roguetown/drifter/shaman
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_RITUALIST, TRAIT_LITERACY)
+	gate_races = list(SKIN_COLOR_NALEDI_LIGHT, SKIN_COLOR_NALEDI)
+	gate_ancestries = list(/datum/species/goblinp)
 	subclass_stats = list(
 		STATKEY_INT = 2,
 		STATKEY_WIL = 2,

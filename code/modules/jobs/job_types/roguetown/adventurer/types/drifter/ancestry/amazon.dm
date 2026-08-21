@@ -7,7 +7,7 @@
 	outfit = /datum/outfit/job/roguetown/drifter/amazon
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN, TRAIT_DEATHBYSNUSNU)
-	
+	gate_genders = list(FEMALE)
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_SPD = 1,
@@ -24,7 +24,6 @@
 /datum/outfit/job/roguetown/drifter/amazon/pre_equip(mob/living/carbon/human/H)
 	..()
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
-	pants = /obj/item/clothing/under/roguetown/loincloth
 	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	gloves = /obj/item/clothing/gloves/roguetown/bandages
 	belt = /obj/item/storage/belt/rogue/leather
