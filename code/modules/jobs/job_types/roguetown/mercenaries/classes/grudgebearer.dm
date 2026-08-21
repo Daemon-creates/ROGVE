@@ -57,7 +57,7 @@
 			/obj/item/rogueweapon/tongs = 1,
 			)
 		var/weapons = list("Grand Mace", "Spiked Maul")
-		var/wepchoice = input("Choose your weapon", "Available weapons") as anything in weapons
+		var/wepchoice = input(H, "Choose your weapon", "Available weapons") as anything in weapons
 		switch(wepchoice)
 			if("Grand Mace")
 				backr = /obj/item/rogueweapon/mace/goden/steel
@@ -297,5 +297,3 @@
 
 	shred_amt = 20	//Limbs lose 2 grades per layer shred, but also repair 4.
 	layer_repair = 2
-
-

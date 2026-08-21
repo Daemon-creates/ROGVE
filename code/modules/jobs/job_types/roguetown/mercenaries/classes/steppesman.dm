@@ -84,13 +84,14 @@
 				H.change_stat(STATKEY_CON, 2)
 				H.change_stat(STATKEY_SPD, 1)
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
-				H.dna.species.soundpack_m = new /datum/voicepack/male/evil() 	//Fits in my head all too well.
+				if(H.dna?.species)
+					H.dna.species.soundpack_m = new /datum/voicepack/male/evil() 	//Fits in my head all too well.
 				var/masks = list(
 				"Humen" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
 				"Beast"		= /obj/item/clothing/mask/rogue/facemask/steel/steppesman/anthro,
 				"None"
 		)
-				var/maskchoice = input("What fits your face?", "MASK SELECTION") as anything in masks
+				var/maskchoice = input(H, "What fits your face?", "MASK SELECTION") as anything in masks
 				if(maskchoice != "None")
 					mask = masks[maskchoice]
 
@@ -131,13 +132,14 @@
 				H.change_stat(STATKEY_PER, 2)
 				H.change_stat(STATKEY_SPD, -2)
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
-				H.dna.species.soundpack_m = new /datum/voicepack/male/evil()
+				if(H.dna?.species)
+					H.dna.species.soundpack_m = new /datum/voicepack/male/evil()
 				var/masks = list(
 				"Humen" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
 				"Beast"		= /obj/item/clothing/mask/rogue/facemask/steel/steppesman/anthro,
 				"None"
 		)
-				var/maskchoice = input("What fits your face?", "MASK SELECTION") as anything in masks
+				var/maskchoice = input(H, "What fits your face?", "MASK SELECTION") as anything in masks
 				if(maskchoice != "None")
 					mask = masks[maskchoice]
 
@@ -179,13 +181,14 @@
 				H.change_stat(STATKEY_PER, 2)
 				H.change_stat(STATKEY_SPD, -4)
 				ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)//No armour skill. They get BOMBS.
-				H.dna.species.soundpack_m = new /datum/voicepack/male/evil()
+				if(H.dna?.species)
+					H.dna.species.soundpack_m = new /datum/voicepack/male/evil()
 				var/masks = list(
 				"Humen" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
 				"Beast"		= /obj/item/clothing/mask/rogue/facemask/steel/steppesman/anthro,
 				"None"
 		)
-				var/maskchoice = input("What fits your face?", "MASK SELECTION") as anything in masks
+				var/maskchoice = input(H, "What fits your face?", "MASK SELECTION") as anything in masks
 				if(maskchoice != "None")
 					mask = masks[maskchoice]
 
@@ -197,7 +200,7 @@
 				"BLINDING"			= /obj/item/impact_grenade/smoke/blind_gas,
 				"None"
 		)
-				var/grenade_choice = input("What impact grenade do you carry?", "IMPACT SELECTION") as anything in special_grenade
+				var/grenade_choice = input(H, "What impact grenade do you carry?", "IMPACT SELECTION") as anything in special_grenade
 				if(grenade_choice != "None")
 					r_hand = special_grenade[grenade_choice]
 				else//Do they not take a grenade? Engineering skill and alchemy. They're a bomb factory.
@@ -261,9 +264,10 @@
 				H.change_stat(STATKEY_SPD, 2)
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_OUTDOORSMAN, TRAIT_GENERIC)
-				H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()		//Semi-crazed warrior vibe.
+				if(H.dna?.species)
+					H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()		//Semi-crazed warrior vibe.
 				var/weapons = list("Lándzsa", "Flail")
-				var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+				var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 				switch(weapon_choice)
 					if("Lándzsa")//Funny banner weapon & punchdagger, with whip I suppose.
 						r_hand = /obj/item/rogueweapon/spear/boar/aav
