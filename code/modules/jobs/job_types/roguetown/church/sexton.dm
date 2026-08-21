@@ -51,16 +51,18 @@
 
 /datum/outfit/job/roguetown/sexton/basic/pre_equip(mob/living/carbon/human/H)
 	..()
-	neck = /obj/item/clothing/neck/roguetown/psicross
-	head = /obj/item/clothing/head/roguetown/roguehood
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights
-	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	head = /obj/item/clothing/head/roguetown/roguehood/psydon/confessor
+	backr = /obj/item/rogueweapon/shovel/silver/preblessed
+	cloak = /obj/item/clothing/cloak/eastcloak1
+	backl = /obj/item/storage/backpack/rogue/satchel
+	neck = /obj/item/clothing/neck/roguetown/psicross/silver
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+	id = /obj/item/clothing/ring/silver
+	beltr = /obj/item/flashlight/flare/torch/lantern
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltl = /obj/item/storage/keyring/churchie
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	backl = /obj/item/storage/backpack/rogue/satchel
+	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(/obj/item/ritechalk = 2)
 
 /datum/job/roguetown/sexton/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
