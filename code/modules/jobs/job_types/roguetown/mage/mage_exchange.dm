@@ -35,7 +35,7 @@
 	beltr = /obj/item/storage/keyring/mageapprentice
 	r_hand = /obj/item/rogueweapon/woodstaff
 
-/datum/outfit/job/roguetown/wapprentice/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/mageexchange/pre_equip(mob/living/carbon/human/H)
 	if(should_wear_femme_clothes(H))
 		backl = /obj/item/storage/backpack/rogue/satchel
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest
