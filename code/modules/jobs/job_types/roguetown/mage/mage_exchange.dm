@@ -48,6 +48,7 @@
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	l_hand = /obj/item/rogueweapon/woodstaff
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/recipe_book/alchemy = 1,
@@ -55,6 +56,7 @@
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
 		/obj/item/chalk = 1,
 		)
+	
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
 		H.change_stat(STATKEY_SPD, -1)
@@ -84,7 +86,7 @@
 	tutorial = "You've traveled far from your homeland to study within these walls, drawn by the tower's renown even across borders and seas. \
 		You've picked up enough of the Imperial tongue to follow along with your tutors, though your own mouth still refuses to shape its sounds properly - \
 		you'll have to make do with your mother tongue, and whatever patience your hosts can spare you."
-	outfit = /datum/outfit/job/roguetown/mageexchange/basic
+	outfit = /datum/outfit/job/roguetown/mageexchange
 
 	category_tags = list(CTAG_MAGEEXCHANGE)
 	subclass_spellpoints = 18

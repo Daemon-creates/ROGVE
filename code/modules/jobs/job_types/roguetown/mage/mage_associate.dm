@@ -50,6 +50,7 @@
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	l_hand = /obj/item/rogueweapon/woodstaff
 
 /datum/advclass/wapprentice/black
 	name = "Black Mage"
