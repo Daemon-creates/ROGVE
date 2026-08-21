@@ -34,7 +34,7 @@
 	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/mageapprentice
 
-/datum/outfit/job/roguetown/mageexchange/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/mageexchange/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(should_wear_femme_clothes(H))
 		backl = /obj/item/storage/backpack/rogue/satchel
@@ -86,7 +86,7 @@
 	tutorial = "You've traveled far from your homeland to study within these walls, drawn by the tower's renown even across borders and seas. \
 		You've picked up enough of the Imperial tongue to follow along with your tutors, though your own mouth still refuses to shape its sounds properly - \
 		you'll have to make do with your mother tongue, and whatever patience your hosts can spare you."
-	outfit = /datum/outfit/job/roguetown/mageexchange
+	outfit = /datum/outfit/job/roguetown/mageexchange/basic
 
 	category_tags = list(CTAG_MAGEEXCHANGE)
 	subclass_spellpoints = 18

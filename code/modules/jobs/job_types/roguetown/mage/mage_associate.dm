@@ -50,7 +50,6 @@
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
-	l_hand = /obj/item/rogueweapon/woodstaff
 
 /datum/advclass/wapprentice/black
 	name = "Black Mage"
@@ -86,6 +85,7 @@
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/black
 	else if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/black
+	l_hand = /obj/item/rogueweapon/woodstaff
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
@@ -135,6 +135,7 @@
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/white
 	else if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/white
+	l_hand = /obj/item/rogueweapon/woodstaff
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
@@ -180,6 +181,7 @@
 	else if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/red
 	r_hand = /obj/item/rogueweapon/sword/short
+	l_hand = /obj/item/rogueweapon/woodstaff
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/recipe_book/alchemy = 1,
@@ -230,6 +232,7 @@
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/blue
 	else if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/blue
+	l_hand = /obj/item/rogueweapon/woodstaff
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
@@ -283,6 +286,7 @@
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/green
 	else if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/green
+	l_hand = /obj/item/rogueweapon/woodstaff
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/seeds/swampweed = 1,
