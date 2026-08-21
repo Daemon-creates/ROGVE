@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 	total_positions = 20
 	spawn_positions = 20
 	allowed_races = RACES_ALL_KINDS
-	tutorial = "Hero of nothing, a wanderer in foreign lands in search of fame and riches. Whatever led you to this fate is up to the wind to decide, and you've never fancied yourself for much other than the thrill. Some day your pride is going to catch up to you, and you're going to find out why most men don't end up in the annals of history."
+	tutorial = "A drifter is claimed by no hall and remembered by no hearth. You wander because standing still never suited you, carrying old trades, old sins, and old dreams from one road to the next while the realm decides what use it has for you."
 	class_categories = TRUE
 
 	outfit = null
@@ -36,40 +36,30 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 	job_traits = list(TRAIT_OUTLANDER)
 
 	job_subclasses = list(
-		/datum/advclass/cleric,
-		/datum/advclass/cleric/paladin,
-		/datum/advclass/cleric/cantor,
-		/datum/advclass/cleric/missionary,
-		/datum/advclass/cleric/stigmata,
-		/datum/advclass/sfighter,
-		/datum/advclass/sfighter/duelist,
-		/datum/advclass/sfighter/mhunter,
-		/datum/advclass/sfighter/barbarian,
-		/datum/advclass/sfighter/ironclad,
-		/datum/advclass/rogue,
-		/datum/advclass/rogue/thief,
-		/datum/advclass/rogue/bard,
-		/datum/advclass/rogue/swashbuckler,
-		/datum/advclass/mage,
-		/datum/advclass/mage/spellblade,
-		/datum/advclass/mage/spellsinger,
-		/datum/advclass/ranger,
-		/datum/advclass/ranger/wayfarer,
-		/datum/advclass/ranger/bombadier,
-		/datum/advclass/ranger/bwanderer,
-		/datum/advclass/noble,
-		/datum/advclass/noble/knighte,
-		/datum/advclass/noble/squire,
-		/datum/advclass/foreigner,
-		/datum/advclass/foreigner/yoruku,
-		/datum/advclass/foreigner/repentant,
-		/datum/advclass/foreigner/refugee,
-		/datum/advclass/foreigner/slaver,
-		/datum/advclass/foreigner/dunewell,
-		/datum/advclass/foreigner/gronn,
-		/datum/advclass/foreigner/nostromo,
-		/datum/advclass/foreigner/aavnik,
-		/datum/advclass/foreigner/bluthund,
+		/datum/advclass/drifter/busker,
+		/datum/advclass/drifter/minstrel,
+		/datum/advclass/drifter/trader,
+		/datum/advclass/drifter/charlatan,
+		/datum/advclass/drifter/wasteoflife,
+		/datum/advclass/drifter/bogwalker,
+		/datum/advclass/drifter/disgracedknight,
+		/datum/advclass/drifter/boggard_deserter,
+		/datum/advclass/drifter/town_watch_deserter,
+		/datum/advclass/drifter/manatarms_deserter,
+		/datum/advclass/drifter/prophet,
+		/datum/advclass/drifter/clad_scavenger,
+		/datum/advclass/drifter/lost_old_glory,
+		/datum/advclass/drifter/claimant,
+		/datum/advclass/drifter/fanatic,
+		/datum/advclass/drifter/ancestry/kuldjargh,
+		/datum/advclass/drifter/ancestry/miner_knight,
+		/datum/advclass/drifter/ancestry/witch,
+		/datum/advclass/drifter/ancestry/shaman,
+		/datum/advclass/drifter/ancestry/goblin_knight,
+		/datum/advclass/drifter/ancestry/steppeman,
+		/datum/advclass/drifter/ancestry/dweller,
+		/datum/advclass/drifter/ancestry/amazon,
+		/datum/advclass/drifter/ancestry/maneater,
 	)
 
 /mob/living/carbon/human/proc/adv_hugboxing_start()
