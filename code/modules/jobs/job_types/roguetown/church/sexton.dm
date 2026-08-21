@@ -51,6 +51,7 @@
 
 /datum/outfit/job/roguetown/sexton/basic/pre_equip(mob/living/carbon/human/H)
 	..()
+	mask = /obj/item/clothing/mask/rogue/ragmask/nomad
 	head = /obj/item/clothing/head/roguetown/roguehood/psydon/confessor
 	backr = /obj/item/rogueweapon/shovel/silver/preblessed
 	cloak = /obj/item/clothing/cloak/eastcloak1
