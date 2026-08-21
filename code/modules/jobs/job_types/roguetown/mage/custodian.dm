@@ -35,6 +35,21 @@
 /datum/outfit/job/roguetown/custodian
 	job_bitflag = BITFLAG_ROYALTY
 
+/datum/outfit/job/roguetown/custodian/pre_equip(mob/living/carbon/human/H)
+	..()
+	// No shields - Custodians rely on their polearms and armor alone.
+	head = /obj/item/clothing/head/roguetown/helmet/bascinet
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
+	shoes = /obj/item/clothing/shoes/roguetown/shalal
+	cloak = /obj/item/clothing/cloak/ordinatorcape
+	belt = /obj/item/storage/belt/rogue/leather
+	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
+	backpack_contents = list(
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+	)
+
 /datum/advclass/custodian
 	name = "Custodian"
 	tutorial = "You are sworn, in order: first to the vault, that harmful Zizoid artifacts locked within never see the light of day; \
@@ -42,7 +57,7 @@
 		third to the mages of the tower, whose safety is your charge; \
 		and lastly to the tower itself, that its halls remain standing for the mages yet to come. \
 		You are a Paragon of Noc and a protectorate of the arcyne, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
-	outfit = /datum/outfit/job/roguetown/custodian/basic
+	outfit = /datum/outfit/job/roguetown/custodian
 
 	category_tags = list(CTAG_CUSTODIAN)
 	subclass_spellpoints = 6
@@ -62,21 +77,6 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
-	)
-
-/datum/outfit/job/roguetown/custodian/basic/pre_equip(mob/living/carbon/human/H)
-	..()
-	// No shields - Custodians rely on their polearms and armor alone.
-	head = /obj/item/clothing/head/roguetown/helmet/bascinet
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
-	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
-	shoes = /obj/item/clothing/shoes/roguetown/shalal
-	cloak = /obj/item/clothing/cloak/ordinatorcape
-	belt = /obj/item/storage/belt/rogue/leather
-	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
-	backpack_contents = list(
-		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
 	)
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian

@@ -92,7 +92,7 @@
 /datum/advclass/acolyte
 	name = "Acolyte"
 	tutorial = "Chores, some more chores- Even more chores.. Oh how the life of a humble acolyte is exhausting… You have faith, but even you know you gave up a life of adventure for that of the security in the Church. Assist the Bishop in their daily tasks, maybe today will be the day something interesting happens."
-	outfit = /datum/outfit/job/roguetown/monk/basic
+	outfit = /datum/outfit/job/roguetown/monk
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_ACOLYTE)
 	subclass_stats = list(
@@ -124,7 +124,7 @@
 	has_loadout = TRUE
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 
-/datum/outfit/job/roguetown/monk/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/monk/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))
@@ -148,7 +148,7 @@
 	backpack_contents = list(/obj/item/ritechalk, /obj/item/mini_flagpole/church)
 	H.cmode_music = 'sound/music/cmode/church/combat_acolyte.ogg' // has to be defined here for the selection below to work. sm1 please rewrite cmusic to apply pre-equip.
 
-/datum/outfit/job/roguetown/monk/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/monk/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
