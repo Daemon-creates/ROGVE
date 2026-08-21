@@ -1,7 +1,6 @@
 /datum/advclass/bandit_specialist/armorer // the camp's smith - keeps everyone's steel and plate in fighting shape
 	name = "Armorer"
-	tutorial = "Whether apprenticed or self-taught, you know your way around a forge. The camp needs someone to keep their blades sharp and their plate dent-free, \
-	and looting a smithy or two along the way has left you with the tools and the ore to do just that."
+	tutorial = "Outcompeted by the Guild, your business's foreclosure left you ruined. You were destitute, your life's work meaningless. None of that matters anymore. It doesn't matter who they are-- why you're here... work, work, work... the clang of metal helps you forget."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/bandit_specialist/armorer

@@ -12,8 +12,7 @@
 	allowed_patrons = ALL_DIVINE_PATRONS
 	outfit = /datum/outfit/job/roguetown/grover
 	social_rank = SOCIAL_RANK_PEASANT
-	tutorial = "The grove gave you a roof and a full belly when you had neither, and all it asks in return is your labor. You chop the wood, tend the beasts, and haul what needs hauling. \
-	It isn't glamorous, but it's honest, and the druids treat you fairly enough for it."
+	tutorial = "A humble townsman or perhaps a hermit, you chose to make the grove your home. It gave to you, so now you much give back. Keep the grove running as there is always labor to be done-- may the Wyldsman Prince rejoice in your efforts."
 
 	display_order = JDO_GROVER
 	give_bank_account = TRUE
@@ -31,8 +30,7 @@
 
 /datum/advclass/grover
 	name = "Grover"
-	tutorial = "The grove gave you a roof and a full belly when you had neither, and all it asks in return is your labor. You chop the wood, tend the beasts, and haul what needs hauling. \
-	It isn't glamorous, but it's honest, and the druids treat you fairly enough for it."
+	tutorial = "A humble townsman or perhaps a hermit, you chose to make the grove your home. It gave to you, so now you much give back. Keep the grove running as there is always labor to be done-- may the Wyldsman Prince rejoice in your efforts."
 	outfit = /datum/outfit/job/roguetown/grover/basic
 	category_tags = list(CTAG_GROVER)
 	subclass_stats = list(

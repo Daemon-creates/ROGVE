@@ -1,6 +1,6 @@
 /datum/advclass/bandit_specialist/zealot //Support Cleric, Heavy armor, unarmed, miracles.
 	name = "Zealot"
-	tutorial = "Trained by an Ecclesial sect, you uphold the Ideological purity of the Matthian Creed. Take from the wealthy, give to the worthless, empower. They will look up to you, in search of the God of Robbery's guidance. Be their light in the dark."
+	tutorial = "You've always had a fondness for the radical. The extreme, the unorthodox. Your misguided anger led you astray, right into the clutches of the Demagogue. You parrot his ideals, you heft your blade-- and you praise your bastard god."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = ACCEPTED_RACES
 	outfit = /datum/outfit/job/roguetown/bandit_specialist/zealot
