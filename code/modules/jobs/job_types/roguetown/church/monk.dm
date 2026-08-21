@@ -124,8 +124,12 @@
 	has_loadout = TRUE
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 
-/datum/outfit/job/roguetown/monk/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/monk/pre_equip(mob/living/carbon/human/H)
 	..()
+	// Ensure Acolytes always spawn with their gear, even if equipped via the
+	// base job outfit outside of the advclass selection flow (previously only
+	// /datum/outfit/job/roguetown/monk/basic defined this, leaving Acolytes
+	// without a head covering, cloak, or other equipment).
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))
 		head = /obj/item/clothing/head/roguetown/nun

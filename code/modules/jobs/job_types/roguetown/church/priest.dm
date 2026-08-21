@@ -108,8 +108,12 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	has_loadout = TRUE
 	allowed_patrons = list(/datum/patron/divine/astrata)
 
-/datum/outfit/job/roguetown/priest/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/priest/pre_equip(mob/living/carbon/human/H)
 	..()
+	// Ensure Bishops always spawn with their gear, even if equipped via the
+	// base job outfit outside of the advclass selection flow (previously only
+	// /datum/outfit/job/roguetown/priest/basic defined this, leaving Bishops
+	// without their cloak, backpack contents, or other equipment).
 	H.adjust_blindness(-3)
 	cloak = /obj/item/clothing/cloak/stole/purple
 	backl = /obj/item/storage/backpack/rogue/satchel

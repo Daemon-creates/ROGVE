@@ -35,6 +35,25 @@
 /datum/outfit/job/roguetown/custodian
 	job_bitflag = BITFLAG_ROYALTY
 
+/datum/outfit/job/roguetown/custodian/pre_equip(mob/living/carbon/human/H)
+	..()
+	// Ensure Custodians always spawn with their gear, even if equipped via the
+	// base job outfit outside of the advclass selection flow (previously only
+	// /datum/outfit/job/roguetown/custodian/basic defined this, leaving Custodians
+	// without a helmet or cloak if the base outfit was applied instead).
+	// No shields - Custodians rely on their polearms and armor alone.
+	head = /obj/item/clothing/head/roguetown/helmet/bascinet
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
+	shoes = /obj/item/clothing/shoes/roguetown/shalal
+	cloak = /obj/item/clothing/cloak/ordinatorcape
+	belt = /obj/item/storage/belt/rogue/leather
+	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
+	backpack_contents = list(
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+	)
+
 /datum/advclass/custodian
 	name = "Custodian"
 	tutorial = "You are sworn, in order: first to the vault, that harmful Zizoid artifacts locked within never see the light of day; \
@@ -62,21 +81,6 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
-	)
-
-/datum/outfit/job/roguetown/custodian/basic/pre_equip(mob/living/carbon/human/H)
-	..()
-	// No shields - Custodians rely on their polearms and armor alone.
-	head = /obj/item/clothing/head/roguetown/helmet/bascinet
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
-	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
-	shoes = /obj/item/clothing/shoes/roguetown/shalal
-	cloak = /obj/item/clothing/cloak/ordinatorcape
-	belt = /obj/item/storage/belt/rogue/leather
-	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
-	backpack_contents = list(
-		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
 	)
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/custodian
