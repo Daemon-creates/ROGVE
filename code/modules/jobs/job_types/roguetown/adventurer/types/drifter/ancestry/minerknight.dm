@@ -3,11 +3,11 @@
 	// No bespoke "malumite" ancestry gate exists; this uses the closest verified dwarf-or-humen restriction.
 	tutorial = "You descend into stone in maille and plate, half prospector and half sworn breaker of the deep. Whatever kingdom once employed you is far behind."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = list(/datum/species/dwarf/mountain, /datum/species/human/northern)
+	allowed_races = list(/datum/species/dwarf, /datum/species/dwarf/mountain)
 	outfit = /datum/outfit/job/roguetown/drifter/miner_knight
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_HEAVYARMOR)
-	gate_ancestries = list(/datum/species/dwarf, /datum/species/human/northern)
+	gate_ancestries = list(/datum/species/dwarf, /datum/species/dwarf/mountain)
 	gate_religions = list(/datum/patron/mulum)
 	subclass_stats = list(
 		STATKEY_STR = 2,
