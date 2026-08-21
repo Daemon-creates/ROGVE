@@ -1839,6 +1839,7 @@
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\bogwalker.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\busker_minstrel.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\charlatan.dm"
+#include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\clad_scavenger.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\claimant.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\deserters.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\drifter\disgraced_knight.dm"
