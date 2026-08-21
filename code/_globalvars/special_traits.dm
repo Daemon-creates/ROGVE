@@ -249,6 +249,10 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		to_chat(character, special.greet_text)
 
 /proc/apply_prefs_origin(mob/living/carbon/human/character, client/player)
+	if(!player)
+		player = character.client
+	if(!player)
+		return
 	if(!player.prefs)
 		return
 	var/datum/origin/O = player.prefs.origin

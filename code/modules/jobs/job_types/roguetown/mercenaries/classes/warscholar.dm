@@ -266,7 +266,7 @@
 
 	H.merctype = 14
 
-
+c
 
 /datum/outfit/job/roguetown/mercenary/warscholar/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
