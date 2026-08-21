@@ -11,9 +11,9 @@
 	advclass_cat_rolls = list(CTAG_ROOKIE = 20)
 	job_traits = list()
 
-	tutorial = "line 1 \
-				line 2 \
-				line 3"
+	tutorial = "You were never afraid to get your hands dirty. Now, you're telling your watchmen to do it for you. You answer to the Mayor, he's busy \
+	entertaining the nobles. You have work to do. Organize your men, let no harm come to the businesses and institutions of this town. You did not \
+	get this far for nothing. Let your ambitions not be stifled by the underlying misery of this place. Take orders directly from the Marshal... if he's there at all."
 	
 	outfit = /datum/outfit/job/roguetown/bailiff
 	display_order = JDO_SHERIFF

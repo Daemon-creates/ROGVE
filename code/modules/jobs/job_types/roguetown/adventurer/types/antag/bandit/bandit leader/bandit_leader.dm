@@ -8,8 +8,9 @@
 	antag_job = TRUE
 	allowed_races = RACES_NO_CONSTRUCT
 	allowed_sexes = list(MALE, FEMALE)
-	tutorial = "Once just another face fallen to the wrong side of the carriage, you've clawed your way to the top of your gang through blood, cunning, or both. \
-	Your fellows look to you to lead the camp, plan the raids, and decide who lives and who dies. The bigger the bounty on your head, the more they respect you."
+	tutorial = "Once, you were just another hound in the pack. Now, you are the demogogue of ideals these poor \
+	souls cling onto for guidance. This is your camp, organize your dogs of war lest they bite the hand that has \
+	fed them. Great are your ambitions, greater than the weight of the scum you command."
 
 	outfit = /datum/outfit/job/roguetown/bandit_leader
 	outfit_female = null
@@ -66,7 +67,7 @@
 	H.adjust_blindness(-3)
 	if(H.mind)
 		var/weapons = list("Master Swordsman","Master Spearman","Master Cleaver","Master Bludgeoner")
-		var/weapon_choice = input(H, "Choose your proficiency.", "HOW DOTH THOU LEAD, BANDIT LEADER?") as anything in weapons
+		var/weapon_choice = input(H, "with what weapon was your first kill?", "HOW DOTH THOU LEAD, BANDIT LEADER?") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Master Swordsman")
@@ -114,7 +115,7 @@
 		var/descriptor_voice = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
 		var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 		if(!my_crime)
-			my_crime = "Leading a band of Brigands"
+			my_crime = "Leadership of local brigands."
 		add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, rand(500, 700), TRUE, my_crime, "The Justiciary of [SSmapping.map_adjustment.realm_name]")
 		to_chat(H, span_danger("You are playing an Antagonist role. By choosing to spawn as the Bandit Leader, you are expected to actively create conflict with other players regardless of bounty status. Failing to play this role with the appropriate gravitas may result in punishment for Low Roleplay standards."))
 
