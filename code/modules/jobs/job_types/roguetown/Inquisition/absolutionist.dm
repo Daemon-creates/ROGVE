@@ -65,6 +65,9 @@
 
 // REMEMBER FLAGELLANT? REMEMBER LASZLO? THIS IS HIM NOW. FEEL OLD YET?
 
+/datum/outfit/job/roguetown/absolver
+	allowed_patrons = list(/datum/patron/old_god) //Requires the character to be a practicing Psydonite.
+
 /datum/job/roguetown/absolver/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
 	if(ishuman(L))

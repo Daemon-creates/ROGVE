@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	selection_color = JCOLOR_CHURCH
 	f_title = "Bishop"
 	allowed_races = RACES_NO_CONSTRUCT		//Too recent arrivals to ascend to priesthood.
-	allowed_patrons = ALL_DIVINE_PATRONS
+	allowed_patrons = list(/datum/patron/old_god) //Requires the character to be a practicing Psydonite.
 	allowed_sexes = list(MALE, FEMALE)
 	tutorial = "The Divine is all that matters in a world of the immoral. \
 	The Weeping God left his children to rule over us mortals--and you will preach their wisdom to any who still heed their will. \
@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 /datum/outfit/job/roguetown/priest
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 	has_loadout = TRUE
-	allowed_patrons = list(/datum/patron/divine/astrata)
+	allowed_patrons = list(/datum/patron/old_god) //Requires the character to be a practicing Psydonite.
 
 /datum/outfit/job/roguetown/priest/basic/pre_equip(mob/living/carbon/human/H)
 	..()
