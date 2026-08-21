@@ -35,12 +35,11 @@
 /datum/outfit/job/roguetown/wapprentice
 	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/mageapprentice
-	r_hand = /obj/item/rogueweapon/woodstaff
 
 /datum/outfit/job/roguetown/wapprentice/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		backl = /obj/item/storage/backpack/rogue/satchel
-		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut
 		beltr = /obj/item/storage/keyring/mageapprentice
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
@@ -48,7 +47,6 @@
 		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	else if(should_wear_masc_clothes(H))
 		backl = /obj/item/storage/backpack/rogue/satchel
-		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
@@ -82,6 +80,7 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/black/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/black
 	else if(should_wear_masc_clothes(H))
@@ -130,6 +129,7 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/white/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/white
 	else if(should_wear_masc_clothes(H))
@@ -173,6 +173,7 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/red/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/red
 	else if(should_wear_masc_clothes(H))
@@ -223,6 +224,7 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/blue/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/blue
 	else if(should_wear_masc_clothes(H))
@@ -275,6 +277,7 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/green/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/green
 	else if(should_wear_masc_clothes(H))

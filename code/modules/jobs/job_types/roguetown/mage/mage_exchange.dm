@@ -33,12 +33,11 @@
 /datum/outfit/job/roguetown/mageexchange
 	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/mageapprentice
-	r_hand = /obj/item/rogueweapon/woodstaff
 
 /datum/outfit/job/roguetown/mageexchange/pre_equip(mob/living/carbon/human/H)
+	..()
 	if(should_wear_femme_clothes(H))
 		backl = /obj/item/storage/backpack/rogue/satchel
-		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut
 		beltr = /obj/item/storage/keyring/mageapprentice
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
@@ -46,41 +45,9 @@
 		shoes = /obj/item/clothing/shoes/roguetown/sandals
 	else if(should_wear_masc_clothes(H))
 		backl = /obj/item/storage/backpack/rogue/satchel
-		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter
 		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
-
-/datum/advclass/mageexchange
-	name = "Foreign Exchange Mage"
-	tutorial = "You've traveled far from your homeland to study within these walls, drawn by the tower's renown even across borders and seas. \
-		You've picked up enough of the Imperial tongue to follow along with your tutors, though your own mouth still refuses to shape its sounds properly - \
-		you'll have to make do with your mother tongue, and whatever patience your hosts can spare you."
-	outfit = /datum/outfit/job/roguetown/mageexchange/basic
-
-	category_tags = list(CTAG_MAGEEXCHANGE)
-	subclass_spellpoints = 18
-	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_PER = 2,
-		STATKEY_WIL = 1,
-	)
-	subclass_skills = list(
-		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/polearms = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/climbing = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
-	)
-
-/datum/outfit/job/roguetown/mageexchange/basic/pre_equip(mob/living/carbon/human/H)
-	..()
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/recipe_book/alchemy = 1,
@@ -111,3 +78,31 @@
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
+
+/datum/advclass/mageexchange
+	name = "Foreign Exchange Mage"
+	tutorial = "You've traveled far from your homeland to study within these walls, drawn by the tower's renown even across borders and seas. \
+		You've picked up enough of the Imperial tongue to follow along with your tutors, though your own mouth still refuses to shape its sounds properly - \
+		you'll have to make do with your mother tongue, and whatever patience your hosts can spare you."
+	outfit = /datum/outfit/job/roguetown/mageexchange/basic
+
+	category_tags = list(CTAG_MAGEEXCHANGE)
+	subclass_spellpoints = 18
+	subclass_stats = list(
+		STATKEY_INT = 3,
+		STATKEY_PER = 2,
+		STATKEY_WIL = 1,
+	)
+	subclass_skills = list(
+		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/polearms = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
+	)
