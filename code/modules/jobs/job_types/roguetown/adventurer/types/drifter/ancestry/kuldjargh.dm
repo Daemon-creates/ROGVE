@@ -3,10 +3,10 @@
 	// "Hammerfell" is flavor text only here; the closest verified gates are mountain dwarf and humen.
 	tutorial = "A hard-weathered wanderer from cold hills and harsher kin, you cling to old raider glories, fur on your shoulders and iron in your fists."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = list(/datum/species/dwarf/mountain)
+	allowed_races = list(/datum/species/dwarf, /datum/species/dwarf/mountain)
 	outfit = /datum/outfit/job/roguetown/drifter/kuldjargh
 	category_tags = list(CTAG_ADVENTURER)
-	gate_ancestries = list(/datum/species/dwarf, /datum/species/dwarf/mountain, /datum/species/human/northern)
+	gate_ancestries = list(/datum/species/dwarf, /datum/species/dwarf/mountain)
 	gate_races = list(SKIN_COLOR_HAMMERHOLD)
 	subclass_stats = list(
 		STATKEY_STR = 2,
