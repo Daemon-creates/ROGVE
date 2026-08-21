@@ -33,11 +33,23 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice
-	belt = /obj/item/storage/belt/rogue/leather
+	if(should_wear_femme_clothes(H))
+		backl = /obj/item/storage/backpack/rogue/satchel
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut
+		beltr = /obj/item/storage/keyring/mageapprentice
+		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
+		pants = /obj/item/clothing/under/roguetown/skirt/knee/colored
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
+	else if(should_wear_masc_clothes(H))
+		backl = /obj/item/storage/backpack/rogue/satchel
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter
+		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
+		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
+		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/mageapprentice
-	backl = /obj/item/storage/backpack/rogue/satchel
 	r_hand = /obj/item/rogueweapon/woodstaff
-	shoes = /obj/item/clothing/shoes/roguetown/gladiator // FANCY SANDALS
 
 /datum/advclass/wapprentice/black
 	name = "Black Mage"
@@ -68,8 +80,10 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/black/pre_equip(mob/living/carbon/human/H)
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/black
-	beltl = /obj/item/storage/magebag/associate
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/black
+	else if(should_wear_masc_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/black
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
@@ -114,8 +128,10 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/white/pre_equip(mob/living/carbon/human/H)
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magewhite
-	beltl = /obj/item/storage/magebag/associate
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/white
+	else if(should_wear_masc_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/white
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
@@ -155,8 +171,10 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/red/pre_equip(mob/living/carbon/human/H)
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magered
-	beltl = /obj/item/storage/magebag/associate
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/red
+	else if(should_wear_masc_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/red
 	r_hand = /obj/item/rogueweapon/sword/short
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
@@ -203,8 +221,10 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/blue/pre_equip(mob/living/carbon/human/H)
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mageblue
-	beltl = /obj/item/storage/magebag/associate
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/blue
+	else if(should_wear_masc_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/blue
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
@@ -253,8 +273,10 @@
 	)
 
 /datum/outfit/job/roguetown/wapprentice/green/pre_equip(mob/living/carbon/human/H)
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/magegreen
-	beltl = /obj/item/storage/magebag/alchemist
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/green
+	else if(should_wear_masc_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/green
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/seeds/swampweed = 1,
@@ -272,3 +294,33 @@
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/black
+	color = "#353535"
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/white
+	color = "#e8e8e0"
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/red
+	color = "#b8252c"
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/blue
+	color = "#4756d8"
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter/green
+	color = "#759259"
+
+/obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/black
+	color = "#353535"
+
+/obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/white
+	color = "#e8e8e0"
+
+/obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/red
+	color = "#b8252c"
+
+/obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/blue
+	color = "#4756d8"
+
+/obj/item/clothing/suit/roguetown/shirt/robe/sofiavest/green
+	color = "#759259"

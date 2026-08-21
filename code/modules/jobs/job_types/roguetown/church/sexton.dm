@@ -58,8 +58,10 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	neck = /obj/item/clothing/neck/roguetown/psicross/silver
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	id = /obj/item/clothing/ring/silver
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+	gloves = /obj/item/clothing/gloves/roguetown/leather/black
 	beltr = /obj/item/flashlight/flare/torch/lantern
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltl = /obj/item/storage/keyring/churchie

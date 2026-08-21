@@ -25,6 +25,8 @@
 	backpack_contents = list(/obj/item/reagent_containers/glass/bottle/rogue/beer = 1)
 
 	var/classes = list("Goon", "Miscreant", "Big Man", "Longshoreman")
+	if(!H.mind)
+		return
 	var/classchoice = input(H, "What kind of thug are you?", "TAKE UP ARMS") as anything in classes
 
 	switch(classchoice)

@@ -58,13 +58,11 @@
 	if(should_wear_femme_clothes(H))
 		head = /obj/item/clothing/head/roguetown/armingcap
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	else if(should_wear_masc_clothes(H))
-		armor = /obj/item/clothing/suit/roguetown/shirt/robe
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights
+		armor = /obj/item/clothing/suit/roguetown/shirt/tunic/newmoon
+	pants = /obj/item/clothing/under/roguetown/trou
 	belt = /obj/item/storage/belt/rogue/leather/rope
-	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	beltl = /obj/item/storage/keyring/churchie
 
 /datum/job/roguetown/churchling/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

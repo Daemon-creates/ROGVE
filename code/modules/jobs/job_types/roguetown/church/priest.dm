@@ -111,17 +111,15 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 /datum/outfit/job/roguetown/priest/basic/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
-	neck = /obj/item/clothing/neck/roguetown/psicross/silver/undivided
-	head = /obj/item/clothing/head/roguetown/priestmask
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
-	pants = /obj/item/clothing/under/roguetown/tights/black
-	shoes = /obj/item/clothing/shoes/roguetown/shortboots
-	beltl = /obj/item/storage/keyring/priest
-	belt = /obj/item/storage/belt/rogue/leather/rope
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
-	id = /obj/item/clothing/ring/active/nomag
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/priest
+	cloak = /obj/item/clothing/cloak/stole/purple
 	backl = /obj/item/storage/backpack/rogue/satchel
+	neck = /obj/item/clothing/neck/roguetown/psicross/g
+	id = /obj/item/clothing/ring/active/nomag
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
+	belt = /obj/item/storage/belt/rogue/leather/rope
+	beltl = /obj/item/storage/keyring/priest
+	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	backpack_contents = list(
 		/obj/item/needle/pestra = 1,
 		/obj/item/natural/worms/leech/cheele = 1, //little buddy

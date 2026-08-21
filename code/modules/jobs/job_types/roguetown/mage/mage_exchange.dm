@@ -31,13 +31,23 @@
 	)
 
 /datum/outfit/job/roguetown/mageexchange
-	belt = /obj/item/storage/belt/rogue/leather
+	if(should_wear_femme_clothes(H))
+		backl = /obj/item/storage/backpack/rogue/satchel
+		armor = /obj/item/clothing/suit/roguetown/shirt/robe/sofiavest
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut
+		beltr = /obj/item/storage/keyring/mageapprentice
+		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
+		pants = /obj/item/clothing/under/roguetown/skirt/knee/colored
+		shoes = /obj/item/clothing/shoes/roguetown/sandals
+	else if(should_wear_masc_clothes(H))
+		backl = /obj/item/storage/backpack/rogue/satchel
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/freifechter
+		belt = /obj/item/storage/belt/rogue/leather/cloth/bandit
+		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/kazengun
+		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/mageapprentice
-	backl = /obj/item/storage/backpack/rogue/satchel
 	r_hand = /obj/item/rogueweapon/woodstaff
-	shoes = /obj/item/clothing/shoes/roguetown/gladiator
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
-	pants = /obj/item/clothing/under/roguetown/tights/random
 
 /datum/advclass/mageexchange
 	name = "Foreign Exchange Mage"
@@ -69,7 +79,6 @@
 
 /datum/outfit/job/roguetown/mageexchange/basic/pre_equip(mob/living/carbon/human/H)
 	..()
-	beltl = /obj/item/storage/magebag/associate
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1,
 		/obj/item/recipe_book/alchemy = 1,
