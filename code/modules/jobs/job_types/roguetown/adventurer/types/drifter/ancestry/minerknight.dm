@@ -8,7 +8,7 @@
 	category_tags = list(CTAG_ADVENTURER)
 	traits_applied = list(TRAIT_HEAVYARMOR)
 	gate_ancestries = list(/datum/species/dwarf, /datum/species/dwarf/mountain)
-	gate_religions = list(/datum/patron/mulum)
+	gate_religions = list(/datum/patron/divine/malum)
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_CON = 2,
