@@ -90,7 +90,7 @@ The buildings here have seen many uses; though the main camp is where most of th
 #define DETAIL_TEXT_AZURE_PEAK ""
 #define DETAIL_TEXT_KEEP ""
 #define DETAIL_TEXT_MANOR ""
-#define DETAIL_TEXT_UNIVERSITY_OF_ROTWOOD ""
+#define DETAIL_TEXT_UNIVERSITY_OF_ROGVE ""
 #define DETAIL_TEXT_WIZARD_TOWER ""
 #define DETAIL_TEXT_CHAPEL "Narthex of faith, roosting the Flock."
 #define DETAIL_TEXT_INQUISITION_HQ ""

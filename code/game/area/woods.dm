@@ -1,4 +1,4 @@
-// Rotwood Vale - the areas to the south of the map
+// Rogve Vale - the areas to the south of the map
 
 /area/rogue/outdoors/woods
 	name = "The Vale"
@@ -34,7 +34,7 @@
 	// droning_sound_night = 'sound/music/area/forestnight.ogg'
 
 /area/rogue/outdoors/woods/north
-	name = "Rotwood Vale - North"
+	name = "Rogve Vale - North"
 	// This section shouldn't have any sea mobs, but is close to the old warden tower
 	// So should be relatively easy
 	ambush_mobs = list(
@@ -47,7 +47,7 @@
 	threat_region = THREAT_REGION_AZURE_GROVE
 
 /area/rogue/outdoors/woods/northeast
-	name = "Rotwood Vale - Northeast"
+	name = "Rogve Vale - Northeast"
 	// Ambush list here is "easier" with some pirates mob, possibility of sea goblin
 	ambush_mobs = list(
 			/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
@@ -61,7 +61,7 @@
 	threat_region = THREAT_REGION_AZURE_GROVE
 
 /area/rogue/outdoors/woods/southeast
-	name = "Rotwood Vale - Southeast"
+	name = "Rogve Vale - Southeast"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
@@ -73,7 +73,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
 
 /area/rogue/outdoors/woods/south
-	name = "Rotwood Vale - South"
+	name = "Rogve Vale - South"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
@@ -84,7 +84,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
 
 /area/rogue/outdoors/woods/southwest
-	name = "Rotwood Vale - Southwest"
+	name = "Rogve Vale - Southwest"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
@@ -95,7 +95,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
 
 /area/rogue/outdoors/woods/northwest
-	name = "Rotwood Vale - Northwest"
+	name = "Rogve Vale - Northwest"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,

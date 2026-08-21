@@ -25310,7 +25310,7 @@
 "gCC" = (
 /obj/structure/fluff/signage{
 	dir = 8;
-	name = "ROTWOOD VALE - WEST"
+	name = "ROGVE VALE - WEST"
 	},
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/town)
@@ -30445,7 +30445,7 @@
 /area/rogue/indoors)
 "hTc" = (
 /obj/structure/fluff/signage{
-	name = "ROTWOOD VALE - SOUTH"
+	name = "ROGVE VALE - SOUTH"
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/town)
@@ -39185,7 +39185,7 @@
 "kcM" = (
 /obj/structure/fluff/signage{
 	dir = 8;
-	name = "ROTWOOD VALE - WEST"
+	name = "ROGVE VALE - WEST"
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/town)

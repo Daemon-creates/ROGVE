@@ -15,9 +15,9 @@
 #define DANGER_LEVEL_DANGEROUS "Dangerous"
 #define DANGER_LEVEL_BLEAK "Bleak"
 
-#define THREAT_REGION_AZURE_BASIN "Rotwood Vale Basin"
-#define THREAT_REGION_AZURE_GROVE "Rotwood Vale Grove"
-#define THREAT_REGION_AZUREAN_COAST "Rotwood Vale Coast"
+#define THREAT_REGION_AZURE_BASIN "Rogve Vale Basin"
+#define THREAT_REGION_AZURE_GROVE "Rogve Vale Grove"
+#define THREAT_REGION_AZUREAN_COAST "Rogve Vale Coast"
 #define THREAT_REGION_MOUNT_DECAP "Mount Decapitation"
 #define THREAT_REGION_TERRORBOG "Terrorbog"
 //Rockhill versions

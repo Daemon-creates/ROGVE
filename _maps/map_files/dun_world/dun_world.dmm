@@ -67518,7 +67518,7 @@
 /area/rogue/indoors/town/shop)
 "oaM" = (
 /obj/structure/fluff/signage{
-	name = "ROTWOOD VALE - EAST"
+	name = "ROGVE VALE - EAST"
 	},
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/mountains)
@@ -69638,7 +69638,7 @@
 /area/rogue/indoors)
 "ows" = (
 /obj/structure/fluff/signage{
-	name = "ROTWOOD VALE - EAST"
+	name = "ROGVE VALE - EAST"
 	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/woods/southeast)

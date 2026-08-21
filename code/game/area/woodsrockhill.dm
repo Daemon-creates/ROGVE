@@ -1,4 +1,4 @@
-// Rotwood Vale - the areas to the south of the map
+// Rogve Vale - the areas to the south of the map
 
 /area/rogue/outdoors/woodsrat
 	name = "Rockhill Woods"

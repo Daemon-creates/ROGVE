@@ -8104,7 +8104,7 @@
 "bQs" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - NORTHEAST"
+	wrotesign = "ROGVE VALE - NORTHEAST"
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/woods/southeast)
@@ -38935,7 +38935,7 @@
 "iKv" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - NORTHEAST"
+	wrotesign = "ROGVE VALE - NORTHEAST"
 	},
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/mountains)
@@ -44199,7 +44199,7 @@
 "jRx" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - NORTHEAST"
+	wrotesign = "ROGVE VALE - NORTHEAST"
 	},
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/woods/above)
@@ -60787,7 +60787,7 @@
 "nBX" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - NORTHEAST"
+	wrotesign = "ROGVE VALE - NORTHEAST"
 	},
 /obj/structure/fluff/railing/wood/north{
 	pixel_y = 15
@@ -66113,7 +66113,7 @@
 "oHQ" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - EAST"
+	wrotesign = "ROGVE VALE - EAST"
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/beach/forest/south)
@@ -74048,7 +74048,7 @@
 "quQ" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - EAST"
+	wrotesign = "ROGVE VALE - EAST"
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/woods/northeast)
@@ -85816,7 +85816,7 @@
 /area/rogue/indoors/shelter)
 "sWR" = (
 /obj/structure/fluff/customsign/arrow{
-	wrotesign = "ROTWOOD VALE - NORTH";
+	wrotesign = "ROGVE VALE - NORTH";
 	dir = 4
 	},
 /turf/open/floor/rogue/dirt/road,
@@ -90022,7 +90022,7 @@
 "tUw" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - NORTHEAST"
+	wrotesign = "ROGVE VALE - NORTHEAST"
 	},
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cavewet)
@@ -91916,7 +91916,7 @@
 	},
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - EAST"
+	wrotesign = "ROGVE VALE - EAST"
 	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/woods/southwest)
@@ -98996,7 +98996,7 @@
 "vVE" = (
 /obj/structure/fluff/customsign/arrow{
 	dir = 4;
-	wrotesign = "ROTWOOD VALE - NORTHEAST"
+	wrotesign = "ROGVE VALE - NORTHEAST"
 	},
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/woods/south)

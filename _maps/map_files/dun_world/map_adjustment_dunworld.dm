@@ -6,7 +6,7 @@
 
 /datum/map_adjustment/template/dunworld
 	map_file_name = "dun_world.dmm"
-	realm_name = "Rotwood Vale"
+	realm_name = "Rogve Vale"
 	blacklist = list(//I had wanted the map variable in the roles themselves to bar them from non-desert maps but it still shows up in the Latejoin menu so I'm doing this just to keep it clear)
 		/datum/job/roguetown/cataphract,
 		// /datum/job/roguetown/vizier,
