@@ -35,7 +35,7 @@
 /datum/advclass/tribalshaman
 	name = "Tribe Shaman"
 	tutorial = "Ooga chacka ZAP a chacka!"
-	outfit = /datum/outfit/job/roguetown/tribalshaman/basic
+	outfit = /datum/outfit/job/roguetown/tribalshaman
 
 	subclass_spellpoints = 33
 	category_tags = list(CTAG_TRIBALSHAMAN)
@@ -76,7 +76,7 @@
 		H.change_stat(STATKEY_PER, 1)
 		H.mind?.adjust_spellpoints(6)
 
-/datum/outfit/job/roguetown/tribalshaman/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/tribalshaman/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	H.faction += list("orcs", "tribe")

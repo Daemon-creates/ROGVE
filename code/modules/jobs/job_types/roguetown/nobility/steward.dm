@@ -30,7 +30,7 @@
 /datum/advclass/steward
 	name = "Steward"
 	tutorial = "Coin, Coin, Coin! Oh beautiful coin: You're addicted to it, and you hold the position as the Grand Duke's personal treasurer of both coin and information. You know the power silver and gold has on a man's mortal soul, and you know just what lengths they'll go to in order to get even more. Keep your festering economy alive- for it is the only thing you can weigh any trust into anymore."
-	outfit = /datum/outfit/job/roguetown/steward/basic
+	outfit = /datum/outfit/job/roguetown/steward
 
 	category_tags = list(CTAG_STEWARD)
 	subclass_stats = list(
@@ -57,7 +57,7 @@
 /datum/outfit/job/roguetown/steward
 	job_bitflag = BITFLAG_ROYALTY
 
-/datum/outfit/job/roguetown/steward/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/steward/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))

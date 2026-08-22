@@ -30,7 +30,7 @@
 /datum/advclass/cook
 	name = "Cook"
 	tutorial = "There are many mouths to feed in town, and most look to you for it. You work under the care of the innkeeper and craft such culinary delights that even the crown stops by from time to time. All the while, you try to get the rest of the staff up to speed as well--before you get too many burn marks on your body from slaving over your hot hearths."
-	outfit = /datum/outfit/job/roguetown/cook/basic
+	outfit = /datum/outfit/job/roguetown/cook
 	category_tags = list(CTAG_COOK)
 	subclass_stats = list(
 		STATKEY_CON = 2,
@@ -49,10 +49,10 @@
 		/datum/skill/labor/farming = SKILL_LEVEL_APPRENTICE,
 	)
 
-/datum/outfit/job/roguetown/cook/basic
+/datum/outfit/job/roguetown/cook
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/cook/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/cook/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	belt = /obj/item/storage/belt/rogue/leather

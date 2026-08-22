@@ -33,7 +33,7 @@
 	Counting coins is a simple pleasure for any person, but you've made it an art form. \
 	These people are addicted to your wares, and you are the true beating heart of this economy: \
 	Don't let these filth-covered troglodytes ever forget that."
-	outfit = /datum/outfit/job/roguetown/merchant/basic
+	outfit = /datum/outfit/job/roguetown/merchant
 	category_tags = list(CTAG_MERCH)
 	subclass_stats = list(
 		STATKEY_PER = 3,
@@ -58,7 +58,7 @@
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_APPRENTICE,
 	)
 
-/datum/outfit/job/roguetown/merchant/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/merchant/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	backpack_contents = list(

@@ -36,7 +36,7 @@
 	tutorial = "Your creed is one dedicated to the conquering of the arcyne arts and the constant thrill of knowledge. \
 		You owe your life to the Lord, for it was his coin that allowed you to continue your studies in these dark times. \
 		As Headmaster of the mage guild, you are the final word on all matters arcyne, and it is your duty to see that the tower's studies remain fruitful and its members disciplined."
-	outfit = /datum/outfit/job/roguetown/magician/basic
+	outfit = /datum/outfit/job/roguetown/magician
 
 	subclass_spellpoints = 36
 	category_tags = list(CTAG_COURTMAGE)
@@ -97,7 +97,7 @@
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 
-/datum/outfit/job/roguetown/magician/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/magician/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	neck = /obj/item/clothing/neck/roguetown/talkstone

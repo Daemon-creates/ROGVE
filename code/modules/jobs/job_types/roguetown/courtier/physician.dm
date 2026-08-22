@@ -34,7 +34,7 @@
 	tutorial = "You are a master physician and the current head of the clinic. \
 		Oversee your clinic and the apothecaries under you. \
 		As a member of the upper class, expect to treat nobility. You have access to accommodate this."
-	outfit = /datum/outfit/job/roguetown/physician/basic
+	outfit = /datum/outfit/job/roguetown/physician
 	category_tags = list(CTAG_COURTPHYS)
 	subclass_stats = list(
 		STATKEY_INT = 4,
@@ -63,7 +63,7 @@
 	name = "Physician"
 	jobtype = /datum/job/roguetown/physician
 
-/datum/outfit/job/roguetown/physician/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/physician/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/physician

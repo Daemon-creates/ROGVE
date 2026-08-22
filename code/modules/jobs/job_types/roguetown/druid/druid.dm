@@ -33,7 +33,7 @@
 /datum/advclass/druid
 	name = "Druid"
 	tutorial = "Praise be the almighty Dendor! Blessed be the Wyldsman Prince, inheritor of all creation. Spread his word, heal his people, enchant others in the mystical ways of Dendor. Provide assistance and guarantee of the integrity of the wylds is upheld."
-	outfit = /datum/outfit/job/roguetown/druid/basic
+	outfit = /datum/outfit/job/roguetown/druid
 	category_tags = list(CTAG_DRUID)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -71,7 +71,7 @@
 	allowed_patrons = list(/datum/patron/divine/dendor)
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/druid/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/druid/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/dendormask
@@ -88,7 +88,7 @@
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)
 	H.ambushable = FALSE
 
-/datum/outfit/job/roguetown/druid/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/druid/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H)) //To encourage them to wander the forests and to help defend themselves
 

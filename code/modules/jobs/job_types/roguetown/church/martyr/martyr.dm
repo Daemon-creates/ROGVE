@@ -54,7 +54,7 @@
 	Words they'd drilled into your skull, from the moment of induction, up until your assignment as the Prelate's ward. \
 	A crimson gild upon your soul, a taint that can't be cleared. For you are a weapon of the Holy See. No more. No less. \
 	Defend the Prelate. Give up no hallowed ground. Die for the Ten."
-	outfit = /datum/outfit/job/roguetown/martyr/basic
+	outfit = /datum/outfit/job/roguetown/martyr
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_MARTYR)
 	subclass_stats = list(
@@ -89,7 +89,7 @@
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 	has_loadout = TRUE//For their boons.
 
-/datum/outfit/job/roguetown/martyr/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/martyr/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
@@ -115,7 +115,7 @@
 		)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 
-/datum/outfit/job/roguetown/martyr/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/martyr/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	var/boons = list("Endurance", "Indefatigable", "Hollow")
 	var/boon_choice = input(H,"Choose your BOON.", "TAKE UP THE SEE'S GIFT") as anything in boons

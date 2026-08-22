@@ -37,7 +37,7 @@
 	Most days, you give orders and directions to the Grovers and Fians. You answer only to the Archdruid, \
 	and will eventually replace him when he returns to the soil. Younger, more able-bodied, you can handle the \
 	burden of leadership while there is still a long way to go."
-	outfit = /datum/outfit/job/roguetown/sacrist/basic
+	outfit = /datum/outfit/job/roguetown/sacrist
 	category_tags = list(CTAG_DRUIDKEEPER)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -71,9 +71,8 @@
 	allowed_patrons = list(/datum/patron/divine/dendor)
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/sacrist/basic
 
-/datum/outfit/job/roguetown/sacrist/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sacrist/pre_equip(mob/living/carbon/human/H)
 	..()
 	belt = /obj/item/storage/belt/rogue/leather/
 	backr = /obj/item/rogueweapon/woodstaff
@@ -90,7 +89,7 @@
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)
 	H.ambushable = FALSE
 
-/datum/outfit/job/roguetown/sacrist/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sacrist/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H))
 

@@ -32,7 +32,7 @@
 	tutorial = "You work the largest store in the Peaks by grace of the Merchant who has shackled you to this drudgery. \
 	The work of stocking shelves and taking inventory for your employer is mind-numbing and repetitive--but at least you have a roof over your head and comfortable surroundings. \
 	With time, perhaps you will one day be more than a glorified servant."
-	outfit = /datum/outfit/job/roguetown/shophand/basic
+	outfit = /datum/outfit/job/roguetown/shophand
 	category_tags = list(CTAG_SHOPHAND)
 	subclass_stats = list(
 		STATKEY_SPD = 1,
@@ -53,7 +53,7 @@
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_APPRENTICE,
 	)
 
-/datum/outfit/job/roguetown/shophand/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/shophand/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	if(SSmapping.config.map_name == "Desert Town")

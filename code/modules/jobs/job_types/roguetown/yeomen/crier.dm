@@ -31,7 +31,7 @@
 	tutorial = "Keeper of the Horn, Master of the Jabberline, and self-appointed Voice of Reason. \
 	From your desk in the SCOM atelier, you decide which words will thunder across the realm and which will die in the throats of petitioners who didn't pay enough ratfeed. \
 	In your upstairs studio, you host debates, recite gossip, and spin tales that will ripple through every corner of town. All ears are turned toward you - so speak wisely."
-	outfit = /datum/outfit/job/roguetown/loudmouth/basic
+	outfit = /datum/outfit/job/roguetown/loudmouth
 	subclass_languages = list(
 		/datum/language/elvish,
 		/datum/language/dwarvish,
@@ -64,7 +64,7 @@
 		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
 	)
 
-/datum/outfit/job/roguetown/loudmouth/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/loudmouth/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))
