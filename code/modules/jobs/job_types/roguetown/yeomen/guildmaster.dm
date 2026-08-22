@@ -37,7 +37,7 @@
 	name = "Guildmaster"
 	tutorial = "You are the leader of the Duchy's Guild of Crafts. You represents the interests of all of the craftsmen underneath you - including the Tailor\
 	the Blacksmiths, the Artificers and the Architects. Other townspeople may look to you for guidance, but they are not under your control. You are an experienced smith and artificer, and can do their work easily. Protect the craftsmen's interests."
-	outfit = /datum/outfit/job/roguetown/guildmaster/basic
+	outfit = /datum/outfit/job/roguetown/guildmaster
 	category_tags = list(CTAG_GUILDSMASTER)
 	subclass_stats = list(
 		STATKEY_STR = 2,
@@ -70,7 +70,7 @@
 /datum/outfit/job/roguetown/guildmaster
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/guildmaster/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/guildmaster/pre_equip(mob/living/carbon/human/H)
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/chaperon/noble/guildmaster
 	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves/blacksmith

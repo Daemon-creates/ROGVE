@@ -33,7 +33,7 @@
 /datum/advclass/sexton
 	name = "Sexton"
 	tutorial = "The Church’s sacred relics and holy objects do not tend to themselves. As Sexton, you are charged with keeping the reliquary vault well stocked. The Archbishop expects to see a house rich in devotion, and so it falls to you to ensure the shelves never look bare when his agents come to inspect and to keep the Church’s payments flowing."
-	outfit = /datum/outfit/job/roguetown/sexton/basic
+	outfit = /datum/outfit/job/roguetown/sexton
 	category_tags = list(CTAG_SEXTON)
 	subclass_stats = list(
 		STATKEY_CON = 2,
@@ -49,7 +49,7 @@
 		/datum/skill/magic/holy = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/sexton/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sexton/pre_equip(mob/living/carbon/human/H)
 	..()
 	mask = /obj/item/clothing/mask/rogue/ragmask/nomad
 	head = /obj/item/clothing/head/roguetown/roguehood/psydon/confessor

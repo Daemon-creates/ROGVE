@@ -38,7 +38,7 @@
 	tutorial = "This lifestyle is far too attractive. Your past isn't that important-- the wylds are. However, you carry ideas \
 	that the Archdruid may consider dangerous. You've always yearned for a greater something, whatever it may be. Perhaps the wylds are \
 	not of Dendor... but of your own selfish ambitions. Whoever the wylds belongs to, your deity will be praised above all else."
-	outfit = /datum/outfit/job/roguetown/briar/basic
+	outfit = /datum/outfit/job/roguetown/briar
 	category_tags = list(CTAG_BRIAR)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -67,9 +67,8 @@
 	jobtype = /datum/job/roguetown/briar
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/briar/basic
 
-/datum/outfit/job/roguetown/briar/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/briar/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/dendormask

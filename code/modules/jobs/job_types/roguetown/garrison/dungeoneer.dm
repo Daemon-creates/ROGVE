@@ -53,7 +53,7 @@
 /datum/advclass/dungeoneer
 	name = "Headsman"
 	tutorial = "Penance, filthy sense of sadism or a queer outlook on justice, something has led you to don the shunned mask and fulfill the whims of the bailiff and mayor. Their whims are your guidance, as you've no 'moral quandaries' to care for."
-	outfit = /datum/outfit/job/roguetown/dungeoneer/base
+	outfit = /datum/outfit/job/roguetown/dungeoneer
 
 	category_tags = list(CTAG_DUNGEONEER)
 	subclass_stats = list(
@@ -71,7 +71,7 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/dungeoneer/base/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/dungeoneer/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	H.verbs |= /mob/living/carbon/human/proc/faith_test

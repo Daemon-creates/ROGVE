@@ -48,9 +48,9 @@
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 	)
 	category_tags = list(CTAG_CLERK)
-	outfit = /datum/outfit/job/roguetown/clerk/basic
+	outfit = /datum/outfit/job/roguetown/clerk
 
-/datum/outfit/job/roguetown/clerk/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/clerk/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/appraise/secular)

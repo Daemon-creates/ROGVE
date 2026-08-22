@@ -27,7 +27,7 @@
 /datum/advclass/tailor
 	name = "Tailor"
 	tutorial = "You have worked sleepless nights on honing your craft. From sacks, to tapestry and luxurious clothing, there is little you cannot sew into existence. Use your storefront to turn even the ugliest peasant into a proper gentleman; who knows, even the nobility may pay you a visit."
-	outfit = /datum/outfit/job/roguetown/tailor/basic
+	outfit = /datum/outfit/job/roguetown/tailor
 	category_tags = list(CTAG_TAILOR)
 	subclass_stats = list(
 		STATKEY_INT = 2,
@@ -46,7 +46,7 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/tailor/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/tailor/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt

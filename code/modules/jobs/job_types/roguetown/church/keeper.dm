@@ -47,7 +47,7 @@
 	Unfortunately, that's you. That's correct, I'm the one tasked with protecting the sacred Heart Beast of Pestra here. \
 	To study it and empower it so that Pestra's medicine may blossom even in the furthest reaches of Ferentia. \
 	Keep in mind you are NOT directly affiliated with the church of the see, the local bishop is not your boss. You answer to the sect of Pestra foremost."
-	outfit = /datum/outfit/job/roguetown/keeper/basic
+	outfit = /datum/outfit/job/roguetown/keeper
 	category_tags = list(CTAG_KEEPER)
 	// No perception as to dissuade picking statpacks to negate the strength penalty.
 	// Positive stat delta of 3. It's lower than a towner (5) & Acolyte (7), but you have outlier stats and master skills, so less stats for you.
@@ -101,7 +101,7 @@
 	else
 		grant_old_path(H)
 
-/datum/outfit/job/roguetown/keeper/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/keeper/pre_equip(mob/living/carbon/human/H)
 	..()
 	neck = /obj/item/clothing/neck/roguetown/psicross/pestra
 	cloak = /obj/item/clothing/cloak/templar/pestran

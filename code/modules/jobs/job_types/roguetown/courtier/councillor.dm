@@ -29,7 +29,7 @@
 /datum/advclass/councillor
 	name = "Councillor"
 	tutorial = "You may have inherited this position, bought your way into it, or were appointed to it by merit--perish the thought! Whatever the case though, you work as an assistant and agent of the crown in matters of state. Whether this be aiding the steward, the sheriff, or the crown itself, or simply enjoying the free food of the keep, your duties vary day by day. You may be the lowest rung of the ladder, but that rung still towers over everyone else in town."
-	outfit = /datum/outfit/job/roguetown/councillor/basic
+	outfit = /datum/outfit/job/roguetown/councillor
 	category_tags = list(CTAG_COUNCILLOR)
 	subclass_stats = list(
 		STATKEY_SPD = 2,
@@ -52,7 +52,7 @@
 /datum/outfit/job/roguetown/councillor
 	job_bitflag = BITFLAG_ROYALTY
 
-/datum/outfit/job/roguetown/councillor/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/councillor/pre_equip(mob/living/carbon/human/H)
 	..()
 	neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 	armor = /obj/item/clothing/suit/roguetown/armor/gambeson/councillor

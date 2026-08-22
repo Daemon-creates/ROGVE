@@ -36,7 +36,7 @@
 	tutorial = "You are the Headmaster's right hand, entrusted to see that their will is carried out even in their absence. \
 		Where the Headmaster sets the course of the tower's studies, it falls to you to see that the day-to-day matters - discipline, provisions, and the training of the apprentice mages - do not fall to ruin. \
 		Should the Headmaster's seat ever fall empty, all eyes will turn to you."
-	outfit = /datum/outfit/job/roguetown/magedelegate/basic
+	outfit = /datum/outfit/job/roguetown/magedelegate
 
 	subclass_spellpoints = 30
 	category_tags = list(CTAG_MAGEDELEGATE)
@@ -89,7 +89,7 @@
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 
-/datum/outfit/job/roguetown/magedelegate/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/magedelegate/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	neck = /obj/item/clothing/neck/roguetown/talkstone

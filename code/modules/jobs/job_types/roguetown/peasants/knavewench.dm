@@ -29,7 +29,7 @@
 /datum/advclass/tapster
 	name = "Tapster"
 	tutorial = "You have a simple role at the city tavern; please. You wait tables and help guests, clean the rooms, grow and brew more drink, and assist in the kitchens as need be. Bring a smile to the masses--and those cheapsake townsfolk and adventures might just give you an extra coin...assuming you've not already pilfered their pouch while they're in a drunken stupor off your latest brew."
-	outfit = /datum/outfit/job/roguetown/knavewench/basic
+	outfit = /datum/outfit/job/roguetown/knavewench
 	category_tags = list(CTAG_TAPSTER)
 	// 5 points weighted
 	subclass_stats = list(
@@ -57,7 +57,7 @@
 /datum/outfit/job/roguetown/knavewench
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/knavewench/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/knavewench/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	belt = /obj/item/storage/belt/rogue/leather

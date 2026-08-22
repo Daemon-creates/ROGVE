@@ -33,7 +33,7 @@
 	name = "Exile"
 	tutorial = "Murder, Thievery, or the despicable crime of having nowhere to go-- you had nothing to lose. \
 	the grove is your last chance, so you'd better adapt quick. The chanting is quite... freaky."
-	outfit = /datum/outfit/job/roguetown/groveexile/basic
+	outfit = /datum/outfit/job/roguetown/groveexile
 	category_tags = list(CTAG_GROVEEXILE)
 	subclass_stats = list(
 		STATKEY_SPD = 2,
@@ -60,9 +60,8 @@
 	jobtype = /datum/job/roguetown/groveexile
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/groveexile/basic
 
-/datum/outfit/job/roguetown/groveexile/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/groveexile/pre_equip(mob/living/carbon/human/H)
 	..()
 	backl = /obj/item/storage/backpack/rogue/satchel
 	neck = /obj/item/clothing/neck/roguetown/psicross/dendor

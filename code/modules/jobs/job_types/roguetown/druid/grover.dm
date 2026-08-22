@@ -31,7 +31,7 @@
 /datum/advclass/grover
 	name = "Grover"
 	tutorial = "A humble townsman or perhaps a hermit, you chose to make the grove your home. It gave to you, so now you much give back. Keep the grove running as there is always labor to be done-- may the Wyldsman Prince rejoice in your efforts."
-	outfit = /datum/outfit/job/roguetown/grover/basic
+	outfit = /datum/outfit/job/roguetown/grover
 	category_tags = list(CTAG_GROVER)
 	subclass_stats = list(
 		STATKEY_STR = 1,
@@ -56,9 +56,8 @@
 	jobtype = /datum/job/roguetown/grover
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/grover/basic
 
-/datum/outfit/job/roguetown/grover/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/grover/pre_equip(mob/living/carbon/human/H)
 	..()
 	neck = /obj/item/clothing/neck/roguetown/psicross/dendor
 	armor = /obj/item/clothing/suit/roguetown/armor/gambeson/fur

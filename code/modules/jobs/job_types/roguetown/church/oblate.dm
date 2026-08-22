@@ -32,7 +32,7 @@
 /datum/advclass/oblate
 	name = "Oblate"
 	tutorial = "Born to a noble house, you were given up to the Church as a child--whether to settle a debt, avoid a scandal, or simply because your family had one mouth too many to feed. Disinherited and stripped of your birthright, you were raised within these walls. Nobility runs in your blood, but your title belongs to the Church now."
-	outfit = /datum/outfit/job/roguetown/oblate/basic
+	outfit = /datum/outfit/job/roguetown/oblate
 	cmode_music = 'sound/music/combat_holy.ogg'
 	category_tags = list(CTAG_OBLATE)
 	subclass_stats = list(
@@ -49,7 +49,7 @@
 		/datum/skill/misc/music = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/oblate/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/oblate/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))

@@ -33,7 +33,7 @@
 /datum/advclass/churchling
 	name = "Bedesman"
 	tutorial = "Your family were zealots. They scolded you with a studded belt and prayed like sinners every waking hour of the day they weren't toiling in the fields. You escaped them by becoming a bedesman--and a guaranteed education isn't so bad."
-	outfit = /datum/outfit/job/roguetown/churchling/basic
+	outfit = /datum/outfit/job/roguetown/churchling
 	cmode_music = 'sound/music/combat_holy.ogg'
 	category_tags = list(CTAG_CHURCHLING)
 	subclass_stats = list(
@@ -51,7 +51,7 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/churchling/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/churchling/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	neck = /obj/item/clothing/neck/roguetown/psicross
