@@ -10,7 +10,7 @@
 	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	advclass_cat_rolls = list(CTAG_WASSOCIATE = 20)
 
-	tutorial = "Your master once saw potential in you, although you are uncertain if they still do, given how rigorous and difficult your studies have been. The path to using magic is a treacherous and untamed one, and you are still decades away from calling yourself even a journeyman in the field. Listen and serve, and someday you will earn your hat."
+	tutorial = "you are a student of the arcyne, or at least-- that's what you told yourself. Rich or poor, intellectual or not, you will obey your betters. Scrub the floors, fetch the herbs, shadow your master, perhaps you will do just fine."
 
 	outfit = /datum/outfit/job/roguetown/wapprentice
 
