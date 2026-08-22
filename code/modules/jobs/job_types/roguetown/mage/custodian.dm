@@ -37,10 +37,6 @@
 
 /datum/outfit/job/roguetown/custodian/pre_equip(mob/living/carbon/human/H)
 	..()
-	// Ensure Custodians always spawn with their gear, even if equipped via the
-	// base job outfit outside of the advclass selection flow (previously only
-	// /datum/outfit/job/roguetown/custodian/basic defined this, leaving Custodians
-	// without a helmet or cloak if the base outfit was applied instead).
 	// No shields - Custodians rely on their polearms and armor alone.
 	head = /obj/item/clothing/head/roguetown/helmet/bascinet
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
@@ -61,7 +57,7 @@
 		third to the mages of the tower, whose safety is your charge; \
 		and lastly to the tower itself, that its halls remain standing for the mages yet to come. \
 		You are a Paragon of Noc and a protectorate of the arcyne, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
-	outfit = /datum/outfit/job/roguetown/custodian/basic
+	outfit = /datum/outfit/job/roguetown/custodian
 
 	category_tags = list(CTAG_CUSTODIAN)
 	subclass_spellpoints = 6

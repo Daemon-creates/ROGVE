@@ -7,7 +7,7 @@
 	spawn_positions = 6
 
 	allowed_races = ACCEPTED_RACES
-	allowed_patrons = list(/datum/patron/old_god)
+	allowed_patrons = ALL_DIVINE_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/monk
 	tutorial = "Chores, some more chores- Even more chores.. Oh how the life of a humble acolyte is exhausting… You have faith, but even you know you gave up a life of adventure for that of the security in the Church. Assist the Bishop in their daily tasks, maybe today will be the day something interesting happens."
@@ -92,7 +92,7 @@
 /datum/advclass/acolyte
 	name = "Acolyte"
 	tutorial = "Chores, some more chores- Even more chores.. Oh how the life of a humble acolyte is exhausting… You have faith, but even you know you gave up a life of adventure for that of the security in the Church. Assist the Bishop in their daily tasks, maybe today will be the day something interesting happens."
-	outfit = /datum/outfit/job/roguetown/monk/basic
+	outfit = /datum/outfit/job/roguetown/monk
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_ACOLYTE)
 	subclass_stats = list(
@@ -126,10 +126,6 @@
 
 /datum/outfit/job/roguetown/monk/pre_equip(mob/living/carbon/human/H)
 	..()
-	// Ensure Acolytes always spawn with their gear, even if equipped via the
-	// base job outfit outside of the advclass selection flow (previously only
-	// /datum/outfit/job/roguetown/monk/basic defined this, leaving Acolytes
-	// without a head covering, cloak, or other equipment).
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))
 		head = /obj/item/clothing/head/roguetown/nun
@@ -152,7 +148,7 @@
 	backpack_contents = list(/obj/item/ritechalk, /obj/item/mini_flagpole/church)
 	H.cmode_music = 'sound/music/cmode/church/combat_acolyte.ogg' // has to be defined here for the selection below to work. sm1 please rewrite cmusic to apply pre-equip.
 
-/datum/outfit/job/roguetown/monk/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/monk/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)

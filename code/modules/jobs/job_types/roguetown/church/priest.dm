@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	selection_color = JCOLOR_CHURCH
 	f_title = "Bishop"
 	allowed_races = RACES_NO_CONSTRUCT		//Too recent arrivals to ascend to priesthood.
-	allowed_patrons = list(/datum/patron/old_god)
+	allowed_patrons = ALL_DIVINE_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
 	tutorial = "The Divine is all that matters in a world of the immoral. \
 	The Weeping God left his children to rule over us mortals--and you will preach their wisdom to any who still heed their will. \
@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	tutorial = "The Divine is all that matters in a world of the immoral. \
 	The Weeping God abandoned us, and in his stead the TEN rule over us mortals--and you will preach their wisdom to any who still heed their will. The faithless are growing in number. \
 	It is up to you to shepherd them toward a Gods-fearing future; for you are a Bishop of the Holy See."
-	outfit = /datum/outfit/job/roguetown/priest/basic
+	outfit = /datum/outfit/job/roguetown/priest
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_BISHOP)
 	subclass_stats = list(
@@ -110,10 +110,6 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 
 /datum/outfit/job/roguetown/priest/pre_equip(mob/living/carbon/human/H)
 	..()
-	// Ensure Bishops always spawn with their gear, even if equipped via the
-	// base job outfit outside of the advclass selection flow (previously only
-	// /datum/outfit/job/roguetown/priest/basic defined this, leaving Bishops
-	// without their cloak, backpack contents, or other equipment).
 	H.adjust_blindness(-3)
 	cloak = /obj/item/clothing/cloak/stole/purple
 	backl = /obj/item/storage/backpack/rogue/satchel
