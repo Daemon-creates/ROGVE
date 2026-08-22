@@ -74,7 +74,7 @@
 
 /datum/outfit/job/roguetown/sacrist/pre_equip(mob/living/carbon/human/H)
 	..()
-	belt = /obj/item/storage/belt/rogue/leather/
+	belt = /obj/item/storage/belt/rogue/leather
 	backr = /obj/item/rogueweapon/woodstaff
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	beltr = /obj/item/flashlight/flare/torch/lantern
