@@ -10,7 +10,7 @@
 	allowed_races = ACCEPTED_RACES
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
-	job_traits = list(TRAIT_GUARDSMAN, TRAIT_STEELHEARTED, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T1)
+	job_traits = list(TRAIT_STEELHEARTED, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2, TRAIT_HEAVYARMOR)
 	tutorial = "You are sworn, in order: first to the vault, that harmful Zizoid artifacts locked within never see the light of day; \
 		second to the Headmaster, whose word is law within these walls; \
 		third to the mages of the tower, whose safety is your charge; \
