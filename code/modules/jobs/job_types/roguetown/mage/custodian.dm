@@ -11,11 +11,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 	job_traits = list(TRAIT_STEELHEARTED, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2, TRAIT_HEAVYARMOR)
-	tutorial = "You are sworn, in order: first to the vault, that harmful Zizoid artifacts locked within never see the light of day; \
-		second to the Headmaster, whose word is law within these walls; \
-		third to the mages of the tower, whose safety is your charge; \
-		and lastly to the tower itself, that its halls remain standing for the mages yet to come. \
-		You are a Paragon of Noc and a protectorate of the arcyne, and you rarely leave the tower's grounds - save to retrieve some arcyne relic before it falls into the wrong hands."
+	tutorial = "What lies beyond the Guild's Vault door must be preserved, its contents protected from the clutches of men. You enforce this with both spell and blade, answering only to the Grandmaster. You protect the mages, the Guild, and should any of them be compromised they will be eliminated with extreme prejudice."
 	display_order = JDO_CUSTODIAN
 	whitelist_req = TRUE
 

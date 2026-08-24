@@ -11,9 +11,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	display_order = JDO_HEADMASTER
-	tutorial = "Your creed is one dedicated to the conquering of the arcyne arts and the constant thrill of knowledge. \
-		You owe your life to the Lord, for it was his coin that allowed you to continue your studies in these dark times. \
-		As Headmaster of the mage guild, you are the final word on all matters arcyne, and it is your duty to see that the tower's studies remain fruitful and its members disciplined."
+	tutorial = "You have devoted your life to this Guild. This is your tower. After deeming you a worthy master of the residual arcyne, they've allowed these pupils now flood your estate. You must ensure your life's work, along with the Guild's investment in you is not wasted."
 	outfit = /datum/outfit/job/roguetown/magician
 	whitelist_req = TRUE
 	give_bank_account = 47
