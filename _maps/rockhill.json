@@ -1,7 +1,7 @@
 {
     "map_name": "Rockhill",
     "map_path": "map_files/rockhill",
-    "map_file": "rockhill.dmm",
+    "map_file": "Loleos_Rockhill.dmm",
 	"traits": [{"Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true}],
 	"other_z": [
 		"_maps/map_files/otherz/advspawnrockhill.json",
