@@ -12,7 +12,7 @@
 	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways lol
 	outfit = /datum/outfit/job/roguetown/druid
 	social_rank = SOCIAL_RANK_PEASANT
-	tutorial = "You have always been drawn to the wild, and the wild drawn to you. When your calling came, it was from Dendor. Your patron claims dominion over all nature--promising bounties to those who act in his name to bring balance to His domain. The forest is the most comfortable place for you, toiling alongside soilsons and soilbrides...although sometimes what lies beyond the gates fills your soul with a feral yearning."
+	tutorial = "Praise be the almighty Dendor! Blessed be the Wyldsman Prince, inheritor of all creation. Spread his word, heal his people, enchant others in the mystical ways of Dendor. Provide assistance and guarantee of the integrity of the wylds is upheld."
 
 	display_order = JDO_DRUID
 	give_bank_account = TRUE
@@ -32,10 +32,8 @@
 
 /datum/advclass/druid
 	name = "Druid"
-	tutorial = "You have always been drawn to the wild, and the wild drawn to you. When your calling came, it was from Dendor. \
-	Your patron claims dominion over all nature--promising bounties to those who act in his name to bring balance to His domain. \
-	The forest is the most comfortable place for you, toiling alongside soilsons and soilbrides...although sometimes what lies beyond the gates fills your soul with a feral yearning."
-	outfit = /datum/outfit/job/roguetown/druid/basic
+	tutorial = "Praise be the almighty Dendor! Blessed be the Wyldsman Prince, inheritor of all creation. Spread his word, heal his people, enchant others in the mystical ways of Dendor. Provide assistance and guarantee of the integrity of the wylds is upheld."
+	outfit = /datum/outfit/job/roguetown/druid
 	category_tags = list(CTAG_DRUID)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -73,7 +71,7 @@
 	allowed_patrons = list(/datum/patron/divine/dendor)
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/druid/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/druid/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/dendormask
@@ -90,7 +88,7 @@
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)
 	H.ambushable = FALSE
 
-/datum/outfit/job/roguetown/druid/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/druid/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H)) //To encourage them to wander the forests and to help defend themselves
 

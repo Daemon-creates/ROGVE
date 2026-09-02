@@ -86,7 +86,6 @@
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
 	beltl = /obj/item/storage/keyring/sheriff
-	head = /obj/item/clothing/head/roguetown/chaperon/noble/bailiff
 
 /datum/advclass/marshal/kcommander
 	name = "Knight Commander"	//One focused on swords and better riding. You get SOME knives skill too but swords are better in general.

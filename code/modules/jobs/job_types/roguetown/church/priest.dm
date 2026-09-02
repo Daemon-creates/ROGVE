@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	tutorial = "The Divine is all that matters in a world of the immoral. \
 	The Weeping God abandoned us, and in his stead the TEN rule over us mortals--and you will preach their wisdom to any who still heed their will. The faithless are growing in number. \
 	It is up to you to shepherd them toward a Gods-fearing future; for you are a Bishop of the Holy See."
-	outfit = /datum/outfit/job/roguetown/priest/basic
+	outfit = /datum/outfit/job/roguetown/priest
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_BISHOP)
 	subclass_stats = list(
@@ -108,20 +108,18 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	has_loadout = TRUE
 	allowed_patrons = list(/datum/patron/divine/astrata)
 
-/datum/outfit/job/roguetown/priest/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/priest/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
-	neck = /obj/item/clothing/neck/roguetown/psicross/silver/undivided
-	head = /obj/item/clothing/head/roguetown/priestmask
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
-	pants = /obj/item/clothing/under/roguetown/tights/black
-	shoes = /obj/item/clothing/shoes/roguetown/shortboots
-	beltl = /obj/item/storage/keyring/priest
-	belt = /obj/item/storage/belt/rogue/leather/rope
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
-	id = /obj/item/clothing/ring/active/nomag
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe/priest
+	cloak = /obj/item/clothing/cloak/stole/purple
 	backl = /obj/item/storage/backpack/rogue/satchel
+	neck = /obj/item/clothing/neck/roguetown/psicross/g
+	id = /obj/item/clothing/ring/active/nomag
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
+	belt = /obj/item/storage/belt/rogue/leather/rope
+	beltl = /obj/item/storage/keyring/priest
+	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	backpack_contents = list(
 		/obj/item/needle/pestra = 1,
 		/obj/item/natural/worms/leech/cheele = 1, //little buddy

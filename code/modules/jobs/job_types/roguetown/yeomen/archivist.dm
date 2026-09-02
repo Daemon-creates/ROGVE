@@ -41,7 +41,7 @@
 	name = "Archivist"
 	tutorial = "The Archivist meticulously preserves and organizes ancient scrolls and tomes, safeguarding the collective knowledge of the realm for generations to come. Nobles and Peasants alike often seek your expertise on matters of history and fact, and your keenly-kept records on the events of this week will likely stand a testament to your Duke's benevolence and their realm's prosperity...or not. After all, you hold the true power: \
 	The power to dictate how the future generations will look back on these coming days."
-	outfit = /datum/outfit/job/roguetown/archivist/basic
+	outfit = /datum/outfit/job/roguetown/archivist
 	subclass_languages = list(
 		/datum/language/elvish,
 		/datum/language/dwarvish,
@@ -78,7 +78,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/archivist/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/archivist/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	if(should_wear_femme_clothes(H))

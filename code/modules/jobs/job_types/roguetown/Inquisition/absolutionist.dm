@@ -38,7 +38,7 @@
 /datum/advclass/absolver
 	name = "Absolver"
 	tutorial = "You have taken Psydon’s suffering as your own, scourging weakness from your flesh so that the soul might remain pure. Where the Inquisitor seeks hidden heresy, you follow close behind bearing their instruments, tending their wounds, recording confessions, and preparing the wayward for absolution. Endure pain without complaint, draw truth from the faithless, and remind the condemned that mercy is found only through suffering."
-	outfit = /datum/outfit/job/roguetown/absolver/basic
+	outfit = /datum/outfit/job/roguetown/absolver
 	subclass_languages = list(/datum/language/otavan)
 	category_tags = list(CTAG_ABSOLVER)
 	subclass_stats = list(
@@ -76,7 +76,7 @@
 			H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/alchemy/qsabsolution)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 
-/datum/outfit/job/roguetown/absolver/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/absolver/pre_equip(mob/living/carbon/human/H)
 	..()
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 	H.adjust_blindness(-3)

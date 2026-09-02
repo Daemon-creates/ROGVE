@@ -7,7 +7,7 @@
 	tutorial = "Templars are warriors who have forsaken wealth and title in lieu of service to the church, due to either zealotry or a past shame. They guard the church and its bishop while keeping a watchful eye against heresy and nite-creechers. Within troubled dreams, they wonder if the blood they shed makes them holy or stained."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = ACCEPTED_RACES
-	allowed_patrons = ALL_DIVINE_PATRONS
+	allowed_patrons = list(/datum/patron/old_god)
 	outfit = /datum/outfit/job/roguetown/templar
 	min_pq = 3 //Deus vult, but only according to the proper escalation rules
 	max_pq = null
@@ -60,7 +60,7 @@
 /datum/advclass/templar/crusader
 	name = "Templar"
 	tutorial = "You are a templar of the Church, trained in heavy weaponry and zealous warfare. You are the instrument of your God's wrath, clad in steel and faith."
-	outfit = /datum/outfit/job/roguetown/templar/crusader
+	outfit = /datum/outfit/job/roguetown/templar
 	category_tags = list(CTAG_TEMPLAR)
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	traits_applied = list(TRAIT_HEAVYARMOR)
@@ -90,7 +90,7 @@
 	)
 	extra_context = "This subclass gains Expert skill in their weapon of choice. Taking a ranged option will provide Expert skills in Crossbows and Journeyman skills in Swordsmanship, at the cost of starting with reduced armor and atrophying in all other weapon skills."
 
-/datum/outfit/job/roguetown/templar/crusader/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/templar/pre_equip(mob/living/carbon/human/H)
 	..()
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
 	cloak = /obj/item/clothing/cloak/tabard/crusader/tief
@@ -164,7 +164,7 @@
 	//Something for Templars. I had a rant here but you get the simple idea instead.
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/divineblast)
 
-/datum/outfit/job/roguetown/templar/crusader/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/templar/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	var/weapons = list("Longsword","Flail","Mace","Battle Axe", "Spear", "Crossbow + Shortsword")
 	switch(H.patron?.type)

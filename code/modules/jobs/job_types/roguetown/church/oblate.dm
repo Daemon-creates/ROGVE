@@ -32,7 +32,7 @@
 /datum/advclass/oblate
 	name = "Oblate"
 	tutorial = "Born to a noble house, you were given up to the Church as a child--whether to settle a debt, avoid a scandal, or simply because your family had one mouth too many to feed. Disinherited and stripped of your birthright, you were raised within these walls. Nobility runs in your blood, but your title belongs to the Church now."
-	outfit = /datum/outfit/job/roguetown/oblate/basic
+	outfit = /datum/outfit/job/roguetown/oblate
 	cmode_music = 'sound/music/combat_holy.ogg'
 	category_tags = list(CTAG_OBLATE)
 	subclass_stats = list(
@@ -49,22 +49,22 @@
 		/datum/skill/misc/music = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/oblate/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/oblate/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
-	neck = /obj/item/clothing/neck/roguetown/psicross
 	if(should_wear_femme_clothes(H))
 		head = /obj/item/clothing/head/roguetown/armingcap
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	else if(should_wear_masc_clothes(H))
-		armor = /obj/item/clothing/suit/roguetown/shirt/robe
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights
-	belt = /obj/item/storage/belt/rogue/leather/rope
-	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
-	beltl = /obj/item/storage/keyring/churchie
+		armor = /obj/item/clothing/suit/roguetown/shirt/undershirt/formal
+	cloak = /obj/item/clothing/cloak/eastcloak2
 	backl = /obj/item/storage/backpack/rogue/satchel
+	neck = /obj/item/clothing/neck/roguetown/psicross/wood
+	id = /obj/item/clothing/ring/signet/silver
+	belt = /obj/item/storage/belt/rogue/leather/suspenders
+	beltl = /obj/item/storage/keyring/churchie
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants
+	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	backpack_contents = list(/obj/item/book/rogue/bibble = 1)
 
 /datum/job/roguetown/oblate/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

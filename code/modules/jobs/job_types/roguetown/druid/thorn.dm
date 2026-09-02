@@ -12,7 +12,7 @@
 	allowed_patrons = ALL_DIVINE_PATRONS
 	outfit = /datum/outfit/job/roguetown/thorn
 	social_rank = SOCIAL_RANK_YEOMAN
-	tutorial = "You have sworn yourself to the briar's protection, whatever the rest of the grove thinks of that choice. Your loyalty is not to Dendor or the archdruid, but to the one who means to change the circle's fate."
+	tutorial = "You dance like Saiga, you howl like a volf, but you are no Fian. You are sworn to protect the Briar and their greater ambition, whatever that means for the world. You are to lay down your very life for their cause."
 
 	display_order = JDO_THORN
 	give_bank_account = TRUE
@@ -30,8 +30,8 @@
 
 /datum/advclass/thorn
 	name = "Thorn"
-	tutorial = "You have sworn yourself to the briar's protection, whatever the rest of the grove thinks of that choice. Your loyalty is not to Dendor or the archdruid, but to the one who means to change the circle's fate."
-	outfit = /datum/outfit/job/roguetown/thorn/basic
+	tutorial ="You dance like Saiga, you howl like a volf, but you are no Fian. You are sworn to protect the Briar and their greater ambition, whatever that means for the world. You are to lay down your very life for their cause."
+	outfit = /datum/outfit/job/roguetown/thorn
 	category_tags = list(CTAG_THORN)
 	subclass_stats = list(
 		STATKEY_STR = 2,
@@ -57,9 +57,8 @@
 	jobtype = /datum/job/roguetown/thorn
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/thorn/basic
 
-/datum/outfit/job/roguetown/thorn/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/thorn/pre_equip(mob/living/carbon/human/H)
 	..()
 	mask = /obj/item/clothing/mask/rogue/sack
 	head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
@@ -78,7 +77,7 @@
 		H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 6, TRUE)
 	H.ambushable = FALSE
 
-/datum/outfit/job/roguetown/thorn/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/thorn/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/huntingknife/idagger/steel(H))
 

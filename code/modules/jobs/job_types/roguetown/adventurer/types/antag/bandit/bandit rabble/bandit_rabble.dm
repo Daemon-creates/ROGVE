@@ -7,8 +7,9 @@
 	spawn_positions = 6
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
-	tutorial = "You're one of many hands in the camp - muscle first, questions never. \
-	Whatever the Demagogue wants done, you and the rest of the footpads get it done, in exchange for a share of the loot and a place to sleep."
+	tutorial = "You are a footpad, a cog in the machine that pumps misery into the hands of the townsfolk. You are scum, \
+	filth, someone that is too far gone... that's what they called you. Now, these blokes took you in. \
+	Called you their own. Told you they have a job for you... you better do it, or else."
 
 	outfit = /datum/outfit/job/roguetown/bandit_rabble
 	outfit_female = null
@@ -67,7 +68,7 @@
 	H.adjust_blindness(-3)
 	var/weapons = list("Axes, Maces & Whips/Flails","Polearms & Swords", "Knives, Climbing & Athletics")
 	if(H.mind)
-		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "What ", "TAKE UP ARMS, SCUM!") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Axes, Maces & Whips/Flails")

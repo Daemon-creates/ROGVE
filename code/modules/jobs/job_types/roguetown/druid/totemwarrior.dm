@@ -13,7 +13,8 @@
 	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways
 	outfit = /datum/outfit/job/roguetown/totemwarrior
 	social_rank = SOCIAL_RANK_YEOMAN
-	tutorial = "You have sworn yourself to the grove's defense. Where the archdruid and keeper tend the circle, you stand watch at its edge, spear and shield in hand, ready to meet whatever threatens Dendor's balance."
+	tutorial = "Whatever circumstances brought you here, your impressive physical might is a gift from Dendor himself. An ex-soldier, a passion-struck mercenary, or perhaps even a tamed wildman-- who you are is not important. \
+	What is important is that which is greater than yourself, the very nature in which you inhabit. Protect the Archdruid and his realm at all costs, the fate of everything depending on it."
 
 	display_order = JDO_TOTEMWARRIOR
 	give_bank_account = TRUE
@@ -34,7 +35,8 @@
 
 /datum/advclass/totemwarrior
 	name = "Totem Warrior"
-	tutorial = "You have sworn yourself to the grove's defense. Where the archdruid and keeper tend the circle, you stand watch at its edge, spear and shield in hand, ready to meet whatever threatens Dendor's balance."
+	tutorial = "Whatever circumstances brought you here, your impressive physical might is a gift from Dendor himself. An ex-soldier, a passion-struck mercenary, or perhaps even a tamed wildman-- who you are is not important. \
+	What is important is that which is greater than yourself, the very nature in which you inhabit. Protect the Archdruid and his realm at all costs, the fate of everything depending on it."
 	outfit = /datum/outfit/job/roguetown/totemwarrior/basic
 	category_tags = list(CTAG_TOTEMWARRIOR)
 	subclass_languages = list(/datum/language/beast)

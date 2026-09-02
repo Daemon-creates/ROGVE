@@ -33,7 +33,7 @@
 /datum/advclass/churchling
 	name = "Bedesman"
 	tutorial = "Your family were zealots. They scolded you with a studded belt and prayed like sinners every waking hour of the day they weren't toiling in the fields. You escaped them by becoming a bedesman--and a guaranteed education isn't so bad."
-	outfit = /datum/outfit/job/roguetown/churchling/basic
+	outfit = /datum/outfit/job/roguetown/churchling
 	cmode_music = 'sound/music/combat_holy.ogg'
 	category_tags = list(CTAG_CHURCHLING)
 	subclass_stats = list(
@@ -51,20 +51,18 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/churchling/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/churchling/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	neck = /obj/item/clothing/neck/roguetown/psicross
 	if(should_wear_femme_clothes(H))
 		head = /obj/item/clothing/head/roguetown/armingcap
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	else if(should_wear_masc_clothes(H))
-		armor = /obj/item/clothing/suit/roguetown/shirt/robe
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights
+		armor = /obj/item/clothing/suit/roguetown/shirt/tunic/newmoon
+	pants = /obj/item/clothing/under/roguetown/trou
 	belt = /obj/item/storage/belt/rogue/leather/rope
-	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	beltl = /obj/item/storage/keyring/churchie
 
 /datum/job/roguetown/churchling/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

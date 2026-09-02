@@ -679,7 +679,7 @@
 
 /mob/living/carbon/human/is_literate()
 	if(mind)
-		if(get_skill_level(/datum/skill/misc/reading) > 0)
+		if(get_skill_level(/datum/skill/misc/reading) > 0 || HAS_TRAIT(src, TRAIT_LITERACY))
 			return TRUE
 		else
 			return FALSE

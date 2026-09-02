@@ -22,10 +22,14 @@
 	if(!ishuman(I.loc))
 		return
 	var/mob/living/carbon/human/user = I.loc
+	// Character preview/paperdoll dummies shouldn't be punished for wearing
+	// an outfit's default clothing - they never receive the subclass traits
+	// (such as required_trait) that a real spawn-in equip would grant.
+	if(istype(user, /mob/living/carbon/human/dummy))
+		return
 	if(!HAS_TRAIT(user, required_trait))
 		spawn(0)
 			to_chat(user, "<font color='red'>UNWORTHY HANDS TOUCHING THIS [item_type], CEASE OR BE [verbed]!</font>")
 			user.adjust_fire_stacks(5)
 			user.ignite_mob()
 			user.Stun(40)
-

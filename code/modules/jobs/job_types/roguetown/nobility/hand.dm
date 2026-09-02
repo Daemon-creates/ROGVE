@@ -143,7 +143,7 @@
 		/obj/item/lockpickring/mundane = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,//Just like the wizard, since he can dip the blade.
 	)
-	if(H.dna.species.type in NON_DWARVEN_RACE_TYPES)
+	if(H.dna?.species && (H.dna.species.type in NON_DWARVEN_RACE_TYPES))
 		shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/shadowrobe
 		cloak = /obj/item/clothing/cloak/shadowcloak
 		gloves = /obj/item/clothing/gloves/roguetown/fingerless/shadowgloves

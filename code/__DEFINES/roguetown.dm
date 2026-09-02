@@ -361,6 +361,9 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_SERVANT		"CAT_SERVANT"		// Servant's aesthetic choices.
 #define CTAG_CAPTAIN		"CAT_CAPTAIN"		// Handles Captain class selector
 #define CTAG_WASSOCIATE		"CTAG_WASSOCIATE"	// Mage Apprentice Classes - Handles Mage Apprentices class selector
+#define CTAG_JOURNEYMAGE	"CAT_JOURNEYMAGE"	// Journeyman Mage Classes - Handles Journeyman Mage class selector
+#define CTAG_MAGEEXCHANGE	"CAT_MAGEEXCHANGE"	// Foreign Exchange Student class selector
+#define CTAG_CUSTODIAN		"CAT_CUSTODIAN"		// Custodian class selector
 #define CTAG_GUILDSMASTER 	"CAT_GUILDSMASTER"	// Guildsmaster class - Handles Guildsmaster class selector
 #define CTAG_GUILDSMEN 		"CAT_GUILDSMEN"		// Guildsmen class - Handles Guildsmen class selector
 #define CTAG_NIGHTMAIDEN	"CAT_NIGHTMAIDEN"	// Bathhouse Attendant's aesthetic choices.
@@ -404,6 +407,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_CHAPLAIN		"CAT_CHAPLAIN"
 
 #define CTAG_COURTMAGE		"CAT_COURTMAGE"
+#define CTAG_MAGEDELEGATE	"CAT_MAGEDELEGATE"
 
 #define CTAG_COURTPHYS		"CAT_COURTPHYS"
 #define CTAG_APOTH			"CAT_APOTH"

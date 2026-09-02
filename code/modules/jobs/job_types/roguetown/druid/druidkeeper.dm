@@ -12,9 +12,10 @@
 	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways
 	outfit = /datum/outfit/job/roguetown/sacrist
 	social_rank = SOCIAL_RANK_YEOMAN
-	tutorial = "You are second only to the archdruid, and it is your rituals that keep the circle healthy--the wards renewed, the wildform gifts undiminished, the grove's balance with Dendor unbroken. \
-	Should the archdruid fall or falter, it is you who must hold the grove together."
-
+	tutorial = "some days, you help the Archdruid stand up in the morning as he recites the ancient wisdom. \
+	Most days, you give orders and directions to the Grovers and Fians. You answer only to the Archdruid, \
+	and will eventually replace him when he returns to the soil. Younger, more able-bodied, you can handle the \
+	burden of leadership while there is still a long way to go."
 	display_order = JDO_DRUIDKEEPER
 	give_bank_account = TRUE
 	min_pq = 5
@@ -32,9 +33,11 @@
 
 /datum/advclass/sacrist
 	name = "Keeper"
-	tutorial = "You are second only to the archdruid, and it is your rituals that keep the circle healthy--the wards renewed, the wildform gifts undiminished, the grove's balance with Dendor unbroken. \
-	Should the archdruid fall or falter, it is you who must hold the grove together."
-	outfit = /datum/outfit/job/roguetown/sacrist/basic
+	tutorial = "some days, you help the Archdruid stand up in the morning as he recites the ancient wisdom. \
+	Most days, you give orders and directions to the Grovers and Fians. You answer only to the Archdruid, \
+	and will eventually replace him when he returns to the soil. Younger, more able-bodied, you can handle the \
+	burden of leadership while there is still a long way to go."
+	outfit = /datum/outfit/job/roguetown/sacrist
 	category_tags = list(CTAG_DRUIDKEEPER)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -68,11 +71,10 @@
 	allowed_patrons = list(/datum/patron/divine/dendor)
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/sacrist/basic
 
-/datum/outfit/job/roguetown/sacrist/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sacrist/pre_equip(mob/living/carbon/human/H)
 	..()
-	belt = /obj/item/storage/belt/rogue/leather/
+	belt = /obj/item/storage/belt/rogue/leather
 	backr = /obj/item/rogueweapon/woodstaff
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	beltr = /obj/item/flashlight/flare/torch/lantern
@@ -81,13 +83,14 @@
 	head = /obj/item/clothing/head/roguetown/dendormask
 	id = /obj/item/clothing/neck/roguetown/psicross/dendor //Ring slot amulet for wildform so it is not dropping on the ground.
 	shirt = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	backpack_contents = list(/obj/item/ritechalk = 2, /obj/item/storage/keyring/churchie = 1, /obj/item/seeds/treesap = 1)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/holy, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/magic/druidic, 5, TRUE)
 	H.ambushable = FALSE
 
-/datum/outfit/job/roguetown/sacrist/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sacrist/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H))
 

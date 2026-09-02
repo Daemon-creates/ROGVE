@@ -101,6 +101,11 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 
+/obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/orange
+	color = COLOR_ORANGE
+	detail_color = COLOR_ORANGE
+	picked = TRUE
+
 /obj/item/clothing/under/roguetown/heavy_leather_pants/eastpants1
 	name = "cut-throat's pants"
 	desc = "Foreign pants, with leather insewns."

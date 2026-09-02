@@ -32,7 +32,7 @@
 /datum/advclass/apothecary
 	name = "Apothecary"
 	tutorial = "You are an accomplished physician, trained and practiced in the art of medicine. You answer to the Head Physician, who enables your practice. Woe betide the one who suffers your scalpel."
-	outfit = /datum/outfit/job/roguetown/apothecary/basic
+	outfit = /datum/outfit/job/roguetown/apothecary
 	category_tags = list(CTAG_APOTH)
 	subclass_stats = list(
 		STATKEY_INT = 3,
@@ -51,7 +51,7 @@
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 	)
 
-/datum/outfit/job/roguetown/apothecary/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/apothecary/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/roguehood/black

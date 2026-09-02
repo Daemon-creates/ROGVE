@@ -11,10 +11,9 @@
 	advclass_cat_rolls = list(CTAG_ROOKIE = 20)
 	job_traits = list()
 
-	tutorial = "line 1 \
-				line 2 \
-				line 3"
-	
+	tutorial = "You are a boggard. Your life expectency is three weeks, that's what they told you. You are pretty sure someone died in your tabard. \
+	You wonder how you got here. From the moment you stepped on the frontline, you became intimately familiar with the horrors \
+	of the bog. No one deserves this. You must keep the townspeople safe, spare them from the suffering you see daily. Die with honor."
 	outfit = /datum/outfit/job/roguetown/boggard
 	display_order = JDO_BOGGUARD
 	give_bank_account = TRUE

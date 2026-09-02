@@ -18,6 +18,10 @@
 
 /obj/item/clothing/gloves/roguetown/leather/black
 	color = CLOTHING_BLACK
+	
+/obj/item/clothing/gloves/roguetown/leather/white
+	name = "white gloves"
+	color = "#e8e8e0"
 
 /obj/item/clothing/gloves/roguetown/fingerless
 	name = "fingerless gloves"

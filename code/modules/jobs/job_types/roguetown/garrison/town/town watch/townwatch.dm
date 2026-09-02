@@ -11,9 +11,9 @@
 	advclass_cat_rolls = list(CTAG_ROOKIE = 20)
 	job_traits = list()
 
-	tutorial = "line 1 \
-				line 2 \
-				line 3"
+	tutorial = "You are a watchman. You carry the stick. The Duke's word is law, and it spoken through the studded end \
+	of your cudgel. You deal with the townspeople, you see the desperation in their faces. The nobles waste away \
+	up there, but you are the one that gets your boots wet. Listen to the Mayor and the Bailiff, follow their direction."
 	
 	outfit = /datum/outfit/job/roguetown/townwatch
 	display_order = JDO_TOWNGUARD

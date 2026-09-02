@@ -75,6 +75,7 @@
 #define TRAIT_SEA_DRINKER "Denizen of the Deep"
 #define TRAIT_STUDENT		"Student"
 #define TRAIT_INTELLECTUAL "Intellectual"
+#define TRAIT_LITERACY "Literacy"
 #define TRAIT_GRAVEROBBER "Experienced Grave Robber"
 #define TRAIT_PURITAN "Otavan Emissary"
 #define TRAIT_PURITAN_ADVENTURER "Interrogator"
@@ -555,7 +556,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NATURALARMOR = span_info("Whether by natural or other means, my skin is strong enough to resist being pierced and cut."),
 	TRAIT_CLERGYRADICAL = span_info("I follow the radical path of the clergy, abandoning the old road of devotion in favor of self-guided miracle study."),
 	TRAIT_TRIBAL = span_info("I belong to the Island's tribe."),
-	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others.")
+	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others."),
+	TRAIT_TRANSVESTITE = span_info("I've always found myself drawn to the roles of the opposite gender.")
 ))
 
 // trait accessor defines
@@ -907,3 +909,37 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVEMENT_BLOCKED "movement_blocked"
 /// Mobs that have this trait cannot be extinguished
 #define TRAIT_NO_EXTINGUISH "no_extinguish"
+
+// Character creator pointbuy stat traits (Dexterity/Endurance/Strength/Intelligence/Will thresholds)
+#define TRAIT_BULLET_TIME "Bullet Time"
+#define TRAIT_CATLIKE "Catlike"
+#define TRAIT_EVASIVE "Evasive"
+#define TRAIT_PADFOOT "Padfoot"
+#define TRAIT_FLEXIBLE "Flexible"
+#define TRAITS_AMBIDEXTROUS "Ambidextrous"
+#define TRAIT_JUNKIE "Junkie"
+#define TRAIT_TOXIN_RESIST "Toxin Resist"
+#define TRAIT_DEAD_EMOTION "Deadened Emotions"
+#define TRAIT_CLIMBER "Climber"
+#define TRAIT_IRON_GRIP "Iron Grip"
+#define TRAIT_BRUTE "Brute"
+#define TRAIT_ATHLETE "Varsity Athlete"
+#define TRAIT_BLACKBELT "Blackbelt"
+#define TRAIT_LOVER "Hopeless Romantic"
+#define TRAIT_FERVOR "Fervent"
+#define TRAIT_TRANSVESTITE "Travestire"
+#define TRAIT_MASOCHIST "Masochist"
+#define TRAIT_GREY_MAN "Grey Man"
+#define TRAIT_REBEL "Rebel Yell"
+#define TRAIT_POLYGLOT "Polyglot"
+#define TRAIT_LAW_DEGREE "Law Degree"
+#define TRAIT_CHEMIST "Chemist"
+#define TRAIT_DENTIST "Dentist"
+#define TRAIT_IDOLIST "Idol Worshipper"
+#define TRAIT_CULTIST "Harbringer Worshipper"
+#define TRAIT_ASCENDANT_WORSHIPPER "Ascendant Worshipper" //replaces TRAIT_IDOLIST/TRAIT_CULTIST, unlocks all ascendant faiths as patrons
+#define TRAIT_CIVILIZED "Civilized" //ignores race role restrictions up to RACES_TOLERATED, but nullifies race stat bonuses on spawn
+#define TRAIT_KEEN_EYED "Keen Eyed"
+#define TRAIT_SHARP_EARED "Sharp Eared"
+#define TRAIT_EAGLE_EYE "Eagle Eye"
+#define TRAIT_DANGER_SENSE "Danger Sense"

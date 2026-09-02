@@ -9,7 +9,7 @@
 	allowed_races = ACCEPTED_RACES
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = ALL_AGES_LIST
-
+	allowed_patrons = list(/datum/patron/old_god)
 	tutorial = "The Church’s sacred relics and holy objects do not tend to themselves. As Sexton, you are charged with keeping the reliquary vault well stocked. The Archbishop expects to see a house rich in devotion, and so it falls to you to ensure the shelves never look bare when his agents come to inspect and to keep the Church’s payments flowing."
 
 	outfit = /datum/outfit/job/roguetown/sexton
@@ -33,7 +33,7 @@
 /datum/advclass/sexton
 	name = "Sexton"
 	tutorial = "The Church’s sacred relics and holy objects do not tend to themselves. As Sexton, you are charged with keeping the reliquary vault well stocked. The Archbishop expects to see a house rich in devotion, and so it falls to you to ensure the shelves never look bare when his agents come to inspect and to keep the Church’s payments flowing."
-	outfit = /datum/outfit/job/roguetown/sexton/basic
+	outfit = /datum/outfit/job/roguetown/sexton
 	category_tags = list(CTAG_SEXTON)
 	subclass_stats = list(
 		STATKEY_CON = 2,
@@ -49,18 +49,23 @@
 		/datum/skill/magic/holy = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/sexton/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/sexton/pre_equip(mob/living/carbon/human/H)
 	..()
-	neck = /obj/item/clothing/neck/roguetown/psicross
-	head = /obj/item/clothing/head/roguetown/roguehood
-	armor = /obj/item/clothing/suit/roguetown/shirt/robe
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights
-	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	mask = /obj/item/clothing/mask/rogue/ragmask/nomad
+	head = /obj/item/clothing/head/roguetown/roguehood/psydon/confessor
+	backr = /obj/item/rogueweapon/shovel/silver/preblessed
+	cloak = /obj/item/clothing/cloak/eastcloak1
+	backl = /obj/item/storage/backpack/rogue/satchel
+	neck = /obj/item/clothing/neck/roguetown/psicross/silver
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
+	id = /obj/item/clothing/ring/silver
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
+	gloves = /obj/item/clothing/gloves/roguetown/leather/black
+	beltr = /obj/item/flashlight/flare/torch/lantern
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltl = /obj/item/storage/keyring/churchie
-	beltr = /obj/item/flashlight/flare/torch/lantern
-	backl = /obj/item/storage/backpack/rogue/satchel
+	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(/obj/item/ritechalk = 2)
 
 /datum/job/roguetown/sexton/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

@@ -14,8 +14,9 @@
 	allowed_patrons = ALL_DIVINE_PATRONS
 	outfit = /datum/outfit/job/roguetown/briar
 	social_rank = SOCIAL_RANK_YEOMAN
-	tutorial = "You dwell within the grove, sworn to its keeping same as any druid--but you do not believe Dendor is the god the circle ought to serve. \
-	You mean to see the grove turn to a different patron, and you intend to win that change through words and deeds, not the edge of a blade."
+	tutorial = "This lifestyle is far too attractive. Your past isn't that important-- the wylds are. However, you carry ideas \
+	that the Archdruid may consider dangerous. You've always yearned for a greater something, whatever it may be. Perhaps the wylds are \
+	not of Dendor... but of your own selfish ambitions."
 
 	display_order = JDO_BRIAR
 	give_bank_account = TRUE
@@ -34,9 +35,10 @@
 
 /datum/advclass/briar
 	name = "Briar"
-	tutorial = "You dwell within the grove, sworn to its keeping same as any druid--but you do not believe Dendor is the god the circle ought to serve. \
-	You mean to see the grove turn to a different patron, and you intend to win that change through words and deeds, not the edge of a blade."
-	outfit = /datum/outfit/job/roguetown/briar/basic
+	tutorial = "This lifestyle is far too attractive. Your past isn't that important-- the wylds are. However, you carry ideas \
+	that the Archdruid may consider dangerous. You've always yearned for a greater something, whatever it may be. Perhaps the wylds are \
+	not of Dendor... but of your own selfish ambitions. Whoever the wylds belongs to, your deity will be praised above all else."
+	outfit = /datum/outfit/job/roguetown/briar
 	category_tags = list(CTAG_BRIAR)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -65,9 +67,8 @@
 	jobtype = /datum/job/roguetown/briar
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/briar/basic
 
-/datum/outfit/job/roguetown/briar/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/briar/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/clothing/head/roguetown/dendormask

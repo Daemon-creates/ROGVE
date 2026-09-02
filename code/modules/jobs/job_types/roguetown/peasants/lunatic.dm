@@ -31,7 +31,7 @@
 /datum/advclass/lunatic
 	name = "Lunatic"
 	tutorial = "The Lunatic, shunned by society and a magnet for misfortune. Your task is simple yet perilous: survive by any means, though your very existence invites danger from every corner. It is said that these lands drive those most familiar with it, the most insane."
-	outfit = /datum/outfit/job/roguetown/lunatic/basic
+	outfit = /datum/outfit/job/roguetown/lunatic
 	category_tags = list(CTAG_LUNATIC)
 	subclass_stats = list(
 		STATKEY_SPD = 2,
@@ -50,7 +50,7 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/lunatic/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/lunatic/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	H.STALUC = rand(3, 8)

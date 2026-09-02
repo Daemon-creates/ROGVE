@@ -32,7 +32,7 @@
 /datum/advclass/bathmaster
 	name = "Bathmaster"
 	tutorial = "You are renting out the bathhouse in a joint operation with the Innkeep. You provide security for the bathwenches and help them to find work--when you're not being a trouble-making rake that others suffer to tolerate."
-	outfit = /datum/outfit/job/roguetown/niteman/basic
+	outfit = /datum/outfit/job/roguetown/niteman
 	category_tags = list(CTAG_BATHMOM)
 	subclass_languages = list(/datum/language/thievescant)
 	subclass_stats = list(
@@ -59,7 +59,7 @@
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 	)
 
-/datum/outfit/job/roguetown/niteman/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/niteman/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	head = /obj/item/lockpick/goldpin/silver

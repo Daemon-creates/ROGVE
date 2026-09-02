@@ -14,10 +14,9 @@
 	allowed_patrons = ALL_DIVINE_PATRONS //gets set to dendor on the outfit anyways
 	outfit = /datum/outfit/job/roguetown/archdruid
 	social_rank = SOCIAL_RANK_MINOR_NOBLE
-	tutorial = "You are the head of the grove, sworn to Dendor above all others. The sacrist, the totem warriors, the druids, and all who shelter within the circle answer to you. \
-	It falls to you to keep balance between the wild and the folk who live beside it--and to keep your circle from straying from Dendor's path, whatever the briar may whisper."
-
-	display_order = JDO_ARCHDRUID
+	tutorial = "You were born in this grove into the hands of the Mother Druid herself. You've watched this town grow around you, and you've never \
+	left this spot. You've spent the entirety of your life guiding these poor souls through Dendor's realm, now you're wondering how it will be when \
+	you are gone. Protect the tree at all costs, spare your people from the wrath of Dendor-- lest your bones be broken and twisted into unnatural shapes."
 	give_bank_account = TRUE
 	min_pq = 15
 	max_pq = null
@@ -35,9 +34,10 @@
 
 /datum/advclass/archdruid
 	name = "Archdruid"
-	tutorial = "You are the head of the grove, sworn to Dendor above all others. The sacrist, the totem warriors, the druids, and all who shelter within the circle answer to you. \
-	It falls to you to keep balance between the wild and the folk who live beside it--and to keep your circle from straying from Dendor's path, whatever the briar may whisper."
-	outfit = /datum/outfit/job/roguetown/archdruid/basic
+	tutorial = "You were born in this grove into the hands of the Mother Druid herself. You've watched this town grow around you, and you've never \
+	left this spot. You've spent the entirety of your life guiding these poor souls through Dendor's realm, now you're wondering how it will be when \
+	you are gone. Protect the tree at all costs, spare your people from the wrath of Dendor-- lest your bones be broken and twisted into unnatural shapes."
+	outfit = /datum/outfit/job/roguetown/archdruid
 	category_tags = list(CTAG_ARCHDRUID)
 	subclass_languages = list(/datum/language/beast)
 	subclass_stats = list(
@@ -74,9 +74,8 @@
 	allowed_patrons = list(/datum/patron/divine/dendor)
 	has_loadout = TRUE
 
-/datum/outfit/job/roguetown/archdruid/basic
 
-/datum/outfit/job/roguetown/archdruid/basic/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/archdruid/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
 	mask = /obj/item/clothing/mask/rogue/sack
@@ -97,7 +96,7 @@
 	color = "#6c6c6c"
 	name = "wendigo cloak"
 
-/datum/outfit/job/roguetown/archdruid/basic/choose_loadout(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/archdruid/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
 	H.put_in_hands(new /obj/item/rogueweapon/woodstaff(H))
 

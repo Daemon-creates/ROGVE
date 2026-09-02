@@ -7,8 +7,9 @@
 	spawn_positions = 3
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
-	tutorial = "You bring a trade to the camp that the rank and file can't match - be it faith, steel, or salves. \
-	The footpads follow the Demagogue's word, but they come to you when they need something only a specialist can provide."
+	tutorial = "You are an aspiring brigand, simply too valuable to throw it all away at once. You carry some experience, a trade, or perhaps just the \
+	cold steel in your hand. You have weight to throw around, but you know who's boss. Enforce his will amongst your lessers, you're in this for the long haul. \
+	Being on the fence will get you killed, and to die now would be a waste."
 
 	outfit = null
 	outfit_female = null
