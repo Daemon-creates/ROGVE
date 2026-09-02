@@ -21,7 +21,6 @@ endmap
 
 
 map dun_world
-	votable
 endmap
 
 map rockhill
